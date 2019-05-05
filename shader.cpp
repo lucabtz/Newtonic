@@ -43,7 +43,7 @@
        std::vector<char> log(infoLogLen + 1);
        log[infoLogLen] = '\0';
        glGetShaderInfoLog(shaderId, infoLogLen, NULL, &log[0]);
-       printf("[Compile Log] %s\n", &log[0]);
+       printf("[SHADER] [Compile Log] %s\n", &log[0]);
      }
    }
 
@@ -62,22 +62,22 @@
      }
      catch (NewtonicException &e)
      {
-       printf("Cannot load shader: %s %s\n", vertShader, fragShader);
+       printf("[SHADER] [ERROR] Cannot load shader: %s %s\n", vertShader, fragShader);
        printf("%s\n", e.what());
        throw e;
      }
 
-     printf("Compiling vertex shader %s\n", vertShader);
+     printf("[SHADER] Compiling vertex shader %s\n", vertShader);
      CompileShader(vertShaderId, vertShaderCode);
 
-     printf("Compiling fragment shader %s\n", fragShader);
+     printf("[SHADER] Compiling fragment shader %s\n", fragShader);
      CompileShader(fragShaderId, fragShaderCode);
 
      GLuint shaderProgramId = glCreateProgram();
      glAttachShader(shaderProgramId, vertShaderId);
      glAttachShader(shaderProgramId, fragShaderId);
 
-     printf("Linking shader program\n");
+     printf("[SHADER] Linking shader program\n");
      glLinkProgram(shaderProgramId);
 
      GLint res = 0;
@@ -91,7 +91,7 @@
        std::vector<char> log(logLen + 1);
        log[logLen] = '\0';
        glGetProgramInfoLog(shaderProgramId, logLen, NULL, &log[0]);
-       printf("[Link log] %s\n", &log[0]);
+       printf("[SHADER] [Link log] %s\n", &log[0]);
      }
 
      glDetachShader(shaderProgramId, vertShaderId);
@@ -104,6 +104,16 @@
    GLuint Shader::GetShaderId() const
    {
      return m_shaderId;
+   }
+
+   void Shader::UseShader() const
+   {
+     glUseProgram(GetShaderId());
+   }
+
+   void Shader::StopShader() const
+   {
+     glUseProgram(0);
    }
 
  }

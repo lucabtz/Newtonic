@@ -52,4 +52,21 @@ namespace Newtonic
 		return m_vertCount;
 	}
 
+	void Mesh::BindMesh() const
+	{
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, GetPositionsVBO());
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+	}
+
+	void Mesh::RenderMesh() const
+	{
+		glDrawArrays(GL_TRIANGLES, 0, GetVertexCount());
+	}
+
+	void Mesh::UnbindMesh() const
+	{
+		glDisableVertexAttribArray(0);
+	}
+
 }

@@ -16,29 +16,35 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "mesh_renderer.h"
-#include "assets.h"
+ #ifndef _MESSAGE_BUS_H
+ #define _MESSAGE_BUS_H
 
+ #include "message.h"
+
+ #include <queue>
+ #include <memory>
+ #include <vector>
+ #include <string>
 
  namespace Newtonic
  {
 
-   void MeshRenderer::Update()
-   {}
+   void ConsoleLog(const char * s);
+   void LogFromSender(const char * sender, const char * msg);
 
-   void MeshRenderer::Render()
+   class MessageBus
    {
-     auto pMesh = m_wpMesh.lock();
-     auto pShader = m_wpShader.lock();
-     if (pMesh && pShader)
-     {
-       pShader->UseShader();
-       pMesh->BindMesh();
-       pMesh->RenderMesh();
-       pMesh->UnbindMesh();
-       pShader->StopShader();
-     }
-   }
+     std::queue<std::shared_ptr<Message>> m_messageQueue;
+     std::vector<void (*)(std::shared_ptr<Message>)> m_mailBoxes;
 
+   public:
+     void PostMessage(std::shared_ptr<Message> msg, std::string sender);
+     void RegisterMailBox(void (*mailBox)(std::shared_ptr<Message>));
+
+     void Work();
+
+   };
 
  }
+
+ #endif // _MESSAGE_BUS_H

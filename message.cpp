@@ -16,29 +16,14 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "mesh_renderer.h"
-#include "assets.h"
+#include "message.h"
 
+namespace Newtonic
+{
 
- namespace Newtonic
- {
+  std::string Message::GetLogMessage()
+  {
+    return "";
+  }
 
-   void MeshRenderer::Update()
-   {}
-
-   void MeshRenderer::Render()
-   {
-     auto pMesh = m_wpMesh.lock();
-     auto pShader = m_wpShader.lock();
-     if (pMesh && pShader)
-     {
-       pShader->UseShader();
-       pMesh->BindMesh();
-       pMesh->RenderMesh();
-       pMesh->UnbindMesh();
-       pShader->StopShader();
-     }
-   }
-
-
- }
+}

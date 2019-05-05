@@ -16,29 +16,46 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "mesh_renderer.h"
-#include "assets.h"
+ #include "message_bus.h"
 
+ #include <stdio.h>
 
  namespace Newtonic
  {
-
-   void MeshRenderer::Update()
-   {}
-
-   void MeshRenderer::Render()
+   void ConsoleLog(const char * s)
    {
-     auto pMesh = m_wpMesh.lock();
-     auto pShader = m_wpShader.lock();
-     if (pMesh && pShader)
-     {
-       pShader->UseShader();
-       pMesh->BindMesh();
-       pMesh->RenderMesh();
-       pMesh->UnbindMesh();
-       pShader->StopShader();
-     }
+     printf("[CONSOLE] %s\n", s);
    }
 
+   void LogFromSender(const char * sender, const char * msg)
+   {
+     printf("[CONSOLE] FROM: %s MESSAGE: %s\n", sender, msg);
+   }
+
+   void MessageBus::PostMessage(
+     std::shared_ptr<Message> msg,
+     std::string sender)
+   {
+     LogFromSender(sender.c_str(), msg->GetLogMessage().c_str());
+     m_messageQueue.push(msg);
+   }
+
+   void MessageBus::RegisterMailBox(void (*mailBox)(std::shared_ptr<Message>))
+   {
+     m_mailBoxes.push_back(mailBox);
+   }
+
+   void MessageBus::Work()
+   {
+     while (!m_messageQueue.empty())
+     {
+       std::shared_ptr<Message> & msg = m_messageQueue.front();
+       m_messageQueue.pop();
+       for (auto mb : m_mailBoxes)
+       {
+         mb(msg);
+       }
+     }
+   }
 
  }

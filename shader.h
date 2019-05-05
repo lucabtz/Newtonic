@@ -35,6 +35,9 @@
      Shader(const char * vertShader, const char * fragShader);
 
      GLuint GetShaderId() const;
+
+     void UseShader() const;
+     void StopShader() const;
    };
 
  };

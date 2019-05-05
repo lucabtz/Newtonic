@@ -18,7 +18,6 @@
 
 #include "engine.h"
 #include "common.h"
-#include "mesh.h"
 
 #include <stdio.h>
 
@@ -64,6 +63,7 @@ namespace Newtonic
 		}
 
 		m_assets = std::make_unique<Assets>();
+		m_messageBus = std::make_unique<MessageBus>();
 	}
 
 
@@ -88,9 +88,14 @@ namespace Newtonic
 		return *m_assets;
 	}
 
+	MessageBus & Engine::GetMessageBus()
+	{
+		return *m_messageBus;
+	}
+
 	void Engine::SetScene(std::unique_ptr<Scene> scene)
 	{
-			m_scene = std::move(scene);
+		m_scene = std::move(scene);
 	}
 
 }

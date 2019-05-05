@@ -39,6 +39,10 @@ namespace Newtonic
 		int GetVertexCount() const;
 
 		GLuint GetPositionsVBO() const;
+
+		void BindMesh() const;
+		void UnbindMesh() const;
+		void RenderMesh() const;
 	};
 
 }

@@ -23,6 +23,7 @@
 #include <memory>
 #include "assets.h"
 #include "scene.h"
+#include "message_bus.h"
 
 #ifndef _WINDOW_H
 #define _WINDOW_H
@@ -34,6 +35,7 @@ namespace Newtonic
 		GLFWwindow *m_window;
 		std::unique_ptr<Scene> m_scene;
 		std::unique_ptr<Assets> m_assets;
+		std::unique_ptr<MessageBus> m_messageBus;
 
 	public:
 
@@ -41,6 +43,7 @@ namespace Newtonic
 		void OpenWindow(const char *title);
 
 		Assets & GetAssetsManager();
+		MessageBus & GetMessageBus();
 
 		void SetScene(std::unique_ptr<Scene> scene);
 
