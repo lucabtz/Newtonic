@@ -17,6 +17,8 @@
  */
 
 #include "assets.h"
+#include "mesh.h"
+#include "shader.h"
 
  namespace Newtonic
  {

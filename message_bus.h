@@ -19,8 +19,6 @@
  #ifndef _MESSAGE_BUS_H
  #define _MESSAGE_BUS_H
 
- #include "message.h"
-
  #include <queue>
  #include <memory>
  #include <vector>
@@ -28,6 +26,8 @@
 
  namespace Newtonic
  {
+
+   class Message;
 
    void ConsoleLog(const char * s);
    void LogFromSender(const char * sender, const char * msg);

@@ -18,6 +18,8 @@
 
  #include "message_bus.h"
 
+ #include "message.h"
+
  #include <stdio.h>
 
  namespace Newtonic

@@ -19,8 +19,6 @@
 #ifndef _BEHAVIOUR_H
 #define _BEHAVIOUR_H
 
-#include <functional>
-
  namespace Newtonic
  {
    class Behaviour

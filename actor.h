@@ -21,13 +21,11 @@
 
 #include <vector>
 #include <memory>
-#include <functional>
-
-
-#include "behaviour.h"
 
  namespace Newtonic
  {
+   class Behaviour;
+
    class Actor
    {
      std::vector<std::shared_ptr<Behaviour>> m_behaviours;

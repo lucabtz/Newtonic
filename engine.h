@@ -21,15 +21,18 @@
 
 #include <string>
 #include <memory>
-#include "assets.h"
-#include "scene.h"
-#include "message_bus.h"
+
 
 #ifndef _WINDOW_H
 #define _WINDOW_H
 
 namespace Newtonic
 {
+
+	class Scene;
+	class Assets;
+	class MessageBus;
+
 	class Engine
 	{
 		GLFWwindow *m_window;

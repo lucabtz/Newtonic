@@ -19,12 +19,12 @@
 #ifndef _SCENE_H
 #define _SCENE_H
 
-#include "actor.h"
 #include <vector>
 #include <memory>
 
  namespace Newtonic
  {
+   class Actor;
 
    class Scene
    {

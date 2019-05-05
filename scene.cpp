@@ -17,6 +17,7 @@
  */
 
 #include "scene.h"
+#include "actor.h"
 
  namespace Newtonic
  {

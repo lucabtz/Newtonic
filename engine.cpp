@@ -18,6 +18,9 @@
 
 #include "engine.h"
 #include "common.h"
+#include "assets.h"
+#include "scene.h"
+#include "message_bus.h"
 
 #include <stdio.h>
 

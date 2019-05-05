@@ -19,14 +19,17 @@
 #ifndef _MESH_RENDERER_H
 #define _MESH_RENDERER_H
 
-#include "behaviour.h"
-#include "mesh.h"
-#include "shader.h"
+
 #include <memory>
 #include <string>
 
+#include "behaviour.h"
+
  namespace Newtonic
  {
+
+   class Mesh;
+   class Shader;
 
    class MeshRenderer : public Behaviour
    {

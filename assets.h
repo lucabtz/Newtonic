@@ -24,11 +24,11 @@
 #include <map>
 #include <string>
 
-#include "mesh.h"
-#include "shader.h"
-
 namespace Newtonic
 {
+
+  class Mesh;
+  class Shader;
 
   class Assets
   {
