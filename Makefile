@@ -17,7 +17,7 @@
 #
 
 CC=g++
-CFLAGS=-Wall -Wextra --std=c++17 -ggdb
+CFLAGS=-Wall -Wextra --std=c++17 -ggdb -I./OBJ-Loader/Source/
 LDFLAGS=-lGL -lGLEW -lglfw
 
 src := $(wildcard *.cpp)

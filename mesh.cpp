@@ -28,18 +28,32 @@ namespace Newtonic
 		m_vertCount(other.m_vertCount)
 	{}
 
-	Mesh::Mesh(const std::vector<GLfloat> & positions) :
-		m_positions(std::move(positions))
+	Mesh::Mesh(
+		const std::vector<GLfloat> & positions,
+		const std::vector<unsigned int> & indices) :
+		m_positions(std::move(positions)),
+		m_indices(std::move(indices))
 	{
 		m_vertCount = m_positions.size();
+		m_indicesCount = m_indices.size();
 		glGenVertexArrays(1, &m_vaoId);
 		glBindVertexArray(m_vaoId);
 
+
+		// positions VBO
 		GLuint vboId;
 		glGenBuffers(1, &vboId);
 		m_vboIds.push_back(vboId);
 		glBindBuffer(GL_ARRAY_BUFFER, vboId);
-		glBufferData(GL_ARRAY_BUFFER, m_vertCount * sizeof(GLuint), &m_positions[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_vertCount * sizeof(GLfloat), &m_positions[0], GL_STATIC_DRAW);
+
+		// indices buffer
+		GLuint indicesId;
+		glGenBuffers(1, &indicesId);
+		m_vboIds.push_back(indicesId);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesId);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indicesCount * sizeof(GLuint), &m_indices[0], GL_STATIC_DRAW);
+		m_indicesId = indicesId;
 	}
 
 	GLuint Mesh::GetPositionsVBO() const
@@ -57,11 +71,12 @@ namespace Newtonic
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, GetPositionsVBO());
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indicesId);
 	}
 
 	void Mesh::RenderMesh() const
 	{
-		glDrawArrays(GL_TRIANGLES, 0, GetVertexCount());
+		glDrawElements(GL_TRIANGLES, m_indicesCount, GL_UNSIGNED_INT, (void *)0);
 	}
 
 	void Mesh::UnbindMesh() const

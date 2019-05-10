@@ -27,17 +27,18 @@ namespace Newtonic
 {
 	class Mesh
 	{
-		GLuint m_vaoId;
+		GLuint m_vaoId, m_indicesId;
 		std::vector<GLuint> m_vboIds;
 		std::vector<GLfloat> m_positions;
-		int m_vertCount;
+		std::vector<unsigned int> m_indices;
+		int m_vertCount, m_indicesCount;
 
 	public:
-		Mesh(const std::vector<GLfloat> & positions);
+		Mesh(const std::vector<GLfloat> & positions,
+				 const std::vector<unsigned int> & indices);
 		Mesh(const Mesh && other);
 
 		int GetVertexCount() const;
-
 		GLuint GetPositionsVBO() const;
 
 		void BindMesh() const;

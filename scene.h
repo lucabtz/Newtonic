@@ -27,7 +27,7 @@
  namespace Newtonic
  {
    class Actor;
-   
+
    class Scene
    {
      std::vector<std::shared_ptr<Actor>> m_actors;
@@ -40,7 +40,7 @@
        m_camera = std::make_shared<Camera>();
      }
 
-     void AddActor(std::shared_ptr<Actor> & actor);
+     void AddActor(std::shared_ptr<Actor> && actor);
      void Render();
      void Update();
 

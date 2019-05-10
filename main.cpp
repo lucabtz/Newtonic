@@ -42,9 +42,6 @@ int main(int argc, char **argv)
     engine.Init();
     engine.OpenWindow("Newtonic", Newtonic::Viewport(512, 512));
 
-    auto scene = std::make_unique<Scene>();
-    auto triangleActor = std::make_shared<Actor>();
-
     auto meshShader = std::make_shared<MeshShader>(
       "shaders/mesh.vert",
       "shaders/mesh.frag",
@@ -52,9 +49,14 @@ int main(int argc, char **argv)
       "view",
       "proj"
     );
+    engine.GetAssetsManager()->LoadShaderT("mesh_shader", std::move(meshShader));
+    engine.GetAssetsManager()->LoadMeshesFromOBJ("models/sphere.obj");
 
-    engine.GetAssetsManager()
-          ->LoadShaderT("mesh_shader", std::move(meshShader));
+    auto scene = std::make_unique<Scene>();
+    auto triangleActor = std::make_shared<Actor>();
+    triangleActor->AddBehaviour(std::make_shared<MeshRenderer>("sphere", "mesh_shader"));
+    scene->AddActor(std::move(triangleActor));
+    engine.SetScene(std::move(scene));
 
     engine.Loop();
     return 0;

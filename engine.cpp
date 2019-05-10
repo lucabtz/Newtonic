@@ -23,6 +23,7 @@
 #include "message_bus.h"
 
 #include <stdio.h>
+#include <iostream>
 
 namespace Newtonic
 {

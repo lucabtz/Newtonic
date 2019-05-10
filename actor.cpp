@@ -22,7 +22,7 @@
 namespace Newtonic
 {
 
-  void Actor::AddBehaviour(std::shared_ptr<Behaviour> & behaviour)
+  void Actor::AddBehaviour(std::shared_ptr<Behaviour> && behaviour)
   {
     behaviour->SetActor(this);
     m_behaviours.push_back(std::move(behaviour));

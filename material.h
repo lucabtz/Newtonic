@@ -16,44 +16,26 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _MESH_SHADER
-#define _MESH_SHADER
+#include "color.h"
+#include "OBJ_Loader.h"
 
-#include "shader.h"
+ namespace Newtonic
+ {
+   struct Material
+   {
+     Color m_ambientColor;
+     Color m_diffuseColor;
+     Color m_specularColor;
+     float m_specularExponent;
 
-#include <string>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-
-namespace Newtonic
-{
-  class MeshShader : public Shader
-  {
-    std::string m_modelMatrixUniformName;
-    std::string m_viewMatrixUniformName;
-    std::string m_projectionMatrixUniformName;
-
-    GLuint m_modlLoc;
-    GLuint m_viewLoc;
-    GLuint m_projLoc;
-
-  public:
-    MeshShader(
-      std::string vertShader,
-      std::string fragShader,
-      std::string modelMatrixUniformName,
-      std::string viewMatrixUniformName,
-      std::string projectionMatrixUniformName
-    );
-
-    void Init() override;
-
-    void SetModel(glm::mat4  model);
-    void SetView(glm::mat4 view);
-    void SetProj(glm::mat4 proj);
-
-  };
-}
-
-#endif // __MASH_SHADER
+     Material(objl::Material & m)
+     {
+       #define COPY_VEC(my, other) my.x = other.X, my.y = other.Y, my.z = other.Z
+       COPY_VEC(m_ambientColor, m.Ka);
+       COPY_VEC(m_diffuseColor, m.Kd);
+       COPY_VEC(m_specularColor, m.Ks);
+       #undef COPY_VEC
+       m_specularExponent = m.Ns;
+     }
+   };
+ }

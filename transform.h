@@ -32,6 +32,11 @@ namespace Newtonic
     glm::vec3 m_scale;
 
   public:
+    Transform() :
+      m_position(0.0, 0.0, 0.0),
+      m_rotation(1.0, 0.0, 0.0, 0.0),
+      m_scale(1.0, 1.0, 1.0)
+    {}
     glm::vec3 GetPosition();
     glm::vec3 GetRotationEulerAngles();
     glm::vec3 GetScale();

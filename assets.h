@@ -40,10 +40,9 @@ namespace Newtonic
 
   public:
     void LoadShader(std::string shaderName, const char * vertexShader, const char * fragmentShader);
-
     void LoadShaderT(std::string shaderName, std::shared_ptr<Shader> pShader);
-
-    void LoadMesh(std::string meshName, const std::vector<GLfloat> & positions);
+    void LoadMesh(std::string meshName, const std::vector<GLfloat> & positions, const std::vector<unsigned int> & indices);
+    void LoadMeshesFromOBJ(std::string filename);
 
     std::weak_ptr<Shader> GetShader(std::string name)
     {

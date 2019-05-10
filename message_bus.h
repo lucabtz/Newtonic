@@ -46,6 +46,8 @@
 
    public:
      void PostMessage(MessagePtr msg, std::string sender);
+     void RegisterMailBox(MessageType msgType, MailBox mailBox,
+                          const char *why);
      void RegisterMailBox(MessageType msgType, MailBox mailBox);
 
      void Work();

@@ -38,8 +38,6 @@ namespace Newtonic
     Viewport m_viewport;
     std::unique_ptr<Transform> m_cameraTransform;
 
-    glm::mat4 m_projMatrix;
-
     MessageBus *m_msgBus;
 
   public:
@@ -50,16 +48,14 @@ namespace Newtonic
         [this](MessagePtr msg)
         {
           auto event = MessageCast<EventScreenResizedMessage>(msg);
-          this->SetViewport(event->GetNewSize());
-        }
+          Viewport newVp = event->GetNewSize();
+          this->SetViewport(newVp);
+          std::cout << "[CAMERA] Updating the viewport to "
+                    << newVp.width << ", " << newVp.height << std::endl;
+        },
+        "camera handle screen resize"
       );
       SetViewport(g_engine->GetViewport());
-      m_projMatrix = glm::perspective(
-        glm::radians(45.0f),
-        (float)m_viewport.width / (float)m_viewport.height,
-        0.1f,
-        100.0f
-      );
     }
 
     glm::mat4 GetProjection() const;

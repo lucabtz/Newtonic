@@ -20,6 +20,10 @@
 #include "mesh.h"
 #include "shader.h"
 
+#include <iostream>
+
+#include "OBJ_Loader.h"
+
  namespace Newtonic
  {
    void Assets::LoadShader(
@@ -39,9 +43,41 @@
 
   void Assets::LoadMesh(
     std::string meshName,
-    const std::vector<GLfloat> & positions)
+    const std::vector<GLfloat> & positions,
+    const std::vector<unsigned int> & indices)
   {
-    m_meshes.emplace(meshName, std::make_shared<Mesh>(positions));
+    m_meshes.emplace(meshName, std::make_shared<Mesh>(positions, indices));
+  }
+
+  void Assets::LoadMeshesFromOBJ(std::string filename)
+  {
+    objl::Loader loader;
+    std::cout << "[LOADER] Loading file " << filename << std::endl;
+    bool success = loader.LoadFile(filename);
+    if (success)
+    {
+        for (int i = 0; i < loader.LoadedMeshes.size(); ++i)
+        {
+            objl::Mesh currentMesh = loader.LoadedMeshes[i];
+            std::cout << "[LOADER] Loaded mesh " << currentMesh.MeshName << std::endl;
+            std::vector<objl::Vertex> vertices = loader.LoadedMeshes[i].Vertices;
+            std::vector<unsigned int> indices = loader.LoadedMeshes[i].Indices;
+            std::vector<GLfloat> glVertices(vertices.size() * 3);
+            for (auto & vert : vertices)
+            {
+              glVertices.push_back(static_cast<GLfloat>(vert.Position.X));
+              glVertices.push_back(static_cast<GLfloat>(vert.Position.Y));
+              glVertices.push_back(static_cast<GLfloat>(vert.Position.Z));
+            }
+
+            auto mesh = std::make_shared<Mesh>(glVertices, indices);
+            m_meshes.emplace(currentMesh.MeshName, mesh);
+        }
+    }
+    else
+    {
+      // TODO handle this
+    }
   }
 
  }

@@ -21,6 +21,7 @@
  #include "message.h"
 
  #include <stdio.h>
+ #include <iostream>
 
  namespace Newtonic
  {
@@ -42,9 +43,16 @@
      m_messageQueues[msg->GetType()].push(msg);
    }
 
+   void MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox,
+     const char *why = "unknown reason")
+   {
+     std::cout << "[CONSOLE] Registered message mailbox, reason:  " << why << std::endl;
+     m_mailBoxes[msgType].push_back(mailBox);
+   }
+
    void MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox)
    {
-     m_mailBoxes[msgType].push_back(mailBox);
+     RegisterMailBox(msgType, mailBox, "unknown reason");
    }
 
    void MessageBus::Work()
@@ -52,13 +60,17 @@
      for (auto & pair : m_messageQueues)
      {
        MessageType msgType = pair.first;
-       MessageQueue queue = pair.second;
+       MessageQueue & queue = pair.second;
 
        while (!queue.empty())
        {
          MessagePtr msg = queue.front();
          queue.pop();
-         for (auto & mb : m_mailBoxes[msgType]) mb(msg);
+         for (auto & mb : m_mailBoxes[msgType])
+         {
+           std::cout << "[CONSOLE] Dispatching message to " << &mb << std::endl;
+           mb(msg);
+         }
        }
      }
    }

@@ -51,7 +51,7 @@
        m_scene = scene;
      }
 
-     void AddBehaviour(std::shared_ptr<Behaviour> & behaviour);
+     void AddBehaviour(std::shared_ptr<Behaviour> && behaviour);
 
      std::weak_ptr<Transform> GetTransform() const
      {

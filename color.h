@@ -16,44 +16,11 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _MESH_SHADER
-#define _MESH_SHADER
+ #include <glm/glm.hpp>
 
-#include "shader.h"
+ namespace Newtonic
+ {
 
-#include <string>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
+   typedef std::vec3 Color;
 
-namespace Newtonic
-{
-  class MeshShader : public Shader
-  {
-    std::string m_modelMatrixUniformName;
-    std::string m_viewMatrixUniformName;
-    std::string m_projectionMatrixUniformName;
-
-    GLuint m_modlLoc;
-    GLuint m_viewLoc;
-    GLuint m_projLoc;
-
-  public:
-    MeshShader(
-      std::string vertShader,
-      std::string fragShader,
-      std::string modelMatrixUniformName,
-      std::string viewMatrixUniformName,
-      std::string projectionMatrixUniformName
-    );
-
-    void Init() override;
-
-    void SetModel(glm::mat4  model);
-    void SetView(glm::mat4 view);
-    void SetProj(glm::mat4 proj);
-
-  };
-}
-
-#endif // __MASH_SHADER
+ }

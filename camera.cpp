@@ -27,7 +27,12 @@
 
    glm::mat4 Camera::GetProjection() const
    {
-     return m_projMatrix;
+     return glm::perspective(
+      glm::radians(45.0f),
+      (float)m_viewport.width / (float)m_viewport.height,
+      0.1f,
+      100.0f
+     );
    }
 
  }
