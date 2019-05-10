@@ -30,6 +30,9 @@
 #include "assets.h"
 #include "message_bus.h"
 #include "common.h"
+#include "mesh_shader.h"
+
+using namespace Newtonic;
 
 int main(int argc, char **argv)
 {
@@ -38,6 +41,20 @@ int main(int argc, char **argv)
     Newtonic::Engine engine;
     engine.Init();
     engine.OpenWindow("Newtonic", Newtonic::Viewport(512, 512));
+
+    auto scene = std::make_unique<Scene>();
+    auto triangleActor = std::make_shared<Actor>();
+
+    auto meshShader = std::make_shared<MeshShader>(
+      "shaders/mesh.vert",
+      "shaders/mesh.frag",
+      "modl",
+      "view",
+      "proj"
+    );
+
+    engine.GetAssetsManager()
+          ->LoadShaderT("mesh_shader", std::move(meshShader));
 
     engine.Loop();
     return 0;

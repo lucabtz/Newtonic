@@ -30,6 +30,13 @@
     m_shaders.emplace(shaderName, std::make_shared<Shader>(vertexShader, fragmentShader));
   }
 
+  void Assets::LoadShaderT(
+    std::string shaderName,
+    std::shared_ptr<Shader> pShader)
+  {
+    m_shaders.emplace(shaderName, pShader);
+  }
+
   void Assets::LoadMesh(
     std::string meshName,
     const std::vector<GLfloat> & positions)

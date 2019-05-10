@@ -54,11 +54,6 @@ namespace Newtonic
         }
       );
       SetViewport(g_engine->GetViewport());
-      std::cout << "Setting camera viewport to "
-                << m_viewport.width
-                << ", "
-                << m_viewport.height
-                << std::endl;
       m_projMatrix = glm::perspective(
         glm::radians(45.0f),
         (float)m_viewport.width / (float)m_viewport.height,
