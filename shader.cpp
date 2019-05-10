@@ -99,7 +99,11 @@
 
      m_shaderId = shaderProgramId;
 
+     Init();
    }
+
+   void Shader::Init()
+   {}
 
    GLuint Shader::GetShaderId() const
    {

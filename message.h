@@ -16,18 +16,64 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
- #ifndef _MESSAGE_H
- #define _MESSAGE_H
+#ifndef _MESSAGE_H
+#define _MESSAGE_H
 
 #include <string>
+#include <sstream>
+
+#include "message_typedefs.h"
+#include "common.h"
 
 namespace Newtonic
 {
+
   class Message
   {
+    MessageType m_type;
 
   public:
-    std::string GetLogMessage();
+    Message(MessageType type) : m_type(type) {};
+    MessageType GetType() { return m_type; }
+    virtual std::string GetLogMessage() const { return ""; }
+  };
+
+  template <typename MessageT>
+  std::shared_ptr<MessageT> MessageCast(MessagePtr msg)
+  {
+    return std::dynamic_pointer_cast<MessageT>(msg);
+  }
+
+  class EventScreenResizedMessage : public Message
+  {
+    Viewport m_newSize;
+    Viewport m_oldSize;
+
+  public:
+    EventScreenResizedMessage(Viewport _old, Viewport _new) :
+      Message(MessageType::EVENT_SCREEN_RESIZED),
+      m_newSize(_new),
+      m_oldSize(_old) {};
+
+    Viewport GetNewSize() { return m_newSize; }
+    Viewport GetOldSize() { return m_oldSize; }
+
+    std::string GetLogMessage() const override
+    {
+      std::stringstream res;
+      res <<
+        "Window resized from (" <<
+        m_oldSize.width <<
+        "," <<
+        m_oldSize.height <<
+        ") to (" <<
+        m_newSize.width <<
+        "," <<
+        m_newSize.height <<
+         ")";
+      return res.str();
+    }
+
   };
 
 }

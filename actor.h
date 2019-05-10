@@ -22,20 +22,64 @@
 #include <vector>
 #include <memory>
 
+#include "transform.h"
+
  namespace Newtonic
  {
    class Behaviour;
+   class Scene;
 
    class Actor
    {
+     Scene * m_scene;
+     std::shared_ptr<Transform> m_transform;
      std::vector<std::shared_ptr<Behaviour>> m_behaviours;
 
    public:
+     Actor()
+     {
+       m_transform = std::make_unique<Transform>();
+     }
 
-     void AddBehaviour(std::shared_ptr<Behaviour> behaviour);
+     Scene * GetScene() const
+     {
+       return m_scene;
+     }
 
+     void SetScene(Scene * scene)
+     {
+       m_scene = scene;
+     }
+
+     void AddBehaviour(std::shared_ptr<Behaviour> & behaviour);
+
+     std::weak_ptr<Transform> GetTransform() const
+     {
+       return m_transform;
+     }
+
+     template <typename T>
+     std::weak_ptr<T> GetBehaviour() const
+     {
+       for (auto & behaviour : m_behaviours)
+       {
+         auto pDownCasted = std::dynamic_pointer_cast<T>(behaviour);
+         if (pDownCasted.get() != nullptr)
+         {
+           return pDownCasted;
+         }
+       }
+
+       return std::weak_ptr<T>();
+     }
+
+     std::weak_ptr<Transform> GetTransform()
+     {
+       return m_transform;
+     }
+
+     void Init();
      void Render();
-
      void Update();
    };
  }

@@ -26,14 +26,28 @@
 
 namespace Newtonic
 {
+	Newtonic::Engine * g_engine;
 
 	void GLFWErrorHandler(int err, const char * desc)
 	{
 		puts(desc);
 	}
 
+	void FramebufferSizeCallback(GLFWwindow * wnd, int w, int h)
+	{
+		Viewport newVp(w, h);
+		auto msg =
+			std::make_shared<EventScreenResizedMessage>(
+				g_engine->m_viewport,
+				newVp
+			);
+		g_engine->m_messageBus->PostMessage(msg, "Engine");
+		g_engine->m_viewport = newVp;
+	}
+
 	void Engine::Init()
 	{
+		g_engine = this;
 		glfwSetErrorCallback(GLFWErrorHandler);
 
 		glewExperimental = true;
@@ -43,7 +57,7 @@ namespace Newtonic
 		}
 	}
 
-	void Engine::OpenWindow(const char *title)
+	void Engine::OpenWindow(const char *title, Viewport viewport)
 	{
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -51,13 +65,16 @@ namespace Newtonic
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		m_window = glfwCreateWindow(1024, 768, title, NULL, NULL);
+		m_viewport = viewport;
+
+		m_window = glfwCreateWindow(viewport.width, viewport.height, title, NULL, NULL);
 		if(m_window == NULL)
 		{
 		    glfwTerminate();
 		    throw NewtonicException("Could not create GLFW window");
 		}
 		glfwMakeContextCurrent(m_window);
+		glfwSetFramebufferSizeCallback(m_window, FramebufferSizeCallback);
 
 		glewExperimental = true;
 		if (glewInit() != GLEW_OK)
@@ -67,6 +84,7 @@ namespace Newtonic
 
 		m_assets = std::make_unique<Assets>();
 		m_messageBus = std::make_unique<MessageBus>();
+		m_scene = std::make_unique<Scene>();
 	}
 
 
@@ -79,21 +97,12 @@ namespace Newtonic
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			m_messageBus->Work();
 			m_scene->Render();
 
 			glfwSwapBuffers(m_window);
 			glfwPollEvents();
 		} while(!glfwWindowShouldClose(m_window));
-	}
-
-	Assets & Engine::GetAssetsManager()
-	{
-		return *m_assets;
-	}
-
-	MessageBus & Engine::GetMessageBus()
-	{
-		return *m_messageBus;
 	}
 
 	void Engine::SetScene(std::unique_ptr<Scene> scene)

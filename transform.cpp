@@ -16,25 +16,47 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "behaviour.h"
-
-#include "actor.h"
+#include "transform.h"
 
 namespace Newtonic
 {
-  void Behaviour::SetActor(Actor * actor)
+
+  glm::vec3 Transform::GetPosition()
   {
-    m_actor = actor;
+    return m_position;
   }
 
-  Actor *Behaviour::GetActor()
+  glm::vec3 Transform::GetRotationEulerAngles()
   {
-    return m_actor;
+    return glm::eulerAngles(m_rotation);
   }
 
-  Scene *Behaviour::GetScene()
+  glm::vec3 Transform::GetScale()
   {
-    return GetActor()->GetScene();
+    return m_scale;
+  }
+
+  void Transform::SetPosition(const glm::vec3 & newPosition)
+  {
+    m_position = newPosition;
+  }
+
+  void Transform::SetRotationEulerAngles(const glm::vec3 & newRotation)
+  {
+    m_rotation = glm::quat(newRotation);
+  }
+
+  void Transform::SetScale(const glm::vec3 & newScale)
+  {
+    m_scale = newScale;
+  }
+
+  glm::mat4 Transform::GetTransformationMatrix()
+  {
+    glm::mat4 scaleMatrix = glm::scale(glm::mat4(), m_scale);
+    glm::mat4 rotationMatrix = glm::toMat4(m_rotation);
+    glm::mat4 translationMatrix = glm::translate(glm::mat4(), m_position);
+    return translationMatrix * rotationMatrix * scaleMatrix;
   }
 
 }

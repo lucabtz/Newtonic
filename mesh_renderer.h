@@ -25,24 +25,35 @@
 
 #include "behaviour.h"
 
+#include "mesh_shader.h"
+
  namespace Newtonic
  {
 
    class Mesh;
-   class Shader;
+   class Assets;
+   class Camera;
+   class Transform;
 
    class MeshRenderer : public Behaviour
    {
+     std::string m_meshName;
+     std::string m_shaderName;
+
      std::weak_ptr<Mesh> m_wpMesh;
-     std::weak_ptr<Shader> m_wpShader;
+     std::weak_ptr<MeshShader> m_wpShader;
+
+     std::weak_ptr<Camera> m_wpCamera;
+     std::weak_ptr<Transform> m_wpActorTransform;
 
    public:
-    MeshRenderer(std::weak_ptr<Mesh> wpMesh, std::weak_ptr<Shader> wpShader) :
-      m_wpMesh(wpMesh),
-      m_wpShader(wpShader)
+    MeshRenderer(std::string meshName, std::string shaderName) :
+      m_meshName(meshName),
+      m_shaderName(shaderName)
     {};
 
-     void Update() override;
+     void Init() override;
+     void Update() override {};
      void Render() override;
    };
 

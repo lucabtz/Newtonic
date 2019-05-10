@@ -16,25 +16,18 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "behaviour.h"
+ #include "camera.h"
 
-#include "actor.h"
+ namespace Newtonic
+ {
+   glm::mat4 Camera::GetView() const
+   {
+     return glm::inverse(m_cameraTransform->GetTransformationMatrix());
+   }
 
-namespace Newtonic
-{
-  void Behaviour::SetActor(Actor * actor)
-  {
-    m_actor = actor;
-  }
+   glm::mat4 Camera::GetProjection() const
+   {
+     return m_projMatrix;
+   }
 
-  Actor *Behaviour::GetActor()
-  {
-    return m_actor;
-  }
-
-  Scene *Behaviour::GetScene()
-  {
-    return GetActor()->GetScene();
-  }
-
-}
+ }

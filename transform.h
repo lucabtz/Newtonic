@@ -16,25 +16,32 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "behaviour.h"
+#ifndef _TRANSFORM_H
+#define _TRANSFORM_H
 
-#include "actor.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 namespace Newtonic
 {
-  void Behaviour::SetActor(Actor * actor)
+  class Transform
   {
-    m_actor = actor;
-  }
+    glm::vec3 m_position;
+    glm::quat m_rotation;
+    glm::vec3 m_scale;
 
-  Actor *Behaviour::GetActor()
-  {
-    return m_actor;
-  }
+  public:
+    glm::vec3 GetPosition();
+    glm::vec3 GetRotationEulerAngles();
+    glm::vec3 GetScale();
 
-  Scene *Behaviour::GetScene()
-  {
-    return GetActor()->GetScene();
-  }
+    void SetPosition(const glm::vec3 & newPosition);
+    void SetRotationEulerAngles(const glm::vec3 & newRotation);
+    void SetScale(const glm::vec3 & newScale);
 
+    glm::mat4 GetTransformationMatrix();
+  };
 }
+
+#endif // _TRANFORM_H

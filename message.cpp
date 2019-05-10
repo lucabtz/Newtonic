@@ -21,9 +21,4 @@
 namespace Newtonic
 {
 
-  std::string Message::GetLogMessage()
-  {
-    return "";
-  }
-
 }

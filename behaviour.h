@@ -21,12 +21,20 @@
 
  namespace Newtonic
  {
+   class Actor;
+   class Scene;
+
    class Behaviour
    {
+     Actor * m_actor;
+
    public:
+     void SetActor(Actor * actor);
+     Actor * GetActor();
+     Scene * GetScene();
 
+     virtual void Init() = 0;
      virtual void Update() = 0;
-
      virtual void Render() = 0;
 
    };

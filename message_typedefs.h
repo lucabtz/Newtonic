@@ -15,26 +15,23 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#include <functional>
+#include <memory>
+#include <queue>
+#ifndef _MESSAGE_TYPEDEFS_H
+#define _MESSAGE_TYPEDEFS_H
+ namespace Newtonic
+ {
+   class Message;
 
-#include "behaviour.h"
+   typedef std::shared_ptr<Message> MessagePtr;
+   typedef std::queue<MessagePtr> MessageQueue ;
+   typedef std::function<void(MessagePtr)> MailBox;
 
-#include "actor.h"
+   enum class MessageType
+   {
+     EVENT_SCREEN_RESIZED = 0x0,
+   };
+ }
 
-namespace Newtonic
-{
-  void Behaviour::SetActor(Actor * actor)
-  {
-    m_actor = actor;
-  }
-
-  Actor *Behaviour::GetActor()
-  {
-    return m_actor;
-  }
-
-  Scene *Behaviour::GetScene()
-  {
-    return GetActor()->GetScene();
-  }
-
-}
+ #endif // _MESSAGE_TYPEDEFS_H

@@ -19,27 +19,34 @@
  #ifndef _MESSAGE_BUS_H
  #define _MESSAGE_BUS_H
 
- #include <queue>
- #include <memory>
  #include <vector>
  #include <string>
+ #include <map>
+
+ #include "message_typedefs.h"
+
+ #include "message.h"
 
  namespace Newtonic
  {
 
    class Message;
 
+   typedef std::shared_ptr<Message> MessagePtr;
+   typedef std::queue<MessagePtr> MessageQueue ;
+   typedef std::function<void(MessagePtr)> MailBox;
+
    void ConsoleLog(const char * s);
    void LogFromSender(const char * sender, const char * msg);
 
    class MessageBus
    {
-     std::queue<std::shared_ptr<Message>> m_messageQueue;
-     std::vector<void (*)(std::shared_ptr<Message>)> m_mailBoxes;
+     std::map<MessageType, MessageQueue> m_messageQueues;
+     std::map<MessageType, std::vector<MailBox>> m_mailBoxes;
 
    public:
-     void PostMessage(std::shared_ptr<Message> msg, std::string sender);
-     void RegisterMailBox(void (*mailBox)(std::shared_ptr<Message>));
+     void PostMessage(MessagePtr msg, std::string sender);
+     void RegisterMailBox(MessageType msgType, MailBox mailBox);
 
      void Work();
 

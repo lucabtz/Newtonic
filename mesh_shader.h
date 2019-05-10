@@ -16,25 +16,44 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "behaviour.h"
+#ifndef _MESH_SHADER
+#define _MESH_SHADER
 
-#include "actor.h"
+#include "shader.h"
+
+#include <string>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 namespace Newtonic
 {
-  void Behaviour::SetActor(Actor * actor)
+  class MeshShader : public Shader
   {
-    m_actor = actor;
-  }
+    std::string m_modelMatrixUniformName;
+    std::string m_viewMatrixUniformName;
+    std::string m_projectionMatrixUniformName;
 
-  Actor *Behaviour::GetActor()
-  {
-    return m_actor;
-  }
+    GLuint m_modlLoc;
+    GLuint m_viewLoc;
+    GLuint m_projLoc;
 
-  Scene *Behaviour::GetScene()
-  {
-    return GetActor()->GetScene();
-  }
+  public:
+    MeshShader(
+      std::string vertShader,
+      std::string fragShader,
+      std::string modelMatrixUniformName,
+      std::string viewMatrixUniformName,
+      std::string projectionMatrixUniformName
+    );
 
+    void Init() override;
+
+    void SetModel(glm::mat4 model);
+    void SetView(glm::mat4 view);
+    void SetProj(glm::mat4 proj);
+
+  };
 }
+
+#endif // __MASH_SHADER

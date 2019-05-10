@@ -39,6 +39,34 @@ namespace Newtonic
 
 	std::string ReadFile(const char * path);
 
+	struct Viewport
+	{
+		unsigned int width;
+		unsigned int height;
+
+		float GetScreenRatio() const
+		{
+			return (float)width / (float)height;
+		}
+
+		Viewport() : width(0), height(0) {}
+
+		Viewport(int w, int h) : width(w), height(h) {}
+
+		Viewport(Viewport & other)
+		{
+			width = other.width;
+			height = other.height;
+		}
+
+		Viewport & operator = (Viewport & other)
+		{
+			width = other.width;
+			height = other.height;
+			return *this;
+		}
+	};
+
 }
 
 #endif // _COMMON_H

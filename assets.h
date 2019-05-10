@@ -23,6 +23,9 @@
 #include <memory>
 #include <map>
 #include <string>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 
 namespace Newtonic
 {
@@ -39,8 +42,26 @@ namespace Newtonic
     void LoadShader(std::string shaderName, const char * vertexShader, const char * fragmentShader);
     void LoadMesh(std::string meshName, const std::vector<GLfloat> & positions);
 
-    std::weak_ptr<Shader> GetShader(std::string name);
-    std::weak_ptr<Mesh> GetMesh(std::string name);
+    std::weak_ptr<Shader> GetShader(std::string name)
+    {
+      std::weak_ptr<Shader> wpShader = m_shaders[name];
+      return wpShader;
+    }
+
+    std::weak_ptr<Mesh> GetMesh(std::string name)
+    {
+      std::weak_ptr<Mesh> wpMesh = m_meshes[name];
+      return wpMesh;
+    }
+
+    template <typename ShaderT>
+    std::weak_ptr<ShaderT> GetShaderT(std::string name)
+    {
+      std::shared_ptr<Shader> pShader = m_shaders[name];
+      std::shared_ptr<ShaderT> pDownCasted =
+                std::dynamic_pointer_cast<ShaderT>(pShader);
+      return pDownCasted;
+    }
 
   };
 

@@ -37,16 +37,4 @@
     m_meshes.emplace(meshName, std::make_shared<Mesh>(positions));
   }
 
-  std::weak_ptr<Shader> Assets::GetShader(std::string name)
-  {
-    std::weak_ptr<Shader> wpShader = m_shaders[name];
-    return wpShader;
-  }
-
-  std::weak_ptr<Mesh> Assets::GetMesh(std::string name)
-  {
-    std::weak_ptr<Mesh> wpMesh = m_meshes[name];
-    return wpMesh;
-  }
-
  }

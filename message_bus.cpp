@@ -35,27 +35,30 @@
    }
 
    void MessageBus::PostMessage(
-     std::shared_ptr<Message> msg,
+     MessagePtr msg,
      std::string sender)
    {
      LogFromSender(sender.c_str(), msg->GetLogMessage().c_str());
-     m_messageQueue.push(msg);
+     m_messageQueues[msg->GetType()].push(msg);
    }
 
-   void MessageBus::RegisterMailBox(void (*mailBox)(std::shared_ptr<Message>))
+   void MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox)
    {
-     m_mailBoxes.push_back(mailBox);
+     m_mailBoxes[msgType].push_back(mailBox);
    }
 
    void MessageBus::Work()
    {
-     while (!m_messageQueue.empty())
+     for (auto & pair : m_messageQueues)
      {
-       std::shared_ptr<Message> & msg = m_messageQueue.front();
-       m_messageQueue.pop();
-       for (auto mb : m_mailBoxes)
+       MessageType msgType = pair.first;
+       MessageQueue queue = pair.second;
+
+       while (!queue.empty())
        {
-         mb(msg);
+         MessagePtr msg = queue.front();
+         queue.pop();
+         for (auto & mb : m_mailBoxes[msgType]) mb(msg);
        }
      }
    }

@@ -19,41 +19,25 @@
 // main.cpp is used for fast tests, it has no use in the final library
 
 #include <stdio.h>
+#include <memory>
+#include <glm/glm.hpp>
+
 #include "engine.h"
 #include "mesh.h"
 #include "actor.h"
 #include "scene.h"
 #include "mesh_renderer.h"
-#include <memory>
+#include "assets.h"
+#include "message_bus.h"
+#include "common.h"
 
 int main(int argc, char **argv)
 {
     puts("Newtonic testing");
 
-
     Newtonic::Engine engine;
     engine.Init();
-    engine.OpenWindow("Newtonic");
-
-    Newtonic::Assets & assetsManager = engine.GetAssetsManager();
-
-    assetsManager.LoadShader("basic_mesh", "shaders/mesh.vert", "shaders/mesh.frag");
-    assetsManager.LoadMesh("triangle", std::vector<GLfloat> {
-      -1.0f, -1.0f, 0.0f,
-      1.0f, -1.0f, 0.0f,
-      0.0f,  1.0f, 0.0f,
-    });
-
-    auto initialScene = std::make_unique<Newtonic::Scene>();
-    auto triangleActor = std::make_shared<Newtonic::Actor>();
-
-    triangleActor->AddBehaviour(std::make_shared<Newtonic::MeshRenderer>(
-      assetsManager.GetMesh("triangle"),
-      assetsManager.GetShader("basic_mesh")
-    ));
-    initialScene->AddActor(triangleActor);
-
-    engine.SetScene(std::move(initialScene));
+    engine.OpenWindow("Newtonic", Newtonic::Viewport(512, 512));
 
     engine.Loop();
     return 0;

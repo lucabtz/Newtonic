@@ -34,6 +34,8 @@
    public:
      Shader(const char * vertShader, const char * fragShader);
 
+     virtual void Init();
+
      GLuint GetShaderId() const;
 
      void UseShader() const;

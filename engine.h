@@ -18,42 +18,59 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 #include <string>
 #include <memory>
 
+#include "message_bus.h"
+#include "message.h"
+#include "common.h"
 
-#ifndef _WINDOW_H
-#define _WINDOW_H
+
+#ifndef _ENGINE_H
+#define _ENGINE_H
 
 namespace Newtonic
 {
 
 	class Scene;
 	class Assets;
-	class MessageBus;
 
 	class Engine
 	{
 		GLFWwindow *m_window;
+		Viewport m_viewport;
+
 		std::unique_ptr<Scene> m_scene;
 		std::unique_ptr<Assets> m_assets;
 		std::unique_ptr<MessageBus> m_messageBus;
 
 	public:
 
-		void Init();
-		void OpenWindow(const char *title);
+		friend void FramebufferSizeCallback(GLFWwindow * wnd, int w, int h);
 
-		Assets & GetAssetsManager();
-		MessageBus & GetMessageBus();
+		void Init();
+		void OpenWindow(const char *title, Viewport viewport);
+
+		Assets *GetAssetsManager()
+		{
+			return m_assets.get();
+		}
+		MessageBus *GetMessageBus()
+		{
+			return m_messageBus.get();
+		}
 
 		void SetScene(std::unique_ptr<Scene> scene);
 
 		void Loop();
+
+		Viewport GetViewport() { return m_viewport; }
+
 	};
+
+		extern Engine * g_engine;
 
 }
 
 
-#endif // _WINDOW_H
+#endif // _ENGINE_H

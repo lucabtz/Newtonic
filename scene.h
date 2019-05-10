@@ -22,21 +22,32 @@
 #include <vector>
 #include <memory>
 
+#include "camera.h"
+
  namespace Newtonic
  {
    class Actor;
-
+   
    class Scene
    {
      std::vector<std::shared_ptr<Actor>> m_actors;
+     std::shared_ptr<Camera> m_camera;
 
    public:
 
-     void AddActor(std::shared_ptr<Actor> actor);
+     Scene()
+     {
+       m_camera = std::make_shared<Camera>();
+     }
 
+     void AddActor(std::shared_ptr<Actor> & actor);
      void Render();
-
      void Update();
+
+     std::weak_ptr<Camera> GetCamera() const
+     {
+       return m_camera;
+     }
    };
 
  }
