@@ -56,6 +56,7 @@ namespace Newtonic
         "camera handle screen resize"
       );
       SetViewport(g_engine->GetViewport());
+      m_cameraTransform = std::make_unique<Transform>();
     }
 
     glm::mat4 GetProjection() const;
