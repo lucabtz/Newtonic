@@ -40,9 +40,9 @@ namespace Newtonic
 		GLFWwindow *m_window;
 		Viewport m_viewport;
 
-		std::unique_ptr<Scene> m_scene;
-		std::unique_ptr<Assets> m_assets;
-		std::unique_ptr<MessageBus> m_messageBus;
+		Scene * m_scene = nullptr;
+		Assets * m_assets;
+		MessageBus * m_messageBus;
 
 	public:
 
@@ -53,18 +53,20 @@ namespace Newtonic
 
 		Assets *GetAssetsManager()
 		{
-			return m_assets.get();
+			return m_assets;
 		}
 		MessageBus *GetMessageBus()
 		{
-			return m_messageBus.get();
+			return m_messageBus;
 		}
 
-		void SetScene(std::unique_ptr<Scene> scene);
+		void SetScene(Scene *scene);
 
 		void Loop();
 
 		Viewport GetViewport() { return m_viewport; }
+
+		~Engine();
 
 	};
 

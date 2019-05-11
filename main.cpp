@@ -52,11 +52,11 @@ int main(int argc, char **argv)
     engine.GetAssetsManager()->LoadShaderT("mesh_shader", std::move(meshShader));
     engine.GetAssetsManager()->LoadMeshesFromOBJ("models/sphere.obj");
 
-    auto scene = std::make_unique<Scene>();
+    auto scene = new Scene;
     auto triangleActor = std::make_shared<Actor>();
     triangleActor->AddBehaviour(std::make_shared<MeshRenderer>("sphere", "mesh_shader"));
     scene->AddActor(std::move(triangleActor));
-    engine.SetScene(std::move(scene));
+    engine.SetScene(scene);
 
     engine.Loop();
     return 0;

@@ -34,7 +34,7 @@ namespace Newtonic
   public:
     Transform() :
       m_position(0.0, 0.0, 0.0),
-      m_rotation(1.0, 0.0, 0.0, 0.0),
+      m_rotation(0.0, 1.0, 0.0, 0.0),
       m_scale(1.0, 1.0, 1.0)
     {}
     glm::vec3 GetPosition();

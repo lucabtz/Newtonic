@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <memory>
+#include <iostream>
 
 #include "camera.h"
 
@@ -39,6 +40,8 @@
      {
        m_camera = std::make_shared<Camera>();
      }
+
+     ~Scene() { std::cout << "[SCENE] Deleting scene " << this << std::endl; }
 
      void AddActor(std::shared_ptr<Actor> && actor);
      void Render();

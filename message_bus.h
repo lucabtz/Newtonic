@@ -42,15 +42,20 @@
    class MessageBus
    {
      std::map<MessageType, MessageQueue> m_messageQueues;
-     std::map<MessageType, std::vector<MailBox>> m_mailBoxes;
+     std::map<MessageType, std::map<unsigned int, MailBox>> m_mailBoxes;
 
    public:
      void PostMessage(MessagePtr msg, std::string sender);
-     void RegisterMailBox(MessageType msgType, MailBox mailBox,
-                          const char *why);
-     void RegisterMailBox(MessageType msgType, MailBox mailBox);
+     unsigned int RegisterMailBox(MessageType msgType, MailBox mailBox,
+                         const char *why);
+     unsigned int RegisterMailBox(MessageType msgType, MailBox mailBox);
+     void UnregisterMailBox(MessageType msgType, unsigned int mailboxId,
+                            const char * why);
+     void UnregisterMailBox(MessageType msgType, unsigned int mailboxId);
 
      void Work();
+
+     ~MessageBus();
 
    };
 

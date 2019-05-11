@@ -83,9 +83,8 @@ namespace Newtonic
 				throw NewtonicException("Could not initialize GLEW");
 		}
 
-		m_assets = std::make_unique<Assets>();
-		m_messageBus = std::make_unique<MessageBus>();
-		m_scene = std::make_unique<Scene>();
+		m_assets = new Assets;
+		m_messageBus = new MessageBus;
 	}
 
 
@@ -106,9 +105,12 @@ namespace Newtonic
 		} while(!glfwWindowShouldClose(m_window));
 	}
 
-	void Engine::SetScene(std::unique_ptr<Scene> scene)
+	void Engine::SetScene(Scene *scene)
 	{
-		m_scene = std::move(scene);
+		if (m_scene) delete m_scene;
+		m_scene = scene;
 	}
+
+	Engine::~Engine() { delete m_scene; delete m_assets; delete m_messageBus; }
 
 }

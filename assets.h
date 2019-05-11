@@ -26,6 +26,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <iostream>
+
 
 namespace Newtonic
 {
@@ -64,6 +66,8 @@ namespace Newtonic
                 std::dynamic_pointer_cast<ShaderT>(pShader);
       return pDownCasted;
     }
+
+    ~Assets() { std::cout << "[LOADER] Freeing assets manager" << std::endl; }
 
   };
 

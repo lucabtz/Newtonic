@@ -37,6 +37,7 @@ namespace Newtonic
   {
     Viewport m_viewport;
     std::unique_ptr<Transform> m_cameraTransform;
+    unsigned int m_mailBoxId;
 
     MessageBus *m_msgBus;
 
@@ -44,7 +45,7 @@ namespace Newtonic
     Camera()
     {
       m_msgBus = g_engine->GetMessageBus();
-      m_msgBus->RegisterMailBox(MessageType::EVENT_SCREEN_RESIZED,
+      m_mailBoxId = m_msgBus->RegisterMailBox(MessageType::EVENT_SCREEN_RESIZED,
         [this](MessagePtr msg)
         {
           auto event = MessageCast<EventScreenResizedMessage>(msg);
@@ -57,6 +58,12 @@ namespace Newtonic
       );
       SetViewport(g_engine->GetViewport());
       m_cameraTransform = std::make_unique<Transform>();
+    }
+
+    ~Camera()
+    {
+      m_msgBus->UnregisterMailBox(MessageType::EVENT_SCREEN_RESIZED, m_mailBoxId, "deleting camera");
+      std::cout << "[CAMERA] Deleting camera " << this << std::endl;
     }
 
     glm::mat4 GetProjection() const;

@@ -25,6 +25,8 @@
 
  namespace Newtonic
  {
+
+   static unsigned int s_mailBoxIdCurrent = 0;
    void ConsoleLog(const char * s)
    {
      printf("[CONSOLE] %s\n", s);
@@ -43,16 +45,30 @@
      m_messageQueues[msg->GetType()].push(msg);
    }
 
-   void MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox,
+   unsigned int MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox,
      const char *why = "unknown reason")
    {
-     std::cout << "[CONSOLE] Registered message mailbox, reason:  " << why << std::endl;
-     m_mailBoxes[msgType].push_back(mailBox);
+     std::cout << "[CONSOLE] Registered message mailbox with id " << s_mailBoxIdCurrent << ", reason:  " << why << std::endl;
+     m_mailBoxes[msgType].emplace(s_mailBoxIdCurrent, mailBox);
+     return s_mailBoxIdCurrent++;
    }
 
-   void MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox)
+   unsigned int MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox)
    {
-     RegisterMailBox(msgType, mailBox, "unknown reason");
+     return RegisterMailBox(msgType, mailBox, "unknown reason");
+   }
+
+   void MessageBus::UnregisterMailBox(MessageType msgType, unsigned int mailboxId)
+   {
+     UnregisterMailBox(msgType, mailboxId, "unknown reason");
+   }
+
+   void MessageBus::UnregisterMailBox(MessageType msgType, unsigned int mailboxId,
+      const char * why)
+   {
+     std::cout << "[CONSOLE] Unregistering mail box " << mailboxId << ": " << why << std::endl;
+     auto e = m_mailBoxes[msgType].find(mailboxId);
+     m_mailBoxes[msgType].erase(e);
    }
 
    void MessageBus::Work()
@@ -66,13 +82,18 @@
        {
          MessagePtr msg = queue.front();
          queue.pop();
-         for (auto & mb : m_mailBoxes[msgType])
+         auto & map = m_mailBoxes[msgType];
+         for (auto iter : map)
          {
-           std::cout << "[CONSOLE] Dispatching message to " << &mb << std::endl;
+           auto id = iter.first;
+           auto & mb = iter.second;
+           std::cout << "[CONSOLE] Dispatching message to " << id << std::endl;
            mb(msg);
          }
        }
      }
    }
+
+   MessageBus::~MessageBus() {  std::cout << "[CONSOLE] Freeing message bus" << std::endl; }
 
  }
