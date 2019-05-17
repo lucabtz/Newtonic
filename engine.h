@@ -47,7 +47,6 @@ namespace Newtonic
 		Input * m_input;
 
 	public:
-
 		friend void FramebufferSizeCallback(GLFWwindow * wnd, int w, int h);
 
 		void Init();

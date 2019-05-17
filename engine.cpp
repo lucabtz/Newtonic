@@ -68,7 +68,6 @@ namespace Newtonic
 		//bottom face
 		1, 0, 4,
 		1, 5, 4
-
 	};
 
 	void GLFWErrorHandler(int err, const char * desc)

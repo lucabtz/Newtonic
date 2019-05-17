@@ -69,7 +69,6 @@
            return pDownCasted;
          }
        }
-
        return std::weak_ptr<T>();
      }
 
