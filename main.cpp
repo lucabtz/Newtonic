@@ -43,13 +43,17 @@ int main(int argc, char **argv)
 
     auto scene = new Scene;
 
-    auto camMover = MakeSimpleCameraMover();
+    auto camMover = MakeSimpleCameraMover(15.0);
     scene->AddActor(std::move(camMover));
 
-    auto cubeActor = std::make_shared<Actor>();
-    cubeActor->GetTransform().lock()->SetPosition(glm::vec3(0.0, 0.0, 10.0));
-    cubeActor->AddBehaviour(std::make_shared<MeshRenderer>("cube", "mesh_shader"));
-    scene->AddActor(std::move(cubeActor));
+    auto cubeActor1 = std::make_shared<Actor>();
+    auto cubeActor2 = std::make_shared<Actor>();
+    cubeActor1->GetTransform().lock()->SetPosition(glm::vec3(0.0, 0.0, 10.0));
+    cubeActor1->AddBehaviour(std::make_shared<MeshRenderer>("cube", "mesh_shader"));
+    cubeActor2->GetTransform().lock()->SetPosition(glm::vec3(0.0, -10.0, 0.0));
+    cubeActor2->AddBehaviour(std::make_shared<MeshRenderer>("cube", "mesh_shader"));
+    scene->AddActor(std::move(cubeActor1));
+    scene->AddActor(std::move(cubeActor2));
 
     engine.SetScene(scene);
 

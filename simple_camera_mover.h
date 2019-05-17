@@ -29,7 +29,7 @@
    class Camera;
    class Input;
 
-   std::shared_ptr<Actor> MakeSimpleCameraMover();
+   std::shared_ptr<Actor> MakeSimpleCameraMover(float speed);
 
    class SimpleCameraMoverBehaviour : public Behaviour
    {
@@ -37,7 +37,10 @@
      Input * m_pInput;
      Scene * m_pScene;
 
+     float m_speed;
+
    public:
+     SimpleCameraMoverBehaviour(float speed) : m_speed(speed) {}
      void Init() override;
      void Render() override {};
      void Update(float dt) override;

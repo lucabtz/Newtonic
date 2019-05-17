@@ -27,10 +27,10 @@
 
  namespace Newtonic
  {
-   std::shared_ptr<Actor> MakeSimpleCameraMover()
+   std::shared_ptr<Actor> MakeSimpleCameraMover(float speed)
    {
      auto scm = std::make_shared<Actor>();
-     scm->AddBehaviour(std::make_shared<SimpleCameraMoverBehaviour>());
+     scm->AddBehaviour(std::make_shared<SimpleCameraMoverBehaviour>(speed));
      return scm;
    }
 
@@ -44,15 +44,19 @@
    void SimpleCameraMoverBehaviour::Update(float dt)
    {
      Transform *pTransform = m_wpCamera.lock()->GetTransform();
-     if (m_pInput->IsKeyDown(25)) /* W key */ pTransform->Move(glm::vec3(0.0, 0.0, 1.0) * dt);
-     if (m_pInput->IsKeyDown(39)) /* S key */ pTransform->Move(glm::vec3(0.0, 0.0, -1.0) * dt);
-     if (m_pInput->IsKeyDown(38)) /* A key */ pTransform->Move(glm::vec3(-1.0, 0.0, 0.0) * dt);
-     if (m_pInput->IsKeyDown(40)) /* D key */ pTransform->Move(glm::vec3(1.0, 0.0, 0.0) * dt);
-     if (m_pInput->IsKeyDown(24)) /* Q key */ pTransform->Move(glm::vec3(0.0, 1.0, 0.0) * dt);
-     if (m_pInput->IsKeyDown(26)) /* E key */ pTransform->Move(glm::vec3(0.0, -1.0, 0.0) * dt);
+     auto up = pTransform->GetUpDirection();
+     auto right = pTransform->GetRightDirection();
+     auto forward = pTransform->GetForwardDirection();
+     auto ds = m_speed * dt;
+     if (m_pInput->IsKeyDown(25)) /* W key */ pTransform->Move(forward * ds);
+     if (m_pInput->IsKeyDown(39)) /* S key */ pTransform->Move(-forward * ds);
+     if (m_pInput->IsKeyDown(38)) /* A key */ pTransform->Move(-right * ds);
+     if (m_pInput->IsKeyDown(40)) /* D key */ pTransform->Move(right * ds);
+     if (m_pInput->IsKeyDown(24)) /* Q key */ pTransform->Move(up * ds);
+     if (m_pInput->IsKeyDown(26)) /* E key */ pTransform->Move(-up * ds);
 
      int h = m_pInput->GetAxis(HORIZONTAL), v = m_pInput->GetAxis(VERTICAL);
-     pTransform->Rotate(glm::vec3(-v, h, 0) * dt);
+     pTransform->Rotate(glm::vec3(-v, -h, 0) * dt);
    }
 
  }

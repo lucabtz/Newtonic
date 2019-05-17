@@ -33,6 +33,27 @@ namespace Newtonic
   glm::mat4 Transform::GetRotationMatrix() { return glm::toMat4(m_rotation); }
   glm::mat4 Transform::GetScaleMatrix(){ return glm::scale(glm::mat4(1.0), m_scale); }
 
+  glm::vec3 Transform::GetForwardDirection()
+  {
+    auto rotation = GetRotationMatrix();
+    auto res = rotation * glm::vec4(0.0, 0.0, -1.0, 0.0);
+    return glm::vec3(res.x, res.y, res.z);
+  }
+
+  glm::vec3 Transform::GetRightDirection()
+  {
+    auto rotation = GetRotationMatrix();
+    auto res = rotation * glm::vec4(1.0, 0.0, 0.0, 0.0);
+    return glm::vec3(res.x, res.y, res.z);
+  }
+
+  glm::vec3 Transform::GetUpDirection()
+  {
+    auto rotation = GetRotationMatrix();
+    auto res = rotation * glm::vec4(0.0, 1.0, 0.0, 0.0);
+    return glm::vec3(res.x, res.y, res.z);
+  }
+
   glm::mat4 Transform::GetTransformationMatrix()
   {
     glm::mat4 scaleMatrix = GetScaleMatrix();

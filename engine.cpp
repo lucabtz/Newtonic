@@ -152,6 +152,8 @@ namespace Newtonic
 		float now = then;
 		float dt = 0.0;
 
+		bool focused = true;
+
 		do
 		{
 			then = now;
@@ -168,7 +170,8 @@ namespace Newtonic
 
 			m_scene->Update(dt);
 
-			if (m_input->IsKeyDown(9)) /*ESC key*/ m_input->SetHiddenCursorMode(false);
+			if (m_input->IsKeyDown(9)) /*ESC key*/ { m_input->SetHiddenCursorMode(false); focused = false; }
+			if (m_input->IsButtonDown(0) /* Right mouse button */ && !focused) { m_input->SetHiddenCursorMode(true); focused = true; }
 
 			glfwSwapBuffers(m_window);
 			glfwPollEvents();

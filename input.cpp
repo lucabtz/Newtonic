@@ -26,22 +26,33 @@
  namespace Newtonic
  {
    void KeyCallback(
-     GLFWwindow * wnd, int scancode, int key, int action, int modes)
+     GLFWwindow * wnd, int scancode, int key, int action, int modes
+   )
    {
      auto im = g_engine->GetInputManager();
      if (action == GLFW_PRESS)        im->SetStatus(key, true);
      else if (action == GLFW_RELEASE) im->SetStatus(key, false);
    }
 
+   void MouseButtonCallback(
+     GLFWwindow * wnd, int button, int action, int modes
+   )
+   {
+     auto im = g_engine->GetInputManager();
+     if (action == GLFW_PRESS)        im->SetBtnStatus(button, true);
+     else if (action == GLFW_RELEASE) im->SetBtnStatus(button, false);
+   }
+
    Input::Input(GLFWwindow * wnd) :
     m_wnd(wnd)
    {
-     m_keyStatuses = new bool[200];      //TODO check the 200
+     m_keyStatuses = new bool[MAX_KEYS];      //TODO check the 200
      for (int i = 0; i < 200; ++i) m_keyStatuses[i] = false;
      glfwSetKeyCallback(m_wnd, KeyCallback);
 
-     m_mouseBtnStatuses = new bool[5];
+     m_mouseBtnStatuses = new bool[MAX_BTNS];
      for (int i = 0; i < 5; ++i) m_mouseBtnStatuses[i] = false;
+     glfwSetMouseButtonCallback(m_wnd, MouseButtonCallback);
 
      glfwSetInputMode(m_wnd, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 

@@ -26,14 +26,18 @@
 
  #include "common.h"
 
+
+
  namespace Newtonic
  {
    typedef int Key;
+   typedef int Btn;
    typedef int MouseAxis;
 
    constexpr MouseAxis HORIZONTAL = 0x0,
                        VERTICAL = 0x1;
 
+   constexpr int MAX_KEYS = 200, MAX_BTNS = 5;
 
    class Input
    {
@@ -49,20 +53,31 @@
 
      void SetStatus(Key k, bool status)
      {
-       m_keyStatuses[k] = status;
+       m_keyStatuses[k % MAX_KEYS] = status;
        std::cout << "[INPUT] Key status " << k << " " << status << std::endl;
+     }
+     void SetBtnStatus(Btn k, bool status)
+     {
+       m_mouseBtnStatuses[k % MAX_BTNS] = status;
+       std::cout << "[INPUT] Mouse btn status " << k << " " << status << std::endl;
      }
    public:
      friend void KeyCallback(
-       GLFWwindow * wnd, int scancode, int key, int action, int modes);
+       GLFWwindow * wnd, int scancode, int key, int action, int modes
+     );
+
+     friend void MouseButtonCallback(
+       GLFWwindow * wnd, int button, int action, int modes
+     );
 
      Input(GLFWwindow * wnd);
      ~Input() { delete[] m_keyStatuses; delete[] m_mouseBtnStatuses; }
 
      void Work();
 
-     bool IsKeyDown(Key k) { return m_keyStatuses[k]; }
+     bool IsKeyDown(Key k) { return m_keyStatuses[k % MAX_KEYS]; }
      bool IsKeyUp(Key k) { return !IsKeyDown(k); }
+     bool IsButtonDown(Btn k) { return m_mouseBtnStatuses[k % MAX_BTNS]; }
 
      int GetAxis(MouseAxis axis)
      {

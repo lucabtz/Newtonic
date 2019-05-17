@@ -50,15 +50,24 @@ namespace Newtonic
     {
       SetPosition(m_position + movement);
     }
+    void RotateQuaternion(const glm::quat & rotation)
+    {
+      m_rotation *= rotation;
+    }
     void Rotate(const glm::vec3 & eulerAngles)
     {
-      SetRotationEulerAngles(GetRotationEulerAngles() + eulerAngles);
+      glm::quat q(eulerAngles);
+      RotateQuaternion(q);
     }
 
     glm::mat4 GetTransformationMatrix();
     glm::mat4 GetRotationMatrix();
     glm::mat4 GetTranslationMatrix();
     glm::mat4 GetScaleMatrix();
+
+    glm::vec3 GetForwardDirection();
+    glm::vec3 GetRightDirection();
+    glm::vec3 GetUpDirection();
   };
 }
 
