@@ -80,7 +80,7 @@
 
      void Init();
      void Render();
-     void Update();
+     void Update(float dt);
    };
  }
 

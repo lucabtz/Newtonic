@@ -22,10 +22,14 @@
  namespace Newtonic
  {
 
+   void Scene::Init()
+   {
+     for (auto & a : m_actors) a->Init();
+   }
+
    void Scene::AddActor(std::shared_ptr<Actor> && actor)
    {
      actor->SetScene(this);
-     actor->Init();
      m_actors.push_back(std::move(actor));
    }
 
@@ -34,9 +38,9 @@
      for (auto & actor : m_actors) actor->Render();
    }
 
-   void Scene::Update()
+   void Scene::Update(float dt)
    {
-     for (auto & actor : m_actors) actor->Update();
+     for (auto & actor : m_actors) actor->Update(dt);
    }
 
  }

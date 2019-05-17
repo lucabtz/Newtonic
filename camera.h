@@ -73,6 +73,8 @@ namespace Newtonic
     {
       m_viewport = new_;
     }
+
+    Transform *GetTransform() { return m_cameraTransform.get(); }
   };
 }
 

@@ -43,13 +43,15 @@
 
      ~Scene() { std::cout << "[SCENE] Deleting scene " << this << std::endl; }
 
+     void Init();
+
      void AddActor(std::shared_ptr<Actor> && actor);
      void Render();
-     void Update();
+     void Update(float dt);
 
-     std::weak_ptr<Camera> GetCamera() const
+     std::weak_ptr<Camera> GetCamera()
      {
-       return m_camera;
+       return std::weak_ptr<Camera>(m_camera);
      }
    };
 

@@ -21,6 +21,6 @@
  namespace Newtonic
  {
 
-   typedef std::vec3 Color;
+   typedef std::vec3 Color3f;
 
  }

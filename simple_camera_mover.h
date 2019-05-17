@@ -16,32 +16,32 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _SHADER_H
-#define _SHADER_H
+ #ifndef _SIMPLE_CAMERA_MOVER_H
+ #define _SIMPLE_CAMERA_MOVER_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+ #include <memory>
 
-#include <string>
+ #include "behaviour.h"
 
  namespace Newtonic
  {
+   class Actor;
+   class Camera;
+   class Input;
 
-   class Shader
+   std::shared_ptr<Actor> MakeSimpleCameraMover();
+
+   class SimpleCameraMoverBehaviour : public Behaviour
    {
-     GLuint m_shaderId;
+     std::weak_ptr<Camera> m_wpCamera;
+     Input * m_pInput;
+     Scene * m_pScene;
 
    public:
-     Shader(const char * vertShader, const char * fragShader);
-
-     virtual void Init() {}
-
-     GLuint GetShaderId() const;
-
-     void UseShader() const;
-     void StopShader() const;
+     void Init() override;
+     void Render() override {};
+     void Update(float dt) override;
    };
+ }
 
- };
-
-#endif // _SHADER_H
+ #endif // _SIMPLE_CAMERA_MOVER_H

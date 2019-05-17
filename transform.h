@@ -40,10 +40,20 @@ namespace Newtonic
     glm::vec3 GetPosition();
     glm::vec3 GetRotationEulerAngles();
     glm::vec3 GetScale();
+    glm::quat GetRotation();
 
     void SetPosition(const glm::vec3 & newPosition);
     void SetRotationEulerAngles(const glm::vec3 & newRotation);
     void SetScale(const glm::vec3 & newScale);
+
+    void Move(const glm::vec3 & movement)
+    {
+      SetPosition(m_position + movement);
+    }
+    void Rotate(const glm::vec3 & eulerAngles)
+    {
+      SetRotationEulerAngles(GetRotationEulerAngles() + eulerAngles);
+    }
 
     glm::mat4 GetTransformationMatrix();
   };

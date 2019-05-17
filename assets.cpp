@@ -31,13 +31,16 @@
      const char * vertexShader,
      const char * fragmentShader)
   {
-    m_shaders.emplace(shaderName, std::make_shared<Shader>(vertexShader, fragmentShader));
+    auto shader = std::make_shared<Shader>(vertexShader, fragmentShader);
+    shader->Init();
+    m_shaders.emplace(shaderName, shader);
   }
 
   void Assets::LoadShaderT(
     std::string shaderName,
     std::shared_ptr<Shader> pShader)
   {
+    pShader->Init();
     m_shaders.emplace(shaderName, pShader);
   }
 
@@ -48,6 +51,7 @@
   {
     m_meshes.emplace(meshName, std::make_shared<Mesh>(positions, indices));
   }
+
 
   void Assets::LoadMeshesFromOBJ(std::string filename)
   {

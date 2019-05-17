@@ -53,13 +53,13 @@ namespace Newtonic
 
 		Viewport(int w, int h) : width(w), height(h) {}
 
-		Viewport(Viewport & other)
+		Viewport(const Viewport & other)
 		{
 			width = other.width;
 			height = other.height;
 		}
 
-		Viewport & operator = (Viewport & other)
+		Viewport & operator = (const Viewport & other)
 		{
 			width = other.width;
 			height = other.height;

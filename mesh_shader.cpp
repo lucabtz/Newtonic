@@ -18,6 +18,8 @@
 
 #include "mesh_shader.h"
 
+#include <iostream>
+
 namespace Newtonic
 {
   MeshShader::MeshShader(
@@ -38,6 +40,9 @@ namespace Newtonic
     m_modlLoc = glGetUniformLocation(GetShaderId(), m_modelMatrixUniformName.c_str());
     m_viewLoc = glGetUniformLocation(GetShaderId(), m_viewMatrixUniformName.c_str());
     m_projLoc = glGetUniformLocation(GetShaderId(), m_projectionMatrixUniformName.c_str());
+
+    std::cout << "[SHADER] Model loc: " << m_modlLoc << ", view loc: " << m_viewLoc
+              << ", proj loc: " << m_projLoc << std::endl;
   }
 
   void MeshShader::SetModel(glm::mat4 model)

@@ -21,6 +21,9 @@
 #include "assets.h"
 #include "scene.h"
 #include "message_bus.h"
+#include "input.h"
+
+#include "mesh_shader.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -28,6 +31,45 @@
 namespace Newtonic
 {
 	Newtonic::Engine * g_engine;
+
+	static  const std::vector<GLfloat> s_cubeVerts
+	{
+	  -1.0, -1.0,  1.0,
+	  1.0, -1.0,  1.0,
+	  -1.0,  1.0,  1.0,
+	  1.0,  1.0,  1.0,
+	  -1.0, -1.0, -1.0,
+	  1.0, -1.0, -1.0,
+	  -1.0,  1.0, -1.0,
+	  1.0,  1.0, -1.0
+	};
+	static const std::vector<unsigned int> s_cubeIdx
+	{
+		// front face
+	  0, 1, 2,
+		2, 3, 2,
+
+		//back face
+		4, 5, 6,
+		6, 7, 5,
+
+		//right face
+		1, 3, 7,
+		1, 5, 7,
+
+		//left face
+		0, 2, 6,
+		0, 4, 6,
+
+		//top face
+		3, 2, 6,
+		3, 7, 6,
+
+		//bottom face
+		1, 0, 4,
+		1, 5, 4
+
+	};
 
 	void GLFWErrorHandler(int err, const char * desc)
 	{
@@ -85,6 +127,19 @@ namespace Newtonic
 
 		m_assets = new Assets;
 		m_messageBus = new MessageBus;
+		m_input = new Input(m_window);
+
+
+		// Load some default meshes into the engine
+		GetAssetsManager()->LoadMesh("cube", s_cubeVerts, s_cubeIdx);
+
+		// Load some default shaders into the engine
+		auto meshShader = std::make_shared<MeshShader>(
+			"shaders/mesh.vert",
+			"shaders/mesh.frag",
+			"modl", "view", "proj"
+		);
+		GetAssetsManager()->LoadShaderT("mesh_shader", std::move(meshShader));
 	}
 
 
@@ -92,13 +147,29 @@ namespace Newtonic
 	{
 		glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glEnable(GL_DEPTH_TEST);
+
+		float then = glfwGetTime();
+		float now = then;
+		float dt = 0.0;
 
 		do
 		{
+			then = now;
+			now = glfwGetTime();
+			dt = now - then;
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			m_messageBus->Work();
+			m_input->Work();
+
+			glViewport(0, 0, m_viewport.width, m_viewport.height);
 			m_scene->Render();
+
+			m_scene->Update(dt);
+
+			if (m_input->IsKeyDown(9)) /*ESC key*/ m_input->SetHiddenCursorMode(false);
 
 			glfwSwapBuffers(m_window);
 			glfwPollEvents();
@@ -109,8 +180,15 @@ namespace Newtonic
 	{
 		if (m_scene) delete m_scene;
 		m_scene = scene;
+		m_scene->Init();
 	}
 
-	Engine::~Engine() { delete m_scene; delete m_assets; delete m_messageBus; }
+	Engine::~Engine()
+	{
+		if (m_scene) delete m_scene;
+		delete m_assets;
+		delete m_messageBus;
+		delete m_input;
+	}
 
 }

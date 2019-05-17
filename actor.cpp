@@ -28,9 +28,9 @@ namespace Newtonic
     m_behaviours.push_back(std::move(behaviour));
   }
 
-  void Actor::Update()
+  void Actor::Update(float dt)
   {
-    for (auto & b : m_behaviours) b->Update();
+    for (auto & b : m_behaviours) b->Update(dt);
   }
 
   void Actor::Render()

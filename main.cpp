@@ -31,6 +31,7 @@
 #include "message_bus.h"
 #include "common.h"
 #include "mesh_shader.h"
+#include "simple_camera_mover.h"
 
 using namespace Newtonic;
 
@@ -38,24 +39,20 @@ int main(int argc, char **argv)
 {
     puts("Newtonic testing");
 
-    Newtonic::Engine engine;
+    Engine engine;
     engine.Init();
-    engine.OpenWindow("Newtonic", Newtonic::Viewport(512, 512));
-
-    auto meshShader = std::make_shared<MeshShader>(
-      "shaders/mesh.vert",
-      "shaders/mesh.frag",
-      "modl",
-      "view",
-      "proj"
-    );
-    engine.GetAssetsManager()->LoadShaderT("mesh_shader", std::move(meshShader));
-    engine.GetAssetsManager()->LoadMeshesFromOBJ("models/sphere.obj");
+    engine.OpenWindow("Newtonic", Viewport(1032, 558));
 
     auto scene = new Scene;
-    auto triangleActor = std::make_shared<Actor>();
-    triangleActor->AddBehaviour(std::make_shared<MeshRenderer>("sphere", "mesh_shader"));
-    scene->AddActor(std::move(triangleActor));
+
+    auto camMover = MakeSimpleCameraMover();
+    scene->AddActor(std::move(camMover));
+
+    auto cubeActor = std::make_shared<Actor>();
+    cubeActor->GetTransform().lock()->SetPosition(glm::vec3(0.0, 0.0, 0.0));
+    cubeActor->AddBehaviour(std::make_shared<MeshRenderer>("cube", "mesh_shader"));
+    scene->AddActor(std::move(cubeActor));
+
     engine.SetScene(scene);
 
     engine.Loop();

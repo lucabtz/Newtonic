@@ -34,6 +34,7 @@ namespace Newtonic
 
 	class Scene;
 	class Assets;
+	class Input;
 
 	class Engine
 	{
@@ -43,6 +44,7 @@ namespace Newtonic
 		Scene * m_scene = nullptr;
 		Assets * m_assets;
 		MessageBus * m_messageBus;
+		Input * m_input;
 
 	public:
 
@@ -58,6 +60,10 @@ namespace Newtonic
 		MessageBus *GetMessageBus()
 		{
 			return m_messageBus;
+		}
+		Input *GetInputManager()
+		{
+			return m_input;
 		}
 
 		void SetScene(Scene *scene);
