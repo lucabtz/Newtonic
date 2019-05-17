@@ -46,7 +46,7 @@
    }
 
    unsigned int MessageBus::RegisterMailBox(MessageType msgType, MailBox mailBox,
-     const char *why = "unknown reason")
+     const char *why)
    {
      std::cout << "[CONSOLE] Registered message mailbox with id " << s_mailBoxIdCurrent << ", reason:  " << why << std::endl;
      m_mailBoxes[msgType].emplace(s_mailBoxIdCurrent, mailBox);

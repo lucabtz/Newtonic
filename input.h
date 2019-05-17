@@ -83,7 +83,6 @@
        if (m_hiddenCursorMode) glfwSetInputMode(m_wnd, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
        else                    glfwSetInputMode(m_wnd, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
      }
-
    };
  }
 

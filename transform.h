@@ -56,6 +56,9 @@ namespace Newtonic
     }
 
     glm::mat4 GetTransformationMatrix();
+    glm::mat4 GetRotationMatrix();
+    glm::mat4 GetTranslationMatrix();
+    glm::mat4 GetScaleMatrix();
   };
 }
 

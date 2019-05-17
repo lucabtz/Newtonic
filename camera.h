@@ -69,11 +69,7 @@ namespace Newtonic
     glm::mat4 GetProjection() const;
     glm::mat4 GetView() const;
 
-    void SetViewport(Viewport new_)
-    {
-      m_viewport = new_;
-    }
-
+    void SetViewport(Viewport new_) { m_viewport = new_; }
     Transform *GetTransform() { return m_cameraTransform.get(); }
   };
 }

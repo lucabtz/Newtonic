@@ -56,7 +56,6 @@
      void Work();
 
      ~MessageBus();
-
    };
 
  }

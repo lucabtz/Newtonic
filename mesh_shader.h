@@ -52,7 +52,6 @@ namespace Newtonic
     void SetModel(glm::mat4  model);
     void SetView(glm::mat4 view);
     void SetProj(glm::mat4 proj);
-
   };
 }
 

@@ -44,10 +44,7 @@ namespace Newtonic
 		unsigned int width;
 		unsigned int height;
 
-		float GetScreenRatio() const
-		{
-			return (float)width / (float)height;
-		}
+		float GetScreenRatio() const { return (float)width / (float)height; }
 
 		Viewport() : width(0), height(0) {}
 

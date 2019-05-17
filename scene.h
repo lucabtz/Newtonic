@@ -35,12 +35,7 @@
      std::shared_ptr<Camera> m_camera;
 
    public:
-
-     Scene()
-     {
-       m_camera = std::make_shared<Camera>();
-     }
-
+     Scene() { m_camera = std::make_shared<Camera>(); }
      ~Scene() { std::cout << "[SCENE] Deleting scene " << this << std::endl; }
 
      void Init();
@@ -49,10 +44,7 @@
      void Render();
      void Update(float dt);
 
-     std::weak_ptr<Camera> GetCamera()
-     {
-       return std::weak_ptr<Camera>(m_camera);
-     }
+     std::weak_ptr<Camera> GetCamera() { return std::weak_ptr<Camera>(m_camera); }
    };
 
  }

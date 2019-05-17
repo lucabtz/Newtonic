@@ -44,12 +44,12 @@
    void SimpleCameraMoverBehaviour::Update(float dt)
    {
      Transform *pTransform = m_wpCamera.lock()->GetTransform();
-     if (m_pInput->IsKeyDown(25)) pTransform->Move(glm::vec3(0.0, 0.0, 1.0) * dt);
-     if (m_pInput->IsKeyDown(39)) pTransform->Move(glm::vec3(0.0, 0.0, -1.0) * dt);
-     if (m_pInput->IsKeyDown(38)) pTransform->Move(glm::vec3(-1.0, 0.0, 0.0) * dt);
-     if (m_pInput->IsKeyDown(40)) pTransform->Move(glm::vec3(1.0, 0.0, 0.0) * dt);
-     if (m_pInput->IsKeyDown(24)) pTransform->Move(glm::vec3(0.0, 1.0, 0.0) * dt);
-     if (m_pInput->IsKeyDown(26)) pTransform->Move(glm::vec3(0.0, -1.0, 0.0) * dt);
+     if (m_pInput->IsKeyDown(25)) /* W key */ pTransform->Move(glm::vec3(0.0, 0.0, 1.0) * dt);
+     if (m_pInput->IsKeyDown(39)) /* S key */ pTransform->Move(glm::vec3(0.0, 0.0, -1.0) * dt);
+     if (m_pInput->IsKeyDown(38)) /* A key */ pTransform->Move(glm::vec3(-1.0, 0.0, 0.0) * dt);
+     if (m_pInput->IsKeyDown(40)) /* D key */ pTransform->Move(glm::vec3(1.0, 0.0, 0.0) * dt);
+     if (m_pInput->IsKeyDown(24)) /* Q key */ pTransform->Move(glm::vec3(0.0, 1.0, 0.0) * dt);
+     if (m_pInput->IsKeyDown(26)) /* E key */ pTransform->Move(glm::vec3(0.0, -1.0, 0.0) * dt);
 
      int h = m_pInput->GetAxis(HORIZONTAL), v = m_pInput->GetAxis(VERTICAL);
      pTransform->Rotate(glm::vec3(-v, h, 0) * dt);

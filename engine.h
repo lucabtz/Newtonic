@@ -53,31 +53,19 @@ namespace Newtonic
 		void Init();
 		void OpenWindow(const char *title, Viewport viewport);
 
-		Assets *GetAssetsManager()
-		{
-			return m_assets;
-		}
-		MessageBus *GetMessageBus()
-		{
-			return m_messageBus;
-		}
-		Input *GetInputManager()
-		{
-			return m_input;
-		}
+		Assets *GetAssetsManager() { return m_assets; }
+		MessageBus *GetMessageBus() { return m_messageBus; }
+		Input *GetInputManager() { return m_input; }
+		Viewport GetViewport() { return m_viewport; }
 
 		void SetScene(Scene *scene);
 
 		void Loop();
 
-		Viewport GetViewport() { return m_viewport; }
-
 		~Engine();
-
 	};
 
 		extern Engine * g_engine;
-
 }
 
 

@@ -102,22 +102,9 @@
      Init();
    }
 
-   void Shader::Init()
-   {}
-
-   GLuint Shader::GetShaderId() const
-   {
-     return m_shaderId;
-   }
-
-   void Shader::UseShader() const
-   {
-     glUseProgram(GetShaderId());
-   }
-
-   void Shader::StopShader() const
-   {
-     glUseProgram(0);
-   }
+   void Shader::Init() {}
+   GLuint Shader::GetShaderId() const { return m_shaderId; }
+   void Shader::UseShader() const { glUseProgram(GetShaderId()); }
+   void Shader::StopShader() const { glUseProgram(0); }
 
  }

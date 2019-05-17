@@ -32,9 +32,6 @@ namespace Newtonic
     return m_actor;
   }
 
-  Scene *Behaviour::GetScene()
-  {
-    return GetActor()->GetScene();
-  }
+  Scene *Behaviour::GetScene() { return GetActor()->GetScene(); }
 
 }

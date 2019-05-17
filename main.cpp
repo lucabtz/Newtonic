@@ -37,8 +37,6 @@ using namespace Newtonic;
 
 int main(int argc, char **argv)
 {
-    puts("Newtonic testing");
-
     Engine engine;
     engine.Init();
     engine.OpenWindow("Newtonic", Viewport(1032, 558));
@@ -49,7 +47,7 @@ int main(int argc, char **argv)
     scene->AddActor(std::move(camMover));
 
     auto cubeActor = std::make_shared<Actor>();
-    cubeActor->GetTransform().lock()->SetPosition(glm::vec3(0.0, 0.0, 0.0));
+    cubeActor->GetTransform().lock()->SetPosition(glm::vec3(0.0, 0.0, 10.0));
     cubeActor->AddBehaviour(std::make_shared<MeshRenderer>("cube", "mesh_shader"));
     scene->AddActor(std::move(cubeActor));
 

@@ -73,7 +73,6 @@ namespace Newtonic
          ")";
       return res.str();
     }
-
   };
 
 }
