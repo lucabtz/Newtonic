@@ -68,7 +68,6 @@ namespace Newtonic
     }
 
     ~Assets() { std::cout << "[LOADER] Freeing assets manager" << std::endl; }
-
   };
 
 }
