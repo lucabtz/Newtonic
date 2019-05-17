@@ -1,4 +1,4 @@
-# Newtonic
+# Newtonic [![CodeFactor](https://www.codefactor.io/repository/github/ekardnam/newtonic/badge)](https://www.codefactor.io/repository/github/ekardnam/newtonic)
 A (game) engine for Physics simulations and more!
 
 # Why
