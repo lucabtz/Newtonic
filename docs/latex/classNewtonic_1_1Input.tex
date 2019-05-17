@@ -1,0 +1,124 @@
+\hypertarget{classNewtonic_1_1Input}{}\section{Newtonic\+::Input Class Reference}
+\label{classNewtonic_1_1Input}\index{Newtonic::Input@{Newtonic::Input}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Input_a5342c596700be9d4fe9b392cf2d416b7}{Input}} (G\+L\+F\+Wwindow $\ast$wnd)
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Input_aeaf973089f2de350c1189446332c298d}{Work}} ()
+\item 
+bool \mbox{\hyperlink{classNewtonic_1_1Input_a70ff2b8ec9b2a1792f8aa57fa7d29a34}{Is\+Key\+Down}} (Key k)
+\item 
+bool \mbox{\hyperlink{classNewtonic_1_1Input_a856bd9a3e0759dfc9cb5311ca401a699}{Is\+Key\+Up}} (Key k)
+\item 
+bool \mbox{\hyperlink{classNewtonic_1_1Input_a9543a9322b8adcfd7ee3ecc7c6d67005}{Is\+Button\+Down}} (Btn k)
+\item 
+int \mbox{\hyperlink{classNewtonic_1_1Input_a17f37f19abb62bded208634e1b616e22}{Get\+Axis}} (Mouse\+Axis axis)
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Input_aa316306c91cb310db00e6163093cea5c}{Set\+Hidden\+Cursor\+Mode}} (bool mode)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNewtonic_1_1Input_a648364d96c0987d39aa237a04453cefb}\label{classNewtonic_1_1Input_a648364d96c0987d39aa237a04453cefb}} 
+void {\bfseries Key\+Callback} (G\+L\+F\+Wwindow $\ast$wnd, int scancode, int key, int action, int modes)
+\item 
+\mbox{\Hypertarget{classNewtonic_1_1Input_a2098f3f1aec23cac8ab62c25c83e7650}\label{classNewtonic_1_1Input_a2098f3f1aec23cac8ab62c25c83e7650}} 
+void {\bfseries Mouse\+Button\+Callback} (G\+L\+F\+Wwindow $\ast$wnd, int button, int action, int modes)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Input_a5342c596700be9d4fe9b392cf2d416b7}\label{classNewtonic_1_1Input_a5342c596700be9d4fe9b392cf2d416b7}} 
+\index{Newtonic::Input@{Newtonic::Input}!Input@{Input}}
+\index{Input@{Input}!Newtonic::Input@{Newtonic::Input}}
+\subsubsection{\texorpdfstring{Input()}{Input()}}
+{\footnotesize\ttfamily Newtonic\+::\+Input\+::\+Input (\begin{DoxyParamCaption}\item[{G\+L\+F\+Wwindow $\ast$}]{wnd }\end{DoxyParamCaption})}
+
+Constructor for the input manager. \mbox{\hyperlink{classNewtonic_1_1Engine}{Engine}} instanciates this for you 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & the G\+L\+FW window \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Input_a17f37f19abb62bded208634e1b616e22}\label{classNewtonic_1_1Input_a17f37f19abb62bded208634e1b616e22}} 
+\index{Newtonic::Input@{Newtonic::Input}!GetAxis@{GetAxis}}
+\index{GetAxis@{GetAxis}!Newtonic::Input@{Newtonic::Input}}
+\subsubsection{\texorpdfstring{GetAxis()}{GetAxis()}}
+{\footnotesize\ttfamily int Newtonic\+::\+Input\+::\+Get\+Axis (\begin{DoxyParamCaption}\item[{Mouse\+Axis}]{axis }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns how \char`\"{}fast\char`\"{} the mouse is moving on a certain axis. Should be used in hidden cursor mode only 
+\begin{DoxyParams}{Parameters}
+{\em axis} & the axis code. Can either be Newtonic\+::\+V\+E\+R\+T\+I\+C\+AL, Newtonic\+::\+H\+O\+R\+I\+Z\+O\+N\+T\+AL \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+how fast the mouse is noving on such direction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Input_a9543a9322b8adcfd7ee3ecc7c6d67005}\label{classNewtonic_1_1Input_a9543a9322b8adcfd7ee3ecc7c6d67005}} 
+\index{Newtonic::Input@{Newtonic::Input}!IsButtonDown@{IsButtonDown}}
+\index{IsButtonDown@{IsButtonDown}!Newtonic::Input@{Newtonic::Input}}
+\subsubsection{\texorpdfstring{IsButtonDown()}{IsButtonDown()}}
+{\footnotesize\ttfamily bool Newtonic\+::\+Input\+::\+Is\+Button\+Down (\begin{DoxyParamCaption}\item[{Btn}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Checks if the given mouse button is being pressed 
+\begin{DoxyParams}{Parameters}
+{\em k} & the mouse button code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a boolean that answers the question \char`\"{}is the button being pressed\char`\"{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Input_a70ff2b8ec9b2a1792f8aa57fa7d29a34}\label{classNewtonic_1_1Input_a70ff2b8ec9b2a1792f8aa57fa7d29a34}} 
+\index{Newtonic::Input@{Newtonic::Input}!IsKeyDown@{IsKeyDown}}
+\index{IsKeyDown@{IsKeyDown}!Newtonic::Input@{Newtonic::Input}}
+\subsubsection{\texorpdfstring{IsKeyDown()}{IsKeyDown()}}
+{\footnotesize\ttfamily bool Newtonic\+::\+Input\+::\+Is\+Key\+Down (\begin{DoxyParamCaption}\item[{Key}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Checks if the given key is being pressed 
+\begin{DoxyParams}{Parameters}
+{\em k} & the key\textquotesingle{}s key code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a boolean value that answers the question \char`\"{}is key down?\char`\"{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Input_a856bd9a3e0759dfc9cb5311ca401a699}\label{classNewtonic_1_1Input_a856bd9a3e0759dfc9cb5311ca401a699}} 
+\index{Newtonic::Input@{Newtonic::Input}!IsKeyUp@{IsKeyUp}}
+\index{IsKeyUp@{IsKeyUp}!Newtonic::Input@{Newtonic::Input}}
+\subsubsection{\texorpdfstring{IsKeyUp()}{IsKeyUp()}}
+{\footnotesize\ttfamily bool Newtonic\+::\+Input\+::\+Is\+Key\+Up (\begin{DoxyParamCaption}\item[{Key}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Checks if the given key is N\+OT being pressed 
+\begin{DoxyParams}{Parameters}
+{\em k} & the key\textquotesingle{}s key code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a boolean value that answers the question \char`\"{}is key up?\char`\"{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Input_aa316306c91cb310db00e6163093cea5c}\label{classNewtonic_1_1Input_aa316306c91cb310db00e6163093cea5c}} 
+\index{Newtonic::Input@{Newtonic::Input}!SetHiddenCursorMode@{SetHiddenCursorMode}}
+\index{SetHiddenCursorMode@{SetHiddenCursorMode}!Newtonic::Input@{Newtonic::Input}}
+\subsubsection{\texorpdfstring{SetHiddenCursorMode()}{SetHiddenCursorMode()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Input\+::\+Set\+Hidden\+Cursor\+Mode (\begin{DoxyParamCaption}\item[{bool}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the hidden cursor mode i.\+e. cursor is not visible and Get\+Axis works good 
+\begin{DoxyParams}{Parameters}
+{\em mode} & true means hidden cursor mode is active \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Input_aeaf973089f2de350c1189446332c298d}\label{classNewtonic_1_1Input_aeaf973089f2de350c1189446332c298d}} 
+\index{Newtonic::Input@{Newtonic::Input}!Work@{Work}}
+\index{Work@{Work}!Newtonic::Input@{Newtonic::Input}}
+\subsubsection{\texorpdfstring{Work()}{Work()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Input\+::\+Work (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Update call for the input manager 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+input.\+h\item 
+input.\+cpp\end{DoxyCompactItemize}

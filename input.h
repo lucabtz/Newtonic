@@ -70,15 +70,43 @@
        GLFWwindow * wnd, int button, int action, int modes
      );
 
+     /**
+      * Constructor for the input manager.
+      * Engine instanciates this for you
+      * @param wnd the GLFW window
+      */
      Input(GLFWwindow * wnd);
      ~Input() { delete[] m_keyStatuses; delete[] m_mouseBtnStatuses; }
 
+     /**
+      * Update call for the input manager
+      */
      void Work();
 
+     /**
+      * Checks if the given key is being pressed
+      * @param  k the key's key code
+      * @return   a boolean value that answers the question "is key down?"
+      */
      bool IsKeyDown(Key k) { return m_keyStatuses[k % MAX_KEYS]; }
+     /**
+      * Checks if the given key is NOT being pressed
+      * @param  k the key's key code
+      * @return   a boolean value that answers the question "is key up?"
+      */
      bool IsKeyUp(Key k) { return !IsKeyDown(k); }
+     /**
+      * Checks if the given mouse button is being pressed
+      * @param  k the mouse button code
+      * @return   a boolean that answers the question "is the button being pressed"
+      */
      bool IsButtonDown(Btn k) { return m_mouseBtnStatuses[k % MAX_BTNS]; }
-
+     /**
+      * Returns how "fast" the mouse is moving on a certain axis.
+      * Should be used in hidden cursor mode only
+      * @param  axis the axis code. Can either be Newtonic::VERTICAL, Newtonic::HORIZONTAL
+      * @return      how fast the mouse is noving on such direction
+      */
      int GetAxis(MouseAxis axis)
      {
        switch (axis)
@@ -92,6 +120,10 @@
        return 0;
      }
 
+     /**
+      * Sets the hidden cursor mode i.e. cursor is not visible and GetAxis works good
+      * @param mode true means hidden cursor mode is active
+      */
      void SetHiddenCursorMode(bool mode)
      {
        m_hiddenCursorMode = mode;

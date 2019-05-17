@@ -36,28 +36,38 @@
      std::vector<std::shared_ptr<Behaviour>> m_behaviours;
 
    public:
-     Actor()
-     {
-       m_transform = std::make_unique<Transform>();
-     }
+     /**
+      * Constructs an actor with a default transform
+      */
+     Actor(){ m_transform = std::make_unique<Transform>();}
 
-     Scene * GetScene() const
-     {
-       return m_scene;
-     }
+     /**
+      * Returns the scene the actor belongs to
+      * @return the scene object
+      */
+     Scene * GetScene() const { return m_scene; }
+     /**
+      * Sets the scene the actor belongs to. This is used internally by newtonic and should not be used by the user
+      * @param scene a pointer to the scene. Ownership of such pointer is NOT taken by actor
+      */
+     void SetScene(Scene * scene) { m_scene = scene; }
 
-     void SetScene(Scene * scene)
-     {
-       m_scene = scene;
-     }
-
+     /**
+      * Adds a behaviour component to the actor
+      * @param behaviour the behavior object as a shared_ptr. Should be moved to actor that takes shared ownership of it
+      */
      void AddBehaviour(std::shared_ptr<Behaviour> && behaviour);
 
+     /**
+      * Getter for the actor's transform
+      * @return a weak_ptr to the actor's transform
+      */
      std::weak_ptr<Transform> GetTransform() const
      {
        return m_transform;
      }
 
+     /** Getter for a behaviour of type T passed as template argument */
      template <typename T>
      std::weak_ptr<T> GetBehaviour() const
      {
@@ -72,13 +82,18 @@
        return std::weak_ptr<T>();
      }
 
-     std::weak_ptr<Transform> GetTransform()
-     {
-       return m_transform;
-     }
-
+     /**
+      * Inits the actor. Calls all the Behaviour::Init in turn
+      */
      void Init();
+     /**
+      * Renders the actor. Calls all the Behaviour::Render in turn
+      */
      void Render();
+     /**
+      * Updates the actor. Calls all the Behaviour::Update in turn
+      * @param dt time ellapsed from previous update
+      */
      void Update(float dt);
    };
  }

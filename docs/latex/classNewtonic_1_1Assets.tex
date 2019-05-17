@@ -1,0 +1,125 @@
+\hypertarget{classNewtonic_1_1Assets}{}\section{Newtonic\+::Assets Class Reference}
+\label{classNewtonic_1_1Assets}\index{Newtonic::Assets@{Newtonic::Assets}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Assets_ad7ec76d3228c2aa3139a952baadd3dd5}{Load\+Shader}} (std\+::string shader\+Name, const char $\ast$vertex\+Shader, const char $\ast$fragment\+Shader)
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Assets_a38d116145edba497b69ee539d8bea633}{Load\+ShaderT}} (std\+::string shader\+Name, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classNewtonic_1_1Shader}{Shader}} $>$ p\+Shader)
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Assets_ab188d1ad9d4dbb59abae15a32a8b1423}{Load\+Mesh}} (std\+::string mesh\+Name, const std\+::vector$<$ G\+Lfloat $>$ \&positions, const std\+::vector$<$ unsigned int $>$ \&indices)
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Assets_ae9b07e272b24fdaf8e2d1aa89a071694}{Load\+Meshes\+From\+O\+BJ}} (std\+::string filename)
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classNewtonic_1_1Shader}{Shader}} $>$ \mbox{\hyperlink{classNewtonic_1_1Assets_a475082f857a1da2ae5e58773f19701e0}{Get\+Shader}} (std\+::string name)
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classNewtonic_1_1Mesh}{Mesh}} $>$ \mbox{\hyperlink{classNewtonic_1_1Assets_a7640682470e122a336e75faa898d4f4b}{Get\+Mesh}} (std\+::string name)
+\item 
+{\footnotesize template$<$typename ShaderT $>$ }\\std\+::weak\+\_\+ptr$<$ ShaderT $>$ \mbox{\hyperlink{classNewtonic_1_1Assets_a5dddfcf54565dd99d9df4f7421d29769}{Get\+ShaderT}} (std\+::string name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Assets_a7640682470e122a336e75faa898d4f4b}\label{classNewtonic_1_1Assets_a7640682470e122a336e75faa898d4f4b}} 
+\index{Newtonic::Assets@{Newtonic::Assets}!GetMesh@{GetMesh}}
+\index{GetMesh@{GetMesh}!Newtonic::Assets@{Newtonic::Assets}}
+\subsubsection{\texorpdfstring{GetMesh()}{GetMesh()}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{classNewtonic_1_1Mesh}{Mesh}}$>$ Newtonic\+::\+Assets\+::\+Get\+Mesh (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for a specific mesh resource 
+\begin{DoxyParams}{Parameters}
+{\em name} & the resource name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a weak\+\_\+ptr to the resource if found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Assets_a475082f857a1da2ae5e58773f19701e0}\label{classNewtonic_1_1Assets_a475082f857a1da2ae5e58773f19701e0}} 
+\index{Newtonic::Assets@{Newtonic::Assets}!GetShader@{GetShader}}
+\index{GetShader@{GetShader}!Newtonic::Assets@{Newtonic::Assets}}
+\subsubsection{\texorpdfstring{GetShader()}{GetShader()}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{classNewtonic_1_1Shader}{Shader}}$>$ Newtonic\+::\+Assets\+::\+Get\+Shader (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for a specific shader resource 
+\begin{DoxyParams}{Parameters}
+{\em name} & the resource name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a weak\+\_\+ptr to the resource if found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Assets_a5dddfcf54565dd99d9df4f7421d29769}\label{classNewtonic_1_1Assets_a5dddfcf54565dd99d9df4f7421d29769}} 
+\index{Newtonic::Assets@{Newtonic::Assets}!GetShaderT@{GetShaderT}}
+\index{GetShaderT@{GetShaderT}!Newtonic::Assets@{Newtonic::Assets}}
+\subsubsection{\texorpdfstring{GetShaderT()}{GetShaderT()}}
+{\footnotesize\ttfamily template$<$typename ShaderT $>$ \\
+std\+::weak\+\_\+ptr$<$ShaderT$>$ Newtonic\+::\+Assets\+::\+Get\+ShaderT (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for a shader resource. Casts the shader to the given template argument dynamically 
+\begin{DoxyParams}{Parameters}
+{\em name} & the resource name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a weak\+\_\+ptr to the given template argument 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Assets_ab188d1ad9d4dbb59abae15a32a8b1423}\label{classNewtonic_1_1Assets_ab188d1ad9d4dbb59abae15a32a8b1423}} 
+\index{Newtonic::Assets@{Newtonic::Assets}!LoadMesh@{LoadMesh}}
+\index{LoadMesh@{LoadMesh}!Newtonic::Assets@{Newtonic::Assets}}
+\subsubsection{\texorpdfstring{LoadMesh()}{LoadMesh()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Assets\+::\+Load\+Mesh (\begin{DoxyParamCaption}\item[{std\+::string}]{mesh\+Name,  }\item[{const std\+::vector$<$ G\+Lfloat $>$ \&}]{positions,  }\item[{const std\+::vector$<$ unsigned int $>$ \&}]{indices }\end{DoxyParamCaption})}
+
+Loads a mesh resource 
+\begin{DoxyParams}{Parameters}
+{\em mesh\+Name} & the resource name \\
+\hline
+{\em positions} & the vertex positions as vector$<$\+G\+Lfloat$>$ \\
+\hline
+{\em indices} & the indices as vector$<$unsigned int$>$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Assets_ae9b07e272b24fdaf8e2d1aa89a071694}\label{classNewtonic_1_1Assets_ae9b07e272b24fdaf8e2d1aa89a071694}} 
+\index{Newtonic::Assets@{Newtonic::Assets}!LoadMeshesFromOBJ@{LoadMeshesFromOBJ}}
+\index{LoadMeshesFromOBJ@{LoadMeshesFromOBJ}!Newtonic::Assets@{Newtonic::Assets}}
+\subsubsection{\texorpdfstring{LoadMeshesFromOBJ()}{LoadMeshesFromOBJ()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Assets\+::\+Load\+Meshes\+From\+O\+BJ (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})}
+
+Uses O\+B\+J\+\_\+\+Loader.\+h to load the meshes from a file 
+\begin{DoxyParams}{Parameters}
+{\em filename} & the file location \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Assets_ad7ec76d3228c2aa3139a952baadd3dd5}\label{classNewtonic_1_1Assets_ad7ec76d3228c2aa3139a952baadd3dd5}} 
+\index{Newtonic::Assets@{Newtonic::Assets}!LoadShader@{LoadShader}}
+\index{LoadShader@{LoadShader}!Newtonic::Assets@{Newtonic::Assets}}
+\subsubsection{\texorpdfstring{LoadShader()}{LoadShader()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Assets\+::\+Load\+Shader (\begin{DoxyParamCaption}\item[{std\+::string}]{shader\+Name,  }\item[{const char $\ast$}]{vertex\+Shader,  }\item[{const char $\ast$}]{fragment\+Shader }\end{DoxyParamCaption})}
+
+Loads a shader resource 
+\begin{DoxyParams}{Parameters}
+{\em shader\+Name} & the shader\textquotesingle{}s name to be assigned to the resource \\
+\hline
+{\em vertex\+Shader} & the vertex shader file location \\
+\hline
+{\em fragment\+Shader} & the fragment shader file location \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Assets_a38d116145edba497b69ee539d8bea633}\label{classNewtonic_1_1Assets_a38d116145edba497b69ee539d8bea633}} 
+\index{Newtonic::Assets@{Newtonic::Assets}!LoadShaderT@{LoadShaderT}}
+\index{LoadShaderT@{LoadShaderT}!Newtonic::Assets@{Newtonic::Assets}}
+\subsubsection{\texorpdfstring{LoadShaderT()}{LoadShaderT()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Assets\+::\+Load\+ShaderT (\begin{DoxyParamCaption}\item[{std\+::string}]{shader\+Name,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classNewtonic_1_1Shader}{Shader}} $>$}]{p\+Shader }\end{DoxyParamCaption})}
+
+Loads an already constructed shader as a resource 
+\begin{DoxyParams}{Parameters}
+{\em shader\+Name} & the name to be assigned to the resource \\
+\hline
+{\em p\+Shader} & a shared\+\_\+ptr to a \mbox{\hyperlink{classNewtonic_1_1Shader}{Shader}} object \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+assets.\+h\item 
+assets.\+cpp\end{DoxyCompactItemize}

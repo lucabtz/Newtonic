@@ -42,6 +42,9 @@ namespace Newtonic
     MessageBus *m_msgBus;
 
   public:
+    /**
+     * Constructs a camera at (0,0,0) looking towards the negative Z direction
+     */
     Camera()
     {
       m_msgBus = g_engine->GetMessageBus();
@@ -66,10 +69,28 @@ namespace Newtonic
       std::cout << "[CAMERA] Deleting camera " << this << std::endl;
     }
 
+    /**
+     * Getter for the projection matrix used by the camera
+     * @return the projection matrix
+     */
     glm::mat4 GetProjection() const;
+    /**
+     * Getter for the view matrix used by the camera
+     * @return the view matrix
+     */
     glm::mat4 GetView() const;
 
+    /**
+     * Sets the window viewport. Mostly used internally, camera already updates if the window is resized, no need to worry
+     * @param new_ the new viewport
+     */
     void SetViewport(Viewport new_) { m_viewport = new_; }
+
+    /**
+     * Getter for the camera transform.
+     * Exmample usage is in behaviours that move the camera around.
+     * @return a raw pointer to the camera transform. Dereference should always be safe if a valid reference to camera exists
+     */
     Transform *GetTransform() { return m_cameraTransform.get(); }
   };
 }

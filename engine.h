@@ -49,16 +49,48 @@ namespace Newtonic
 	public:
 		friend void FramebufferSizeCallback(GLFWwindow * wnd, int w, int h);
 
+		/**
+		 * Initializes the (game) engine
+		 */
 		void Init();
+
+		/**
+		 * Opens a GLFW window
+		 * @param title    the window's title
+		 * @param viewport the window's viewport (width, height)
+		 */
 		void OpenWindow(const char *title, Viewport viewport);
 
+		/**
+		 * Getter for the assets manager
+		 * @return the assets manager for the current engine instance
+		 */
 		Assets *GetAssetsManager() { return m_assets; }
+		/**
+		 * Getter for the message bus
+		 * @return the message bus for the current engine instance
+		 */
 		MessageBus *GetMessageBus() { return m_messageBus; }
+		/**
+		 * Getter for the input manager
+		 * @return the input manager for the current engine instance
+		 */
 		Input *GetInputManager() { return m_input; }
+		/**
+		 * Getter for the window viewport
+		 * @return the viewport of the current window
+		 */
 		Viewport GetViewport() { return m_viewport; }
 
+		/**
+		 * Sets the current scene to be rendered and update by the engine
+		 * @param scene a pointer to the scene object. Destruction of such pointer is handled by the engine it self, ownership of such pointer is engine's
+		 */
 		void SetScene(Scene *scene);
 
+		/**
+		 * Start the engine main loop
+		 */
 		void Loop();
 
 		~Engine();

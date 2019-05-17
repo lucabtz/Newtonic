@@ -1,0 +1,96 @@
+\hypertarget{classNewtonic_1_1Behaviour}{}\section{Newtonic\+::Behaviour Class Reference}
+\label{classNewtonic_1_1Behaviour}\index{Newtonic::Behaviour@{Newtonic::Behaviour}}
+Inheritance diagram for Newtonic\+::Behaviour\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classNewtonic_1_1Behaviour}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Behaviour_a22e802f66a36851f9af06f7482d2f283}{Set\+Actor}} (\mbox{\hyperlink{classNewtonic_1_1Actor}{Actor}} $\ast$actor)
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Actor}{Actor}} $\ast$ \mbox{\hyperlink{classNewtonic_1_1Behaviour_addf278bf0da8eca2838cadb49cdc3d65}{Get\+Actor}} ()
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}} $\ast$ \mbox{\hyperlink{classNewtonic_1_1Behaviour_aa042bb199f006f08571bd9465a9471b6}{Get\+Scene}} ()
+\item 
+virtual void \mbox{\hyperlink{classNewtonic_1_1Behaviour_a54a1d17213841de1d7bde8aaadfc99e4}{Init}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classNewtonic_1_1Behaviour_aaed714f38c7b270381e81958b280d248}{Update}} (float dt)=0
+\item 
+virtual void \mbox{\hyperlink{classNewtonic_1_1Behaviour_ab219950e152ca8b9cb6f54d024667627}{Render}} ()=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Behaviour_addf278bf0da8eca2838cadb49cdc3d65}\label{classNewtonic_1_1Behaviour_addf278bf0da8eca2838cadb49cdc3d65}} 
+\index{Newtonic::Behaviour@{Newtonic::Behaviour}!GetActor@{GetActor}}
+\index{GetActor@{GetActor}!Newtonic::Behaviour@{Newtonic::Behaviour}}
+\subsubsection{\texorpdfstring{GetActor()}{GetActor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNewtonic_1_1Actor}{Actor}} $\ast$ Newtonic\+::\+Behaviour\+::\+Get\+Actor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the actor this behaviour belongs to \begin{DoxyReturn}{Returns}
+a raw pointer to the actor 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Behaviour_aa042bb199f006f08571bd9465a9471b6}\label{classNewtonic_1_1Behaviour_aa042bb199f006f08571bd9465a9471b6}} 
+\index{Newtonic::Behaviour@{Newtonic::Behaviour}!GetScene@{GetScene}}
+\index{GetScene@{GetScene}!Newtonic::Behaviour@{Newtonic::Behaviour}}
+\subsubsection{\texorpdfstring{GetScene()}{GetScene()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}} $\ast$ Newtonic\+::\+Behaviour\+::\+Get\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the scene this behaviour\textquotesingle{}s actor is in \begin{DoxyReturn}{Returns}
+a raw pointer to the scene 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Behaviour_a54a1d17213841de1d7bde8aaadfc99e4}\label{classNewtonic_1_1Behaviour_a54a1d17213841de1d7bde8aaadfc99e4}} 
+\index{Newtonic::Behaviour@{Newtonic::Behaviour}!Init@{Init}}
+\index{Init@{Init}!Newtonic::Behaviour@{Newtonic::Behaviour}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily virtual void Newtonic\+::\+Behaviour\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Inits the behaviour 
+
+Implemented in \mbox{\hyperlink{classNewtonic_1_1MeshRenderer_a3a29014cde2e7911162ec729f9d4ed43}{Newtonic\+::\+Mesh\+Renderer}}, and \mbox{\hyperlink{classNewtonic_1_1SimpleCameraMoverBehaviour_ab119794df7ce0e548912caa100b7fcf5}{Newtonic\+::\+Simple\+Camera\+Mover\+Behaviour}}.
+
+\mbox{\Hypertarget{classNewtonic_1_1Behaviour_ab219950e152ca8b9cb6f54d024667627}\label{classNewtonic_1_1Behaviour_ab219950e152ca8b9cb6f54d024667627}} 
+\index{Newtonic::Behaviour@{Newtonic::Behaviour}!Render@{Render}}
+\index{Render@{Render}!Newtonic::Behaviour@{Newtonic::Behaviour}}
+\subsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily virtual void Newtonic\+::\+Behaviour\+::\+Render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Renders what the behaviour is supposed to render 
+
+Implemented in \mbox{\hyperlink{classNewtonic_1_1MeshRenderer_a5b996a9b972ba45363c84f667f302217}{Newtonic\+::\+Mesh\+Renderer}}, and \mbox{\hyperlink{classNewtonic_1_1SimpleCameraMoverBehaviour_a52037ac47383855fa58f1fbebbb75e44}{Newtonic\+::\+Simple\+Camera\+Mover\+Behaviour}}.
+
+\mbox{\Hypertarget{classNewtonic_1_1Behaviour_a22e802f66a36851f9af06f7482d2f283}\label{classNewtonic_1_1Behaviour_a22e802f66a36851f9af06f7482d2f283}} 
+\index{Newtonic::Behaviour@{Newtonic::Behaviour}!SetActor@{SetActor}}
+\index{SetActor@{SetActor}!Newtonic::Behaviour@{Newtonic::Behaviour}}
+\subsubsection{\texorpdfstring{SetActor()}{SetActor()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Behaviour\+::\+Set\+Actor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNewtonic_1_1Actor}{Actor}} $\ast$}]{actor }\end{DoxyParamCaption})}
+
+Sets the actor this behaviour belongs to. To be used internally by newtonic, should N\+OT be used 
+\begin{DoxyParams}{Parameters}
+{\em actor} & a pointer to actor that will be N\+OT owned by the behaviour \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Behaviour_aaed714f38c7b270381e81958b280d248}\label{classNewtonic_1_1Behaviour_aaed714f38c7b270381e81958b280d248}} 
+\index{Newtonic::Behaviour@{Newtonic::Behaviour}!Update@{Update}}
+\index{Update@{Update}!Newtonic::Behaviour@{Newtonic::Behaviour}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily virtual void Newtonic\+::\+Behaviour\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Updates the behaviour 
+\begin{DoxyParams}{Parameters}
+{\em dt} & the time ellapsed from previous update \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classNewtonic_1_1MeshRenderer_aaa8628b208cc9615d9b3ad91c9d06c4e}{Newtonic\+::\+Mesh\+Renderer}}, and \mbox{\hyperlink{classNewtonic_1_1SimpleCameraMoverBehaviour_ac2c1d4f6dc0ef16361605b0a8fd37be2}{Newtonic\+::\+Simple\+Camera\+Mover\+Behaviour}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+behaviour.\+h\item 
+behaviour.\+cpp\end{DoxyCompactItemize}

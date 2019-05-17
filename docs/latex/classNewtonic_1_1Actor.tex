@@ -1,0 +1,111 @@
+\hypertarget{classNewtonic_1_1Actor}{}\section{Newtonic\+::Actor Class Reference}
+\label{classNewtonic_1_1Actor}\index{Newtonic::Actor@{Newtonic::Actor}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Actor_aa4ae151713495426ce9163c40d863b76}{Actor}} ()
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}} $\ast$ \mbox{\hyperlink{classNewtonic_1_1Actor_ae08f7e9b9197e0aff9f9980535cfb0ee}{Get\+Scene}} () const
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Actor_a2520c978e52805a2d76cc8eb865abb88}{Set\+Scene}} (\mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}} $\ast$scene)
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Actor_a49529a1eeaf7ade6db2b3656fd14d956}{Add\+Behaviour}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classNewtonic_1_1Behaviour}{Behaviour}} $>$ \&\&behaviour)
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classNewtonic_1_1Transform}{Transform}} $>$ \mbox{\hyperlink{classNewtonic_1_1Actor_a90648e3cc349aab45bae7ea043a181ec}{Get\+Transform}} () const
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::weak\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{classNewtonic_1_1Actor_aaad003203edfb935f16d572f8c3e2cbc}{Get\+Behaviour}} () const
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Actor_a6e0994c5bf019796f47b5bad78095d57}{Init}} ()
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Actor_af60303c39a4fe3dd3930d8351e432bc3}{Render}} ()
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Actor_addf35c24938904d5ac3baa82eac478d3}{Update}} (float dt)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Actor_aa4ae151713495426ce9163c40d863b76}\label{classNewtonic_1_1Actor_aa4ae151713495426ce9163c40d863b76}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!Actor@{Actor}}
+\index{Actor@{Actor}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{Actor()}{Actor()}}
+{\footnotesize\ttfamily Newtonic\+::\+Actor\+::\+Actor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructs an actor with a default transform 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Actor_a49529a1eeaf7ade6db2b3656fd14d956}\label{classNewtonic_1_1Actor_a49529a1eeaf7ade6db2b3656fd14d956}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!AddBehaviour@{AddBehaviour}}
+\index{AddBehaviour@{AddBehaviour}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{AddBehaviour()}{AddBehaviour()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Actor\+::\+Add\+Behaviour (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classNewtonic_1_1Behaviour}{Behaviour}} $>$ \&\&}]{behaviour }\end{DoxyParamCaption})}
+
+Adds a behaviour component to the actor 
+\begin{DoxyParams}{Parameters}
+{\em behaviour} & the behavior object as a shared\+\_\+ptr. Should be moved to actor that takes shared ownership of it \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Actor_aaad003203edfb935f16d572f8c3e2cbc}\label{classNewtonic_1_1Actor_aaad003203edfb935f16d572f8c3e2cbc}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!GetBehaviour@{GetBehaviour}}
+\index{GetBehaviour@{GetBehaviour}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{GetBehaviour()}{GetBehaviour()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::weak\+\_\+ptr$<$T$>$ Newtonic\+::\+Actor\+::\+Get\+Behaviour (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for a behaviour of type T passed as template argument \mbox{\Hypertarget{classNewtonic_1_1Actor_ae08f7e9b9197e0aff9f9980535cfb0ee}\label{classNewtonic_1_1Actor_ae08f7e9b9197e0aff9f9980535cfb0ee}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!GetScene@{GetScene}}
+\index{GetScene@{GetScene}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{GetScene()}{GetScene()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}}$\ast$ Newtonic\+::\+Actor\+::\+Get\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the scene the actor belongs to \begin{DoxyReturn}{Returns}
+the scene object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Actor_a90648e3cc349aab45bae7ea043a181ec}\label{classNewtonic_1_1Actor_a90648e3cc349aab45bae7ea043a181ec}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!GetTransform@{GetTransform}}
+\index{GetTransform@{GetTransform}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{classNewtonic_1_1Transform}{Transform}}$>$ Newtonic\+::\+Actor\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for the actor\textquotesingle{}s transform \begin{DoxyReturn}{Returns}
+a weak\+\_\+ptr to the actor\textquotesingle{}s transform 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Actor_a6e0994c5bf019796f47b5bad78095d57}\label{classNewtonic_1_1Actor_a6e0994c5bf019796f47b5bad78095d57}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!Init@{Init}}
+\index{Init@{Init}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Actor\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Inits the actor. Calls all the \mbox{\hyperlink{classNewtonic_1_1Behaviour_a54a1d17213841de1d7bde8aaadfc99e4}{Behaviour\+::\+Init}} in turn \mbox{\Hypertarget{classNewtonic_1_1Actor_af60303c39a4fe3dd3930d8351e432bc3}\label{classNewtonic_1_1Actor_af60303c39a4fe3dd3930d8351e432bc3}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!Render@{Render}}
+\index{Render@{Render}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Actor\+::\+Render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Renders the actor. Calls all the \mbox{\hyperlink{classNewtonic_1_1Behaviour_ab219950e152ca8b9cb6f54d024667627}{Behaviour\+::\+Render}} in turn \mbox{\Hypertarget{classNewtonic_1_1Actor_a2520c978e52805a2d76cc8eb865abb88}\label{classNewtonic_1_1Actor_a2520c978e52805a2d76cc8eb865abb88}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!SetScene@{SetScene}}
+\index{SetScene@{SetScene}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{SetScene()}{SetScene()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Actor\+::\+Set\+Scene (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}} $\ast$}]{scene }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the scene the actor belongs to. This is used internally by newtonic and should not be used by the user 
+\begin{DoxyParams}{Parameters}
+{\em scene} & a pointer to the scene. Ownership of such pointer is N\+OT taken by actor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Actor_addf35c24938904d5ac3baa82eac478d3}\label{classNewtonic_1_1Actor_addf35c24938904d5ac3baa82eac478d3}} 
+\index{Newtonic::Actor@{Newtonic::Actor}!Update@{Update}}
+\index{Update@{Update}!Newtonic::Actor@{Newtonic::Actor}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Actor\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+Updates the actor. Calls all the \mbox{\hyperlink{classNewtonic_1_1Behaviour_aaed714f38c7b270381e81958b280d248}{Behaviour\+::\+Update}} in turn 
+\begin{DoxyParams}{Parameters}
+{\em dt} & time ellapsed from previous update \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+actor.\+h\item 
+actor.\+cpp\end{DoxyCompactItemize}

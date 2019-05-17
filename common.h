@@ -36,7 +36,11 @@ namespace Newtonic
 		virtual const char *what() const noexcept;
 	};
 
-
+	/**
+	 * Reads a file and returns it contents into a string
+	 * @param  path the file path
+	 * @return      a std::string with file contents
+	 */
 	std::string ReadFile(const char * path);
 
 	struct Viewport
@@ -44,18 +48,33 @@ namespace Newtonic
 		unsigned int width;
 		unsigned int height;
 
+		/**
+		 * Getter for the screen ratio
+		 * @return the screen ratio
+		 */
 		float GetScreenRatio() const { return (float)width / (float)height; }
-
+		/**
+		 * Constructs a viewport with width 0 and height 0
+		 */
 		Viewport() : width(0), height(0) {}
-
+		/**
+		 * Costructs a viewport with the given width and height
+		 * @param w the width
+		 * @param h the height
+		 */
 		Viewport(int w, int h) : width(w), height(h) {}
-
+		/**
+		 * Copy constructor for Viewport
+		 * @param other the other viewport
+		 */
 		Viewport(const Viewport & other)
 		{
 			width = other.width;
 			height = other.height;
 		}
-
+		/**
+		 * Copy = operator for Viewport
+		 */
 		Viewport & operator = (const Viewport & other)
 		{
 			width = other.width;

@@ -41,23 +41,59 @@ namespace Newtonic
     std::map<std::string, std::shared_ptr<Mesh>> m_meshes;
 
   public:
+    /**
+     * Loads a shader resource
+     * @param shaderName     the shader's name to be assigned to the resource
+     * @param vertexShader   the vertex shader file location
+     * @param fragmentShader the fragment shader file location
+     */
     void LoadShader(std::string shaderName, const char * vertexShader, const char * fragmentShader);
+    /**
+     * Loads an already constructed shader as a resource
+     * @param shaderName the name to be assigned to the resource
+     * @param pShader    a shared_ptr to a Shader object
+     */
     void LoadShaderT(std::string shaderName, std::shared_ptr<Shader> pShader);
+    /**
+     * Loads a mesh resource
+     * @param meshName  the resource name
+     * @param positions the vertex positions as vector<GLfloat>
+     * @param indices   the indices as vector<unsigned int>
+     */
     void LoadMesh(std::string meshName, const std::vector<GLfloat> & positions, const std::vector<unsigned int> & indices);
+    /**
+     * Uses OBJ_Loader.h to load the meshes from a file
+     * @param filename the file location
+     */
     void LoadMeshesFromOBJ(std::string filename);
 
+    /**
+     * Getter for a specific shader resource
+     * @param  name the resource name
+     * @return      a weak_ptr to the resource if found
+     */
     std::weak_ptr<Shader> GetShader(std::string name)
     {
       std::weak_ptr<Shader> wpShader = m_shaders[name];
       return wpShader;
     }
 
+    /**
+     * Getter for a specific mesh resource
+     * @param  name the resource name
+     * @return      a weak_ptr to the resource if found
+     */
     std::weak_ptr<Mesh> GetMesh(std::string name)
     {
       std::weak_ptr<Mesh> wpMesh = m_meshes[name];
       return wpMesh;
     }
 
+    /**
+     * Getter for a shader resource. Casts the shader to the given template argument dynamically
+     * @param  name the resource name
+     * @return      a weak_ptr to the given template argument
+     */
     template <typename ShaderT>
     std::weak_ptr<ShaderT> GetShaderT(std::string name)
     {

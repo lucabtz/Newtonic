@@ -1,0 +1,71 @@
+\hypertarget{classNewtonic_1_1Camera}{}\section{Newtonic\+::Camera Class Reference}
+\label{classNewtonic_1_1Camera}\index{Newtonic::Camera@{Newtonic::Camera}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Camera_a3a02536eebc5a9b64dbe20e46f76ccea}{Camera}} ()
+\item 
+glm\+::mat4 \mbox{\hyperlink{classNewtonic_1_1Camera_aca70d30ed6b037969c4b34ca2c7f5c85}{Get\+Projection}} () const
+\item 
+glm\+::mat4 \mbox{\hyperlink{classNewtonic_1_1Camera_a82dc663bf6a6df7a043c766e35092b93}{Get\+View}} () const
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Camera_a52323bc782925980f9ba847643afd9f8}{Set\+Viewport}} (\mbox{\hyperlink{structNewtonic_1_1Viewport}{Viewport}} new\+\_\+)
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Transform}{Transform}} $\ast$ \mbox{\hyperlink{classNewtonic_1_1Camera_a8cbcc37c9d7a17902efa6061c6cba855}{Get\+Transform}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Camera_a3a02536eebc5a9b64dbe20e46f76ccea}\label{classNewtonic_1_1Camera_a3a02536eebc5a9b64dbe20e46f76ccea}} 
+\index{Newtonic::Camera@{Newtonic::Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!Newtonic::Camera@{Newtonic::Camera}}
+\subsubsection{\texorpdfstring{Camera()}{Camera()}}
+{\footnotesize\ttfamily Newtonic\+::\+Camera\+::\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructs a camera at (0,0,0) looking towards the negative Z direction 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Camera_aca70d30ed6b037969c4b34ca2c7f5c85}\label{classNewtonic_1_1Camera_aca70d30ed6b037969c4b34ca2c7f5c85}} 
+\index{Newtonic::Camera@{Newtonic::Camera}!GetProjection@{GetProjection}}
+\index{GetProjection@{GetProjection}!Newtonic::Camera@{Newtonic::Camera}}
+\subsubsection{\texorpdfstring{GetProjection()}{GetProjection()}}
+{\footnotesize\ttfamily glm\+::mat4 Newtonic\+::\+Camera\+::\+Get\+Projection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Getter for the projection matrix used by the camera \begin{DoxyReturn}{Returns}
+the projection matrix 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Camera_a8cbcc37c9d7a17902efa6061c6cba855}\label{classNewtonic_1_1Camera_a8cbcc37c9d7a17902efa6061c6cba855}} 
+\index{Newtonic::Camera@{Newtonic::Camera}!GetTransform@{GetTransform}}
+\index{GetTransform@{GetTransform}!Newtonic::Camera@{Newtonic::Camera}}
+\subsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNewtonic_1_1Transform}{Transform}}$\ast$ Newtonic\+::\+Camera\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for the camera transform. Exmample usage is in behaviours that move the camera around. \begin{DoxyReturn}{Returns}
+a raw pointer to the camera transform. Dereference should always be safe if a valid reference to camera exists 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Camera_a82dc663bf6a6df7a043c766e35092b93}\label{classNewtonic_1_1Camera_a82dc663bf6a6df7a043c766e35092b93}} 
+\index{Newtonic::Camera@{Newtonic::Camera}!GetView@{GetView}}
+\index{GetView@{GetView}!Newtonic::Camera@{Newtonic::Camera}}
+\subsubsection{\texorpdfstring{GetView()}{GetView()}}
+{\footnotesize\ttfamily glm\+::mat4 Newtonic\+::\+Camera\+::\+Get\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Getter for the view matrix used by the camera \begin{DoxyReturn}{Returns}
+the view matrix 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Camera_a52323bc782925980f9ba847643afd9f8}\label{classNewtonic_1_1Camera_a52323bc782925980f9ba847643afd9f8}} 
+\index{Newtonic::Camera@{Newtonic::Camera}!SetViewport@{SetViewport}}
+\index{SetViewport@{SetViewport}!Newtonic::Camera@{Newtonic::Camera}}
+\subsubsection{\texorpdfstring{SetViewport()}{SetViewport()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Camera\+::\+Set\+Viewport (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structNewtonic_1_1Viewport}{Viewport}}}]{new\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the window viewport. Mostly used internally, camera already updates if the window is resized, no need to worry 
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+} & the new viewport \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+camera.\+h\item 
+camera.\+cpp\end{DoxyCompactItemize}

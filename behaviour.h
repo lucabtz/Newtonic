@@ -29,12 +29,34 @@
      Actor * m_actor;
 
    public:
+     /**
+      * Sets the actor this behaviour belongs to. To be used internally by newtonic, should NOT be used
+      * @param actor a pointer to actor that will be NOT owned by the behaviour
+      */
      void SetActor(Actor * actor);
+     /**
+      * Getter for the actor this behaviour belongs to
+      * @return a raw pointer to the actor
+      */
      Actor * GetActor();
+     /**
+      * Getter for the scene this behaviour's actor is in
+      * @return a raw pointer to the scene
+      */
      Scene * GetScene();
 
+     /**
+      * Inits the behaviour
+      */
      virtual void Init() = 0;
+     /**
+      * Updates the behaviour
+      * @param dt the time ellapsed from previous update
+      */
      virtual void Update(float dt) = 0;
+     /**
+      * Renders what the behaviour is supposed to render
+      */
      virtual void Render() = 0;
    };
  }

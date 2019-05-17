@@ -1,0 +1,108 @@
+\hypertarget{classNewtonic_1_1Engine}{}\section{Newtonic\+::Engine Class Reference}
+\label{classNewtonic_1_1Engine}\index{Newtonic::Engine@{Newtonic::Engine}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Engine_ad0aeab0434bb214066f4ccecaf1cb28a}{Init}} ()
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Engine_ad1b027c39bdd7a345a6132f649441bec}{Open\+Window}} (const char $\ast$title, \mbox{\hyperlink{structNewtonic_1_1Viewport}{Viewport}} viewport)
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Assets}{Assets}} $\ast$ \mbox{\hyperlink{classNewtonic_1_1Engine_abb99a60c574e6a2c59ddb9519d19e1a1}{Get\+Assets\+Manager}} ()
+\item 
+\mbox{\hyperlink{classNewtonic_1_1MessageBus}{Message\+Bus}} $\ast$ \mbox{\hyperlink{classNewtonic_1_1Engine_ac487e72315c9a328548c9a77966e50db}{Get\+Message\+Bus}} ()
+\item 
+\mbox{\hyperlink{classNewtonic_1_1Input}{Input}} $\ast$ \mbox{\hyperlink{classNewtonic_1_1Engine_a119890a520ef63c013c6bd2f34876797}{Get\+Input\+Manager}} ()
+\item 
+\mbox{\hyperlink{structNewtonic_1_1Viewport}{Viewport}} \mbox{\hyperlink{classNewtonic_1_1Engine_a9e487f8b5d4bb4088bfec307bc520b56}{Get\+Viewport}} ()
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Engine_aa893883220d08fdc3c075f45446a628e}{Set\+Scene}} (\mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}} $\ast$scene)
+\item 
+void \mbox{\hyperlink{classNewtonic_1_1Engine_aa0ce67e45fe633d9994526b6dd9628cd}{Loop}} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNewtonic_1_1Engine_a7ce0f5a539ad4b0496e153c9c72a837d}\label{classNewtonic_1_1Engine_a7ce0f5a539ad4b0496e153c9c72a837d}} 
+void {\bfseries Framebuffer\+Size\+Callback} (G\+L\+F\+Wwindow $\ast$wnd, int w, int h)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNewtonic_1_1Engine_abb99a60c574e6a2c59ddb9519d19e1a1}\label{classNewtonic_1_1Engine_abb99a60c574e6a2c59ddb9519d19e1a1}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!GetAssetsManager@{GetAssetsManager}}
+\index{GetAssetsManager@{GetAssetsManager}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{GetAssetsManager()}{GetAssetsManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNewtonic_1_1Assets}{Assets}}$\ast$ Newtonic\+::\+Engine\+::\+Get\+Assets\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for the assets manager \begin{DoxyReturn}{Returns}
+the assets manager for the current engine instance 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Engine_a119890a520ef63c013c6bd2f34876797}\label{classNewtonic_1_1Engine_a119890a520ef63c013c6bd2f34876797}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!GetInputManager@{GetInputManager}}
+\index{GetInputManager@{GetInputManager}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{GetInputManager()}{GetInputManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNewtonic_1_1Input}{Input}}$\ast$ Newtonic\+::\+Engine\+::\+Get\+Input\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for the input manager \begin{DoxyReturn}{Returns}
+the input manager for the current engine instance 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Engine_ac487e72315c9a328548c9a77966e50db}\label{classNewtonic_1_1Engine_ac487e72315c9a328548c9a77966e50db}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!GetMessageBus@{GetMessageBus}}
+\index{GetMessageBus@{GetMessageBus}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{GetMessageBus()}{GetMessageBus()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNewtonic_1_1MessageBus}{Message\+Bus}}$\ast$ Newtonic\+::\+Engine\+::\+Get\+Message\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for the message bus \begin{DoxyReturn}{Returns}
+the message bus for the current engine instance 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Engine_a9e487f8b5d4bb4088bfec307bc520b56}\label{classNewtonic_1_1Engine_a9e487f8b5d4bb4088bfec307bc520b56}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!GetViewport@{GetViewport}}
+\index{GetViewport@{GetViewport}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{GetViewport()}{GetViewport()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNewtonic_1_1Viewport}{Viewport}} Newtonic\+::\+Engine\+::\+Get\+Viewport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter for the window viewport \begin{DoxyReturn}{Returns}
+the viewport of the current window 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNewtonic_1_1Engine_ad0aeab0434bb214066f4ccecaf1cb28a}\label{classNewtonic_1_1Engine_ad0aeab0434bb214066f4ccecaf1cb28a}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!Init@{Init}}
+\index{Init@{Init}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Engine\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initializes the (game) engine \mbox{\Hypertarget{classNewtonic_1_1Engine_aa0ce67e45fe633d9994526b6dd9628cd}\label{classNewtonic_1_1Engine_aa0ce67e45fe633d9994526b6dd9628cd}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!Loop@{Loop}}
+\index{Loop@{Loop}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{Loop()}{Loop()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Engine\+::\+Loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Start the engine main loop \mbox{\Hypertarget{classNewtonic_1_1Engine_ad1b027c39bdd7a345a6132f649441bec}\label{classNewtonic_1_1Engine_ad1b027c39bdd7a345a6132f649441bec}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!OpenWindow@{OpenWindow}}
+\index{OpenWindow@{OpenWindow}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{OpenWindow()}{OpenWindow()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Engine\+::\+Open\+Window (\begin{DoxyParamCaption}\item[{const char $\ast$}]{title,  }\item[{\mbox{\hyperlink{structNewtonic_1_1Viewport}{Viewport}}}]{viewport }\end{DoxyParamCaption})}
+
+Opens a G\+L\+FW window 
+\begin{DoxyParams}{Parameters}
+{\em title} & the window\textquotesingle{}s title \\
+\hline
+{\em viewport} & the window\textquotesingle{}s viewport (width, height) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNewtonic_1_1Engine_aa893883220d08fdc3c075f45446a628e}\label{classNewtonic_1_1Engine_aa893883220d08fdc3c075f45446a628e}} 
+\index{Newtonic::Engine@{Newtonic::Engine}!SetScene@{SetScene}}
+\index{SetScene@{SetScene}!Newtonic::Engine@{Newtonic::Engine}}
+\subsubsection{\texorpdfstring{SetScene()}{SetScene()}}
+{\footnotesize\ttfamily void Newtonic\+::\+Engine\+::\+Set\+Scene (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNewtonic_1_1Scene}{Scene}} $\ast$}]{scene }\end{DoxyParamCaption})}
+
+Sets the current scene to be rendered and update by the engine 
+\begin{DoxyParams}{Parameters}
+{\em scene} & a pointer to the scene object. Destruction of such pointer is handled by the engine it self, ownership of such pointer is engine\textquotesingle{}s \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine.\+h\item 
+engine.\+cpp\end{DoxyCompactItemize}

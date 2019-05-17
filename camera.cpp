@@ -31,7 +31,7 @@
       glm::radians(45.0f),
       (float)m_viewport.width / (float)m_viewport.height,
       0.1f,
-      100.0f
+      1000.0f
      );
    }
 
