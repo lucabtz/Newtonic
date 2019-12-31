@@ -34,11 +34,11 @@ namespace Newtonic
 
   VertexBuffer::VertexBuffer(VertexBuffer && other) : m_vboId(other.m_vboId) { other.m_vboId = INVALID_VBO_ID; }
 
-  VertexBuffer::~VertexBuffer() { if (m_vboId != INVALID_VBO_ID) NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId)); }
+  VertexBuffer::~VertexBuffer() { if (m_vboId != INVALID_VBO_ID) { NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId)); } }
 
   VertexBuffer & VertexBuffer::operator =(VertexBuffer && other)
   {
-    if (m_vboId != INVALID_VBO_ID) NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId));
+    if (m_vboId != INVALID_VBO_ID) { NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId)); }
     m_vboId = other.m_vboId;
     other.m_vboId = INVALID_VBO_ID;
     return *this;

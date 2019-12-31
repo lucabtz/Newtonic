@@ -21,6 +21,7 @@
 
 namespace Newtonic
 {
+
   std::string ReadFile(const char * path)
   {
     std::ifstream ifs(path);
@@ -30,4 +31,5 @@ namespace Newtonic
     );
     return content;
   }
+
 }

@@ -18,30 +18,38 @@
 
 #pragma once
 
-#include <string>
-#include <stdexcept>
-#include <memory>
-#include <assert.h>
-
-#define ASSERT_TRUE(x) assert(x)
-#define ASSERT_FALSE(x) assert(!(x))
-
-#define NW_WRAP_DEBUG(x) x
+#include "opengl.h"
 
 #include "image.h"
 
+#define INVALID_TEXTURE_ID 0
+#define MAX_SLOTS 32
+
 namespace Newtonic
 {
-
-  std::string ReadFile(const char * path);
-
-  template<typename... Args>
-  std::string FormatString(const std::string & format, Args ... args)
+  class Texture
   {
-    size_t size = std::snprintf(nullptr, 0, format.c_str(), args...);
-    if (size <= 0) throw std::runtime_error("Error formatting string");
-    std::unique_ptr<char[]> buf(new char[size+1]);
-    std::snprintf(buf.get(), size+1, format.c_str(), args...);
-    return std::string(buf.get(), size);
-  }
+  public:
+    Texture();
+    ~Texture();
+    Texture(const Image & image);
+    Texture(Texture && other);
+    Texture & operator =(Texture && other);
+
+    void Bind(unsigned int slot = 0) const;
+    void Unbind(unsigned int slot = 0) const;
+
+    int GetWidth() const;
+    int GetHeight() const;
+    int GetBPP() const;
+
+    unsigned char * GetImageBuffer() const;
+
+    void LoadFromImage(const Image & image);
+  private:
+    GLuint m_textureId;
+    int m_width;
+    int m_height;
+    int m_bitsPerPixel;
+  };
 }

@@ -52,7 +52,7 @@ namespace Newtonic
 
   Shader::Shader() : m_shaderId(INVALID_SHADER_ID) {}
   Shader::Shader(GLuint id) : m_shaderId(id) { NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Created shader %i", m_shaderId))); }
-  Shader::~Shader() { if (m_shaderId != INVALID_SHADER_ID) NW_WRAP_GL_CALL(glDeleteProgram(m_shaderId));}
+  Shader::~Shader() { if (m_shaderId != INVALID_SHADER_ID) { NW_WRAP_GL_CALL(glDeleteProgram(m_shaderId)); } }
 
   Shader::Shader(Shader && other) :
     m_shaderId(other.m_shaderId)
@@ -62,7 +62,10 @@ namespace Newtonic
 
   Shader & Shader::operator =(Shader && other)
   {
-    if (m_shaderId != INVALID_SHADER_ID) NW_WRAP_GL_CALL(glDeleteProgram(m_shaderId));
+    if (m_shaderId != INVALID_SHADER_ID)
+    {
+      NW_WRAP_GL_CALL(glDeleteProgram(m_shaderId));
+    }
     m_shaderId = other.m_shaderId;
     other.m_shaderId = INVALID_SHADER_ID;
     return *this;
@@ -106,6 +109,12 @@ namespace Newtonic
   {
     int loc = GetUniformLocation(name);
     NW_WRAP_GL_CALL(glUniform4f(loc, v1, v2, v3, v4));
+  }
+
+  void Shader::LoadMatrix4(const std::string & name, const Matrix4 & mat) const
+  {
+    int loc = GetUniformLocation(name);
+    NW_WRAP_GL_CALL(glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat)));
   }
 
   Shader Shader::CreateShader(const char * vertex, const char * fragment)

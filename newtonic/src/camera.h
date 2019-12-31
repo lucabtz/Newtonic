@@ -18,30 +18,18 @@
 
 #pragma once
 
-#include <string>
-#include <stdexcept>
-#include <memory>
-#include <assert.h>
-
-#define ASSERT_TRUE(x) assert(x)
-#define ASSERT_FALSE(x) assert(!(x))
-
-#define NW_WRAP_DEBUG(x) x
-
-#include "image.h"
+#include "math.h"
 
 namespace Newtonic
 {
-
-  std::string ReadFile(const char * path);
-
-  template<typename... Args>
-  std::string FormatString(const std::string & format, Args ... args)
+  class Camera
   {
-    size_t size = std::snprintf(nullptr, 0, format.c_str(), args...);
-    if (size <= 0) throw std::runtime_error("Error formatting string");
-    std::unique_ptr<char[]> buf(new char[size+1]);
-    std::snprintf(buf.get(), size+1, format.c_str(), args...);
-    return std::string(buf.get(), size);
-  }
+  public:
+    virtual Matrix4 GetViewMatrix() const = 0;
+    virtual Matrix4 GetProjectionMatrix() const = 0;
+
+    virtual Vector3 GetViewDirection() const = 0;
+    virtual Vector3 GetTopDirection() const = 0;
+    virtual Vector3 GetRightDirection() const = 0;
+  };
 }

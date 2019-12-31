@@ -44,10 +44,11 @@ namespace Newtonic
     void LoadUniform3f(const std::string & name, GLfloat v1, GLfloat v2, GLfloat v3) const;
     void LoadUniform4f(const std::string & name, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4) const;
 
-    void LoadFloat(const std::string & name, GLfloat v) { LoadUniform1f(name, v); }
-    void LoadVector2(const std::string & name, const Vector2 & vec) { LoadUniform2f(name, vec.x, vec.y); }
-    void LoadVector3(const std::string & name, const Vector3 & vec) { LoadUniform3f(name, vec.x, vec.y, vec.z); }
-    void LoadVector4(const std::string & name, const Vector4 & vec) { LoadUniform4f(name, vec.x, vec.y, vec.z, vec.w); }
+    void LoadFloat(const std::string & name, GLfloat v) const { LoadUniform1f(name, v); }
+    void LoadVector2(const std::string & name, const Vector2 & vec) const { LoadUniform2f(name, vec.x, vec.y); }
+    void LoadVector3(const std::string & name, const Vector3 & vec) const { LoadUniform3f(name, vec.x, vec.y, vec.z); }
+    void LoadVector4(const std::string & name, const Vector4 & vec) const { LoadUniform4f(name, vec.x, vec.y, vec.z, vec.w); }
+    void LoadMatrix4(const std::string & name, const Matrix4 & mat) const;
 
     static Shader CreateShader(const char * vertex, const char * fragment);
 

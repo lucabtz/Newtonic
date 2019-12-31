@@ -4,6 +4,9 @@ project(Newtonic VERSION 0.0.1)
 
 set(debug, true)
 
+# third party code
+add_subdirectory(thirdparty)
+
 # Newtonic shared lib
 add_subdirectory(newtonic)
 

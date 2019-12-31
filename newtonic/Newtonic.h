@@ -30,3 +30,8 @@
 #include "src/vertexarray.h"
 #include "src/indexbuffer.h"
 #include "src/renderer.h"
+#include "src/camera.h"
+#include "src/cameraperspective.h"
+#include "src/input.h"
+#include "src/image.h"
+#include "src/texture.h"

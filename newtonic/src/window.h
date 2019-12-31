@@ -29,7 +29,7 @@ namespace Newtonic
 
     WindowData() : m_viewport(0, 0) {}
     WindowData(const WindowData & other) : m_viewport(other.m_viewport) {}
-    WindowData * operator =(const WindowData & other) { m_viewport = other.m_viewport; }
+    WindowData & operator =(const WindowData & other) { m_viewport = other.m_viewport; return *this; }
   };
 
   class Window
