@@ -20,6 +20,9 @@
 
 #include "stb_image.h"
 
+#include "core.h"
+#include "util.h"
+
 namespace Newtonic
 {
   Image::Image() : m_data(nullptr), m_width(0), m_height(0), m_bitsPerPixel(0) {}
@@ -52,6 +55,14 @@ namespace Newtonic
     Image result;
     stbi_set_flip_vertically_on_load(1);
     result.m_data = stbi_load(path, &result.m_width, &result.m_height, &result.m_bitsPerPixel, 4);
+    if (result.m_data == nullptr)
+    {
+      Core::GetCoreLogger().Error(FormatString("Cannot load image from %s", path));
+    }
+    else
+    {
+      NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Loaded image from %s, width %i height %i bpp %i at %p", path, result.m_width, result.m_height, result.m_bitsPerPixel, result.m_data)));
+    }
     return result;
   }
 }

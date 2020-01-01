@@ -43,7 +43,7 @@ namespace Newtonic
     int GetHeight() const;
     int GetBPP() const;
 
-    unsigned char * GetImageBuffer() const;
+    GLuint GetTextureId() const;
 
     void LoadFromImage(const Image & image);
   private:

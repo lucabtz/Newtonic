@@ -111,6 +111,12 @@ namespace Newtonic
     NW_WRAP_GL_CALL(glUniform4f(loc, v1, v2, v3, v4));
   }
 
+  void Shader::LoadUniform1i(const std::string & name, GLint v) const
+  {
+    int loc = GetUniformLocation(name);
+    NW_WRAP_GL_CALL(glUniform1i(loc, v));
+  }
+
   void Shader::LoadMatrix4(const std::string & name, const Matrix4 & mat) const
   {
     int loc = GetUniformLocation(name);

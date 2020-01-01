@@ -43,6 +43,7 @@ namespace Newtonic
     void LoadUniform2f(const std::string & name, GLfloat v1, GLfloat v2) const;
     void LoadUniform3f(const std::string & name, GLfloat v1, GLfloat v2, GLfloat v3) const;
     void LoadUniform4f(const std::string & name, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4) const;
+    void LoadUniform1i(const std::string & name, GLint v) const;
 
     void LoadFloat(const std::string & name, GLfloat v) const { LoadUniform1f(name, v); }
     void LoadVector2(const std::string & name, const Vector2 & vec) const { LoadUniform2f(name, vec.x, vec.y); }

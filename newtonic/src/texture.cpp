@@ -25,7 +25,7 @@ namespace Newtonic
   Texture::Texture() : m_textureId(INVALID_TEXTURE_ID), m_width(0), m_height(0), m_bitsPerPixel(0)
   {}
 
-  Texture::Texture(const Image & image)
+  Texture::Texture(const Image & image) : Texture()
   {
     LoadFromImage(image);
   }
@@ -49,7 +49,7 @@ namespace Newtonic
     {
       NW_WRAP_GL_CALL(glDeleteTextures(1, &m_textureId));
     }
-    
+
     m_textureId = other.m_textureId;
     other.m_textureId = INVALID_TEXTURE_ID;
     m_width = other.m_width;
@@ -75,6 +75,7 @@ namespace Newtonic
   int Texture::GetWidth()  const { return m_width; }
   int Texture::GetHeight() const { return m_height; }
   int Texture::GetBPP()    const { return m_bitsPerPixel; }
+  GLuint Texture::GetTextureId() const { return m_textureId; }
 
   void Texture::LoadFromImage(const Image & image)
   {
@@ -84,7 +85,7 @@ namespace Newtonic
     }
 
     NW_WRAP_GL_CALL(glGenTextures(1, &m_textureId));
-    NW_WRAP_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_textureId));
+    Bind();
 
     NW_WRAP_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
     NW_WRAP_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
@@ -96,6 +97,10 @@ namespace Newtonic
     m_bitsPerPixel = image.GetBPP();
 
     NW_WRAP_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.GetBuffer()));
+
+    Unbind();
+
+    NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Loaded texture %i", m_textureId)));
   }
 
 }

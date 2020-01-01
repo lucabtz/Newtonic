@@ -34,6 +34,8 @@ namespace Newtonic
 
     unsigned char * GetBuffer() const;
 
+    bool IsValid() const { return m_data != nullptr; }
+
     static Image LoadPNG(const char * path);
 
   private:

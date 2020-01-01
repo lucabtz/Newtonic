@@ -1,15 +1,21 @@
 #include "Newtonic.h"
 
 const GLfloat g_quadVertices[] = {
-   0.5f,  0.5f, 0.0f,
-   0.5f, -0.5f, 0.0f,
-  -0.5f,  0.5f, 0.0f,
-  -0.5f, -0.5f, 0.0f
+    0.5f,  0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+    -0.5f,  0.5f, 0.0f
+};
+const GLfloat g_quadTex[] = {
+1.0f, 1.0f,   // top right
+ 1.0f, 0.0f,   // bottom right
+  0.0f, 0.0f,   // bottom left
+   0.0f, 1.0f    // top left
 };
 
 const GLuint g_quadIndices[] = {
-  0, 1, 3,
-  0, 2, 3
+  0, 1, 3, // first triangle
+  1, 2, 3  // second triangle
 };
 
 int main(int argc, char ** argv)
@@ -24,7 +30,8 @@ int main(int argc, char ** argv)
 
   Newtonic::Texture tex;
   { // make a scope for image resource
-    Newtonic::Image image = Newtonic::Image::LoadPNG("~/Downloads/wallpaper.png");
+    Newtonic::Image image = Newtonic::Image::LoadPNG("/home/ekardnam/Downloads/awesomeface.png");
+    ASSERT_TRUE(image.IsValid());
     tex.LoadFromImage(image);
   }
 
@@ -32,34 +39,46 @@ int main(int argc, char ** argv)
     #version 330 core
 
     layout(location = 0) in vec3 vert;
+    layout(location = 1) in vec2 texCoord;
 
     uniform mat4 u_view;
     uniform mat4 u_proj;
 
+    out vec2 v_texCoord;
+
     void main()
     {
       gl_Position = u_proj * u_view * vec4(vert, 1.0);
+      v_texCoord = texCoord;
     }
   )", R"(
     #version 330 core
 
-    uniform vec3 u_color;
+    in vec2 v_texCoord;
+
+    uniform sampler2D u_texture;
+
     out vec4 color;
 
     void main()
     {
-      color = vec4(u_color, 1.0);
+      color = texture(u_texture, v_texCoord);
     }
   )");
 
-  Newtonic::VertexBuffer vb(g_quadVertices, 12 * sizeof(GLfloat));
-  Newtonic::VertexBufferLayout layout;
-  layout.Add<GLfloat>(3);
+  Newtonic::VertexBuffer vb1(g_quadVertices, 12 * sizeof(GLfloat));
+  Newtonic::VertexBufferLayout layout1;
+  layout1.Add<GLfloat>(3);
+
+  Newtonic::VertexBuffer vb2(g_quadTex, 8 * sizeof(GLfloat));
+  Newtonic::VertexBufferLayout layout2;
+  layout2.Add<GLfloat>(2);
 
   Newtonic::IndexBuffer ib(g_quadIndices, 6);
 
   Newtonic::VertexArray va;
-  va.AddBuffer(vb, layout);
+  va.AddBuffer(vb1, layout1);
+  va.AddBuffer(vb2, layout2);
 
   Newtonic::PerspectiveCamera camera;
   camera.SetAspectRatio(viewport);
@@ -76,9 +95,11 @@ int main(int argc, char ** argv)
 
     Newtonic::Renderer::Clear();
 
-    shader.LoadVector3("u_color", Newtonic::Vector3(1, 1, 0));
+    shader.Bind();
     shader.LoadMatrix4("u_view", camera.GetViewMatrix());
     shader.LoadMatrix4("u_proj", camera.GetProjectionMatrix());
+    tex.Bind();
+    shader.LoadUniform1i("u_texture", 0);
     Newtonic::Renderer::Render(va, ib, shader);
 
     window.Update();
