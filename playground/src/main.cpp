@@ -38,7 +38,7 @@ int main(int argc, char ** argv)
   }
 
   Newtonic::Shader shader = Newtonic::Shader::CreateShader(R"(
-    #version 330 core
+    #version 430 core
 
     layout(location = 0) in vec3 vert;
     layout(location = 1) in vec2 texCoord;
@@ -55,7 +55,7 @@ int main(int argc, char ** argv)
       v_texCoord = texCoord;
     }
   )", R"(
-    #version 330 core
+    #version 430 core
 
     in vec2 v_texCoord;
 

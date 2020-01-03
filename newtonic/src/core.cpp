@@ -32,7 +32,7 @@ namespace Newtonic
 
   static void GLFWErrorHandler(int err, const char * desc)
   {
-    std::cerr << "[GLFW Error] " << err << " " << desc << std::endl;
+    Core::GetCoreLogger().Error(FormatString("[GLFW Error] %i %s", err, desc));
   }
 
   void Core::Init()
@@ -56,6 +56,10 @@ namespace Newtonic
       s_coreLogger.Error("Cannot initialize glew");
       ASSERT_TRUE(false);
     }
+
+    s_coreLogger.Info(FormatString("OpenGL version %s vendor %s", glGetString(GL_VERSION), glGetString(GL_VENDOR)));
+    s_coreLogger.Info(FormatString("GLSL version %s", glGetString(GL_SHADING_LANGUAGE_VERSION)));
+
   }
 
 }
