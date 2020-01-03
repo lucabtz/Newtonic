@@ -26,6 +26,8 @@ int main(int argc, char ** argv)
   Newtonic::Core::PostWindowInit();
   window.SetStickyKeys(true);
 
+  Newtonic::Input::Init();
+
   Newtonic::Core::GetApplicationLogger().Info("Application started");
 
   Newtonic::Texture tex;
@@ -122,6 +124,7 @@ int main(int argc, char ** argv)
     Newtonic::Renderer::Render(va, ib);
 
     window.Update();
+    Newtonic::EventBus::DispatchAll();
   } while(!window.ShouldClose());
 
   return 0;

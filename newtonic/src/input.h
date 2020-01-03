@@ -27,6 +27,8 @@ namespace Newtonic
   class Input
   {
   public:
+    static void Init();
+    
     static bool IsKeyDown(unsigned int keyCode);
     static bool IsKeyUp(unsigned int keyCode) { return !IsKeyDown(keyCode); }
 

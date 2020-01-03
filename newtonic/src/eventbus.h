@@ -16,26 +16,31 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "src/opengl.h"
-#include "src/math.h"
-#include "src/logger.h"
-#include "src/core.h"
-#include "src/transform.h"
-#include "src/util.h"
-#include "src/viewport.h"
-#include "src/window.h"
-#include "src/shader.h"
-#include "src/vertexbufferlayout.h"
-#include "src/vertexbuffer.h"
-#include "src/vertexarray.h"
-#include "src/indexbuffer.h"
-#include "src/renderer.h"
-#include "src/camera.h"
-#include "src/cameraperspective.h"
-#include "src/input.h"
-#include "src/keys.h"
-#include "src/image.h"
-#include "src/texture.h"
-#include "src/timestep.h"
-#include "src/eventbus.h"
-#include "src/event.h"
+#pragma once
+
+#include "event.h"
+
+#include <unordered_map>
+#include <memory>
+#include <functional>
+#include <vector>
+#include <queue>
+
+namespace Newtonic
+{
+  using EventListener = std::function<void(std::shared_ptr<Event>)>;
+  using ListenerGroup = std::vector<EventListener>;
+
+  class EventBus
+  {
+  public:
+    static void Push(std::shared_ptr<Event> event);
+    static void Listen(EventType type, const EventListener & listener);
+    static void DispatchAll();
+    static void DispatchOne();
+
+  private:
+    static std::unordered_map<EventType, ListenerGroup> s_listeners;
+    static std::queue<std::shared_ptr<Event>> s_eventQueue;
+  };
+}

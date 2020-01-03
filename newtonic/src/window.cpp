@@ -20,7 +20,7 @@
 #include "window.h"
 
 #include "util.h"
-#include "input.h"
+#include "eventbus.h"
 
 namespace Newtonic
 {
@@ -78,6 +78,7 @@ namespace Newtonic
     glfwSetFramebufferSizeCallback(glfwWindow, [](GLFWwindow * wnd, int width, int height)
     {
       WindowData & wndData = *(WindowData*)glfwGetWindowUserPointer(wnd);
+      EventBus::Push(std::make_shared<WindowResizeEvent>(wndData.m_viewport, Viewport(width, height)));
       wndData.m_viewport = Viewport(width, height);
     });
 
@@ -87,10 +88,10 @@ namespace Newtonic
       switch (action)
       {
       case GLFW_PRESS:
-        Input::SetKeyStatus(key, true);
+        EventBus::Push(std::make_shared<KeyDownEvent>(key));
         break;
       case GLFW_RELEASE:
-        Input::SetKeyStatus(key, false);
+        EventBus::Push(std::make_shared<KeyUpEvent>(key));
         break;
       }
     });

@@ -20,10 +20,25 @@
 
 #include "util.h"
 #include "core.h"
+#include "eventbus.h"
 
 namespace Newtonic
 {
   bool Input::s_keyStatuses[HIGHEST_KEY_CODE];
+
+  void Input::Init()
+  {
+    EventBus::Listen(EventType::KeyUp, [](std::shared_ptr<Event> e)
+    {
+      unsigned int keyCode = std::dynamic_pointer_cast<KeyUpEvent>(e)->GetKeyCode();
+      s_keyStatuses[keyCode] = false;
+    });
+    EventBus::Listen(EventType::KeyDown, [](std::shared_ptr<Event> e)
+    {
+      unsigned int keyCode = std::dynamic_pointer_cast<KeyDownEvent>(e)->GetKeyCode();
+      s_keyStatuses[keyCode] = true;
+    });
+  }
 
   void Input::SetKeyStatus(unsigned int keyCode, bool status)
   {
