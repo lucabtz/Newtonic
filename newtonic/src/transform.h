@@ -25,29 +25,31 @@ namespace Newtonic
   class Transform
   {
   public:
-    Transform() :
-      m_position(0.0, 0.0, 0.0),
-      m_rotation(0.0, 1.0, 0.0, 0.0),
-      m_scale(1.0, 1.0, 1.0)
-    {}
-    Vector3 GetPosition();
-    Vector3 GetRotationEulerAngles();
-    Vector3 GetScale();
-    Quaternion GetRotation();
+    Transform();
+    Transform(const Transform & other);
+    Transform & operator =(const Transform & other);
 
-    void SetPosition(const Vector3 & newPosition);
-    void SetRotationEulerAngles(const Vector3 & newRotation);
-    void SetScale(const Vector3 & newScale);
+    Matrix4 GetMatrix() const;
 
-    Matrix4 GetTransformationMatrix();
-    Matrix4 GetRotationMatrix();
-    Matrix4 GetTranslationMatrix();
-    Matrix4 GetScaleMatrix();
+    Matrix4 GetTranslationMatrix() const;
+    Matrix4 GetRotationMatrix() const;
+    Matrix4 GetScaleMatrix() const;
 
-    Vector3 GetForwardDirection();
-    Vector3 GetRightDirection();
-    Vector3 GetUpDirection();
+    const Vector3 & GetPosition() const;
+    const Quaternion & GetRotation() const;
+    const Vector3 & GetScale() const;
 
+    Vector3 GetForwardDirection() const;
+    Vector3 GetTopDirection() const;
+    Vector3 GetRightDirection() const;
+
+    void Translate(const Vector3 & translation);
+    void Rotate(const Quaternion & rotation);
+    void Scale(const Vector3 & scale);
+
+    void SetPosition(const Vector3 & position);
+    void SetRoation(const Quaternion & rotation);
+    void SetScale(const Vector3 & scale);
   private:
     Vector3 m_position;
     Quaternion m_rotation;

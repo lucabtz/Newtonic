@@ -33,5 +33,7 @@
 #include "src/camera.h"
 #include "src/cameraperspective.h"
 #include "src/input.h"
+#include "src/keys.h"
 #include "src/image.h"
 #include "src/texture.h"
+#include "src/timestep.h"

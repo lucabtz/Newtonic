@@ -22,14 +22,17 @@
 #include "vertexarray.h"
 #include "indexbuffer.h"
 #include "shader.h"
+#include "math.h"
 
 namespace Newtonic
 {
+
   class Renderer
   {
   public:
     static void SetClearColor(const Vector4 & color);
-    static void Render(const VertexArray & va, const IndexBuffer & ib, const Shader & shader);
+    static void Render(const VertexArray & va, const IndexBuffer & ib);
+    static void RenderLines(const VertexArray & va, const IndexBuffer & ib);
     static void SetViewport(Viewport viewport);
     static void Clear();
   };

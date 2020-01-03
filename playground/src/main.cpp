@@ -41,6 +41,7 @@ int main(int argc, char ** argv)
     layout(location = 0) in vec3 vert;
     layout(location = 1) in vec2 texCoord;
 
+    uniform mat4 u_transform;
     uniform mat4 u_view;
     uniform mat4 u_proj;
 
@@ -48,7 +49,7 @@ int main(int argc, char ** argv)
 
     void main()
     {
-      gl_Position = u_proj * u_view * vec4(vert, 1.0);
+      gl_Position = u_proj * u_view * u_transform * vec4(vert, 1.0);
       v_texCoord = texCoord;
     }
   )", R"(
@@ -80,27 +81,45 @@ int main(int argc, char ** argv)
   va.AddBuffer(vb1, layout1);
   va.AddBuffer(vb2, layout2);
 
+  Newtonic::Vector3 cameraPosition(0.0, 0.0, 2.0);
+  float cameraSpeed = 5.0;
+
   Newtonic::PerspectiveCamera camera;
   camera.SetAspectRatio(viewport);
   camera.SetFOV(glm::radians(45.0f));
   camera.SetZNear(0.1f);
   camera.SetZFar(100.0f);
-  camera.SetPosition(Newtonic::Vector3(2.0, 0.0, 2.0));
+  camera.SetPosition(cameraPosition);
   camera.LookAt(Newtonic::Vector3(0.0, 0.0, 0.0));
 
+  Newtonic::Transform quadTransform;
+  float quadRotationSpeed = 0.1f;
+
+  Newtonic::Timestep time;
   do
   {
+    float dt = time.DeltaTime();
+    quadTransform.Rotate(glm::angleAxis(quadRotationSpeed * dt, Newtonic::Vector3(0,1,0)));
     Newtonic::Renderer::SetViewport(window.GetViewport());
+    camera.SetPosition(cameraPosition);
     camera.SetAspectRatio(window.GetViewport());
 
     Newtonic::Renderer::Clear();
 
+    if (Newtonic::Input::IsKeyDown(NW_KEY_W)) cameraPosition += Newtonic::Vector3(0.0, 0.0, -1.0) * cameraSpeed * dt;
+    else if (Newtonic::Input::IsKeyDown(NW_KEY_S)) cameraPosition += Newtonic::Vector3(0.0, 0.0, 1.0) * cameraSpeed * dt;
+    else if (Newtonic::Input::IsKeyDown(NW_KEY_A)) cameraPosition += Newtonic::Vector3(1.0, 0.0, 0.0) * cameraSpeed * dt;
+    else if (Newtonic::Input::IsKeyDown(NW_KEY_D)) cameraPosition += Newtonic::Vector3(-1.0, 0.0, 0.0) * cameraSpeed * dt;
+    else if (Newtonic::Input::IsKeyDown(NW_KEY_Q)) cameraPosition += Newtonic::Vector3(0.0, 1.0, 0.0) * cameraSpeed * dt;
+    else if (Newtonic::Input::IsKeyDown(NW_KEY_E)) cameraPosition += Newtonic::Vector3(0.0, -1.0, 0.0) * cameraSpeed * dt;
+
     shader.Bind();
+    shader.LoadMatrix4("u_transform", quadTransform.GetMatrix());
     shader.LoadMatrix4("u_view", camera.GetViewMatrix());
     shader.LoadMatrix4("u_proj", camera.GetProjectionMatrix());
     tex.Bind();
     shader.LoadUniform1i("u_texture", 0);
-    Newtonic::Renderer::Render(va, ib, shader);
+    Newtonic::Renderer::Render(va, ib);
 
     window.Update();
   } while(!window.ShouldClose());

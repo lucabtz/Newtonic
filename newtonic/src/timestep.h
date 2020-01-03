@@ -16,19 +16,18 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "input.h"
-
-#include "util.h"
-#include "core.h"
+#pragma once
 
 namespace Newtonic
 {
-  bool Input::s_keyStatuses[HIGHEST_KEY_CODE];
-
-  void Input::SetKeyStatus(unsigned int keyCode, bool status)
+  class Timestep
   {
-    s_keyStatuses[keyCode] = status;
-  }
+  public:
+    Timestep();
 
-  bool Input::IsKeyDown(unsigned int keyCode) { return s_keyStatuses[keyCode]; }
+    void Start();
+    float DeltaTime();
+  private:
+    float m_lastStopped;
+  };
 }

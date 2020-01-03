@@ -34,12 +34,18 @@ namespace Newtonic
     NW_WRAP_GL_CALL(glClearColor(color.r, color.g, color.b, color.a));
   }
 
-  void Renderer::Render(const VertexArray & va, const IndexBuffer & ib, const Shader & shader)
+  void Renderer::Render(const VertexArray & va, const IndexBuffer & ib)
   {
-    shader.Bind();
     va.Bind();
     ib.Bind();
     NW_WRAP_GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetIndicesCount(), GL_UNSIGNED_INT, nullptr));
+  }
+
+  void Renderer::RenderLines(const VertexArray & va, const IndexBuffer & ib)
+  {
+    va.Bind();
+    ib.Bind();
+    NW_WRAP_GL_CALL(glDrawElements(GL_LINES, ib.GetIndicesCount(), GL_UNSIGNED_INT, nullptr));
   }
 
   void Renderer::SetViewport(Viewport viewport)

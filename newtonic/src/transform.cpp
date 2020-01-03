@@ -20,41 +20,17 @@
 
 namespace Newtonic
 {
-
-  Vector3 Transform::GetPosition() { return m_position; }
-  Vector3 Transform::GetRotationEulerAngles() { return glm::eulerAngles(m_rotation); }
-  Vector3 Transform::GetScale() { return m_scale; }
-
-  void Transform::SetPosition(const Vector3 & newPosition) { m_position = newPosition; }
-  void Transform::SetRotationEulerAngles(const Vector3 & newRotation) { m_rotation = Quaternion(newRotation); }
-  void Transform::SetScale(const Vector3 & newScale) { m_scale = newScale; }
-
-  Matrix4 Transform::GetTranslationMatrix() { return glm::translate(Matrix4(1.0), m_position); }
-  Matrix4 Transform::GetRotationMatrix() { return glm::toMat4(m_rotation); }
-  Matrix4 Transform::GetScaleMatrix(){ return glm::scale(Matrix4(1.0), m_scale); }
-
-  Vector3 Transform::GetForwardDirection()
+  Transform::Transform() : m_position(0,0,0), m_rotation(1,0,0,0), m_scale(1,1,1) {}
+  Transform::Transform(const Transform & other) : m_position(other.m_position), m_rotation(other.m_rotation), m_scale(other.m_scale) {};
+  Transform & Transform::operator =(const Transform & other)
   {
-    auto rotation = GetRotationMatrix();
-    auto res = rotation * Vector4(0.0, 0.0, -1.0, 0.0);
-    return Vector3(res.x, res.y, res.z);
+    m_position = other.m_position;
+    m_rotation = other.m_rotation;
+    m_scale = other.m_scale;
+    return *this;
   }
 
-  Vector3 Transform::GetRightDirection()
-  {
-    auto rotation = GetRotationMatrix();
-    auto res = rotation * Vector4(1.0, 0.0, 0.0, 0.0);
-    return Vector3(res.x, res.y, res.z);
-  }
-
-  Vector3 Transform::GetUpDirection()
-  {
-    auto rotation = GetRotationMatrix();
-    auto res = rotation * Vector4(0.0, 1.0, 0.0, 0.0);
-    return Vector3(res.x, res.y, res.z);
-  }
-
-  Matrix4 Transform::GetTransformationMatrix()
+  Matrix4 Transform::GetMatrix() const
   {
     Matrix4 scaleMatrix = GetScaleMatrix();
     Matrix4 rotationMatrix = GetRotationMatrix();
@@ -62,4 +38,74 @@ namespace Newtonic
     return translationMatrix * rotationMatrix * scaleMatrix;
   }
 
+  Matrix4 Transform::GetTranslationMatrix() const
+  {
+    return glm::translate(Matrix4(1.0), m_position);
+  }
+
+  Matrix4 Transform::GetRotationMatrix() const
+  {
+    return glm::toMat4(m_rotation);
+  }
+
+  Matrix4 Transform::GetScaleMatrix() const
+  {
+    return glm::scale(Matrix4(1.0), m_scale);
+  }
+
+  const Vector3 & Transform::GetPosition() const    { return m_position; }
+  const Quaternion & Transform::GetRotation() const { return m_rotation; }
+  const Vector3 & Transform::GetScale() const       { return m_scale; }
+
+  Vector3 Transform::GetForwardDirection() const
+  {
+    const Matrix4 & rot = GetRotationMatrix();
+    Vector4 result = rot * Vector4(0.0, 0.0, -1.0, 0.0);
+    return Vector3(result.x, result.y, result.z);
+  }
+
+  Vector3 Transform::GetTopDirection() const
+  {
+    const Matrix4 & rot = GetRotationMatrix();
+    Vector4 result = rot * Vector4(0.0, 1.0, 0.0, 0.0);
+    return Vector3(result.x, result.y, result.z);
+  }
+
+  Vector3 Transform::GetRightDirection() const
+  {
+    const Matrix4 & rot = GetRotationMatrix();
+    Vector4 result = rot * Vector4(1.0, 0.0, 0.0, 0.0);
+    return Vector3(result.x, result.y, result.z);
+  }
+
+
+  void Transform::Translate(const Vector3 & translation)
+  {
+    m_position += translation;
+  }
+
+  void Transform::Rotate(const Quaternion & rotation)
+  {
+    m_rotation *= rotation;
+  }
+
+  void Transform::Scale(const Vector3 & scale)
+  {
+    m_scale = Vector3(m_scale.x * scale.x, m_scale.y * scale.y, m_scale.z * scale.z);
+  }
+
+  void Transform::SetPosition(const Vector3 & position)
+  {
+    m_position = position;
+  }
+
+  void Transform::SetRoation(const Quaternion & rotation)
+  {
+    m_rotation = rotation;
+  }
+
+  void Transform::SetScale(const Vector3 & scale)
+  {
+    m_scale = scale;
+  }
 }

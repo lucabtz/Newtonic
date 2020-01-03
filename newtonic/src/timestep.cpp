@@ -16,19 +16,21 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "input.h"
+#include "timestep.h"
 
-#include "util.h"
-#include "core.h"
+#include <GLFW/glfw3.h>
 
 namespace Newtonic
 {
-  bool Input::s_keyStatuses[HIGHEST_KEY_CODE];
+  Timestep::Timestep() : m_lastStopped(glfwGetTime()) {}
+  void Timestep::Start() { m_lastStopped = glfwGetTime(); }
 
-  void Input::SetKeyStatus(unsigned int keyCode, bool status)
+  float Timestep::DeltaTime()
   {
-    s_keyStatuses[keyCode] = status;
+    float currentTime = glfwGetTime();
+    float result = currentTime - m_lastStopped;
+    m_lastStopped = currentTime;
+    return result;
   }
 
-  bool Input::IsKeyDown(unsigned int keyCode) { return s_keyStatuses[keyCode]; }
 }
