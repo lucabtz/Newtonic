@@ -56,4 +56,13 @@ namespace Newtonic
   MouseClickEvent::MouseClickEvent(unsigned int button) : Event(EventType::MouseClick), m_button(button) {}
   std::string MouseClickEvent::GetLogMessage() const { return FormatString("MouseClickEvent(button: %i)", m_button); }
   unsigned int MouseClickEvent::GetButton() const { return m_button; }
+
+  MouseReleaseEvent::MouseReleaseEvent(unsigned int button) : Event(EventType::MouseRelease), m_button(button) {}
+  std::string MouseReleaseEvent::GetLogMessage() const { return FormatString("MouseReleaseEvent(button: %i)", m_button); }
+  unsigned int MouseReleaseEvent::GetButton() const { return m_button; }
+
+  MouseScrollEvent::MouseScrollEvent(float xOffset, float yOffset) : Event(EventType::MouseScroll), m_xOffset(xOffset), m_yOffset(yOffset) {}
+  std::string MouseScrollEvent::GetLogMessage() const { return FormatString("MouseScrollEvent(xOffset: %f, yOffset: %f)", m_xOffset, m_yOffset); }
+  float MouseScrollEvent::GetXOffset() const { return m_xOffset; }
+  float MouseScrollEvent::GetYOffset() const { return m_yOffset; }
 }

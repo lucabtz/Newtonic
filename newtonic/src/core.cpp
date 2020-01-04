@@ -59,7 +59,6 @@ namespace Newtonic
 
     s_coreLogger.Info(FormatString("OpenGL version %s vendor %s", glGetString(GL_VERSION), glGetString(GL_VENDOR)));
     s_coreLogger.Info(FormatString("GLSL version %s", glGetString(GL_SHADING_LANGUAGE_VERSION)));
-
   }
 
 }

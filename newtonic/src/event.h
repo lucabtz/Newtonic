@@ -29,7 +29,7 @@ namespace Newtonic
   {
     Invalid,
     WindowResize, WindowClose,
-    KeyDown, KeyUp, KeyRepeat, MouseMove, MouseClick
+    KeyDown, KeyUp, KeyRepeat, MouseMove, MouseClick, MouseRelease, MouseScroll
   };
 
   class Event
@@ -120,5 +120,29 @@ namespace Newtonic
     unsigned int GetButton() const;
   private:
     unsigned int m_button;
+  };
+
+  class MouseReleaseEvent : public Event
+  {
+  public:
+    MouseReleaseEvent(unsigned int button);
+
+    std::string GetLogMessage() const override;
+    unsigned int GetButton() const;
+  private:
+    unsigned int m_button;
+  };
+
+  class MouseScrollEvent : public Event
+  {
+  public:
+    MouseScrollEvent(float xOffset, float yOffset);
+
+    std::string GetLogMessage() const override;
+    float GetXOffset() const;
+    float GetYOffset() const;
+  private:
+    float m_xOffset;
+    float m_yOffset;
   };
 }

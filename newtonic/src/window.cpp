@@ -24,7 +24,7 @@
 
 namespace Newtonic
 {
-  Window::Window() : m_window(nullptr), m_windowData() {}
+  Window::Window() : m_window(nullptr), m_windowData(), m_stickCursorToCenter(false) {}
 
   Window::Window(Window && other) : m_window(other.m_window), m_windowData(other.m_windowData)
   {
@@ -47,14 +47,28 @@ namespace Newtonic
   void Window::SwapBuffers()  const { glfwSwapBuffers(m_window); }
   void Window::PollEvents()  const { glfwPollEvents(); }
   Viewport Window::GetViewport() const { return m_windowData.m_viewport; }
+  void Window::StickCursorToCenter(bool value) { m_stickCursorToCenter = value; }
 
   void Window::Update()
   {
+    if (m_stickCursorToCenter)
+    {
+      double centerX = m_windowData.m_viewport.m_width / 2;
+      double centerY = m_windowData.m_viewport.m_height / 2;
+
+      glfwSetCursorPos(m_window, centerX, centerY);
+    }
     SwapBuffers();
     PollEvents();
   }
 
-  void Window::SetStickyKeys(bool value)
+  void Window::HideCursor(bool value) const
+  {
+    if (value) glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    else       glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+  }
+
+  void Window::SetStickyKeys(bool value) const
   {
     if (value) glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
     else       glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_FALSE);
@@ -84,7 +98,6 @@ namespace Newtonic
 
     glfwSetKeyCallback(glfwWindow, [](GLFWwindow * wnd, int key, int scancode, int action, int mods)
     {
-      WindowData & wndData = *(WindowData*)glfwGetWindowUserPointer(wnd);
       switch (action)
       {
       case GLFW_PRESS:
@@ -93,7 +106,38 @@ namespace Newtonic
       case GLFW_RELEASE:
         EventBus::Push(std::make_shared<KeyUpEvent>(key));
         break;
+      case GLFW_REPEAT:
+        EventBus::Push(std::make_shared<KeyRepeatEvent>(key, 1));
+        break;
       }
+    });
+
+    glfwSetMouseButtonCallback(glfwWindow, [](GLFWwindow * wnd, int button, int action, int modes)
+    {
+      switch (action)
+      {
+      case GLFW_PRESS:
+        EventBus::Push(std::make_shared<MouseClickEvent>(button));
+        break;
+      case GLFW_RELEASE:
+        EventBus::Push(std::make_shared<MouseReleaseEvent>(button));
+        break;
+      }
+    });
+
+    glfwSetScrollCallback(glfwWindow, [](GLFWwindow * wnd, double xOffset, double yOffset)
+    {
+      EventBus::Push(std::make_shared<MouseScrollEvent>((float)xOffset, (float)yOffset));
+    });
+
+    glfwSetCursorPosCallback(glfwWindow, [](GLFWwindow * wnd, double xPos, double yPos)
+    {
+      EventBus::Push(std::make_shared<MouseMoveEvent>(Vector2((float)xPos, (float)yPos)));
+    });
+
+    glfwSetWindowCloseCallback(glfwWindow, [](GLFWwindow * wnd)
+    {
+      EventBus::Push(std::make_shared<WindowCloseEvent>());
     });
 
     return window;

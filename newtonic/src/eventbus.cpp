@@ -53,8 +53,8 @@ namespace Newtonic
     s_eventQueue.pop();
     for (const auto & listener : s_listeners[event->GetType()])
     {
-      NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Event: %s dispatched", event->GetLogMessage().c_str()))); 
       listener(event);
     }
+    NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Event: %s dispatched", event->GetLogMessage().c_str())));
   }
 }

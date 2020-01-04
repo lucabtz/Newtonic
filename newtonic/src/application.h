@@ -18,34 +18,31 @@
 
 #pragma once
 
-#include "math.h"
-
-#define HIGHEST_KEY_CODE 500
-#define HIGHEST_BUTTON_CODE 10
+#include <string>
+#include "window.h"
+#include "logger.h"
 
 namespace Newtonic
 {
-  enum class MouseAxis : unsigned int
-  {
-    Horizontal, Vertical
-  };
-
-  class Input
+  class Application
   {
   public:
-    static void Init();
+    Application(std::string name, const Viewport & viewport);
+    virtual ~Application();
 
-    static bool IsKeyDown(unsigned int keyCode);
-    static bool IsKeyUp(unsigned int keyCode) { return !IsKeyDown(keyCode); }
+    const std::string & GetName() const;
+    Window & GetWindow();
+    const Logger & GetLogger() const;
 
-    static bool IsButtonDown(unsigned int buttonCode);
-    static bool IsButtonUp(unsigned int buttonCode) { return !IsButtonDown(buttonCode); }
+    void Stop();
+    void Start();
 
-    static float GetAxis(MouseAxis axis);
+    virtual void Setup() = 0;
+    virtual void Update(float dt) = 0;
+    virtual void Render() = 0;
   private:
-    static bool s_keyStatuses[HIGHEST_KEY_CODE];
-    static bool s_buttonStatuses[HIGHEST_BUTTON_CODE];
-
-    static Vector2 s_mousePosition;
+    std::string m_name;
+    Window m_window;
+    bool m_running;
   };
 }

@@ -46,7 +46,9 @@ namespace Newtonic
     void MakeCurrent() const;
     void PollEvents() const;
 
-    void SetStickyKeys(bool value);
+    void SetStickyKeys(bool value) const;
+    void HideCursor(bool value) const;
+    void StickCursorToCenter(bool value);
 
     Viewport GetViewport() const;
 
@@ -56,5 +58,6 @@ namespace Newtonic
   private:
     GLFWwindow * m_window;
     WindowData m_windowData;
+    bool m_stickCursorToCenter;
   };
 }

@@ -140,3 +140,7 @@
 #define 	NW_KEY_RIGHT_SUPER   347
 #define 	NW_KEY_MENU   348
 #define 	NW_KEY_LAST   NW_KEY_MENU
+
+#define NW_BUTTON_LEFT 0
+#define NW_BUTTON_RIGHT 1
+#define NW_BUTTON_CENTER 2
