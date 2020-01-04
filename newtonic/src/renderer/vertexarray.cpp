@@ -19,8 +19,8 @@
 #include "vertexarray.h"
 #include "opengl.h"
 
-#include "core.h"
-#include "util.h"
+#include "../core.h"
+#include "../util.h"
 
 namespace Newtonic
 {

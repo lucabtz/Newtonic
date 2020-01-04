@@ -18,11 +18,11 @@
 
 #pragma once
 
-#include "math.h"
+#include "../math.h"
 #include "vertexarray.h"
 #include "indexbuffer.h"
 #include "shader.h"
-#include "math.h"
+#include "../math.h"
 
 namespace Newtonic
 {

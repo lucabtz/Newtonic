@@ -18,7 +18,7 @@
 
 #include "texture.h"
 
-#include "util.h"
+#include "../util.h"
 
 namespace Newtonic
 {

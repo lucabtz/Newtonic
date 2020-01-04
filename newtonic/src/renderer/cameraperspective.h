@@ -20,7 +20,7 @@
 
 #include "camera.h"
 
-#include "viewport.h"
+#include "../viewport.h"
 
 namespace Newtonic
 {

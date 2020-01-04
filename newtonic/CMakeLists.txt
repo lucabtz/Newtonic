@@ -1,7 +1,8 @@
 # This files builds the Newtonic shared library
 
 # Build Newtonic as shared library
-file(GLOB newtonic-src "src/*.h" "src/*.cpp")
+file(GLOB newtonic-src "src/*.h" "src/*.cpp" "src/renderer/*.h" "src/renderer/*.cpp")
+
 add_library(newtonic SHARED ${newtonic-src})
 
 target_link_libraries(newtonic PRIVATE stb_image)

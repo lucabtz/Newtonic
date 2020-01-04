@@ -18,38 +18,18 @@
 
 #pragma once
 
-#include "opengl.h"
-
-#include "image.h"
-
-#define INVALID_TEXTURE_ID 0
-#define MAX_SLOTS 32
+#include "../math.h"
 
 namespace Newtonic
 {
-  class Texture
+  class Camera
   {
   public:
-    Texture();
-    ~Texture();
-    Texture(const Image & image);
-    Texture(Texture && other);
-    Texture & operator =(Texture && other);
+    virtual Matrix4 GetViewMatrix() const = 0;
+    virtual Matrix4 GetProjectionMatrix() const = 0;
 
-    void Bind(unsigned int slot = 0) const;
-    void Unbind(unsigned int slot = 0) const;
-
-    int GetWidth() const;
-    int GetHeight() const;
-    int GetBPP() const;
-
-    GLuint GetTextureId() const;
-
-    void LoadFromImage(const Image & image);
-  private:
-    GLuint m_textureId;
-    int m_width;
-    int m_height;
-    int m_bitsPerPixel;
+    virtual Vector3 GetViewDirection() const = 0;
+    virtual Vector3 GetTopDirection() const = 0;
+    virtual Vector3 GetRightDirection() const = 0;
   };
 }

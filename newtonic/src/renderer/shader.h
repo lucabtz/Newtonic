@@ -19,7 +19,7 @@
 #pragma once
 
 #include "opengl.h"
-#include "math.h"
+#include "../math.h"
 
 #include <string>
 

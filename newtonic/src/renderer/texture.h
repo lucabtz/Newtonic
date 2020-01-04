@@ -18,24 +18,38 @@
 
 #pragma once
 
-#include <iostream>
-#include <GL/glew.h>
+#include "opengl.h"
 
-#include "core.h"
-#include "util.h"
+#include "../image.h"
 
-static void ClearOpenGLErrorState() { while (glGetError() != GL_NO_ERROR); }
-static bool LogOpenGLErrorState(const char * expr, const char * file, int line)
+#define INVALID_TEXTURE_ID 0
+#define MAX_SLOTS 32
+
+namespace Newtonic
 {
-  GLenum error = glGetError();
-  if (error)
+  class Texture
   {
-    Newtonic::Core::GetCoreLogger().Error(Newtonic::FormatString("%i %s %s:%i", error, expr, file, line));
-    return true;
-  }
-  return false;
-}
+  public:
+    Texture();
+    ~Texture();
+    Texture(const Image & image);
+    Texture(Texture && other);
+    Texture & operator =(Texture && other);
 
-#define NW_WRAP_GL_CALL(x) ClearOpenGLErrorState();\
-  x;\
-  ASSERT_FALSE(LogOpenGLErrorState(#x, __FILE__, __LINE__))
+    void Bind(unsigned int slot = 0) const;
+    void Unbind(unsigned int slot = 0) const;
+
+    int GetWidth() const;
+    int GetHeight() const;
+    int GetBPP() const;
+
+    GLuint GetTextureId() const;
+
+    void LoadFromImage(const Image & image);
+  private:
+    GLuint m_textureId;
+    int m_width;
+    int m_height;
+    int m_bitsPerPixel;
+  };
+}

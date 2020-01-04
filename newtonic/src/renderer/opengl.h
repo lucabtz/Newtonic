@@ -18,18 +18,24 @@
 
 #pragma once
 
-#include "math.h"
+#include <iostream>
+#include <GL/glew.h>
 
-namespace Newtonic
+#include "../core.h"
+#include "../util.h"
+
+static void ClearOpenGLErrorState() { while (glGetError() != GL_NO_ERROR); }
+static bool LogOpenGLErrorState(const char * expr, const char * file, int line)
 {
-  class Camera
+  GLenum error = glGetError();
+  if (error)
   {
-  public:
-    virtual Matrix4 GetViewMatrix() const = 0;
-    virtual Matrix4 GetProjectionMatrix() const = 0;
-
-    virtual Vector3 GetViewDirection() const = 0;
-    virtual Vector3 GetTopDirection() const = 0;
-    virtual Vector3 GetRightDirection() const = 0;
-  };
+    Newtonic::Core::GetCoreLogger().Error(Newtonic::FormatString("%i %s %s:%i", error, expr, file, line));
+    return true;
+  }
+  return false;
 }
+
+#define NW_WRAP_GL_CALL(x) ClearOpenGLErrorState();\
+  x;\
+  ASSERT_FALSE(LogOpenGLErrorState(#x, __FILE__, __LINE__))

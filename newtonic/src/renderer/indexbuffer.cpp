@@ -17,8 +17,8 @@
  */
 
 #include "indexbuffer.h"
-#include "util.h"
-#include "core.h"
+#include "../util.h"
+#include "../core.h"
 
 namespace Newtonic
 {

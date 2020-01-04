@@ -21,8 +21,8 @@
 #include <vector>
 #include "opengl.h"
 
-#include "util.h"
-#include "core.h"
+#include "../util.h"
+#include "../core.h"
 
 namespace Newtonic
 {
@@ -50,7 +50,7 @@ namespace Newtonic
 
   template<>
   void VertexBufferLayout::Add<GLfloat>(unsigned int count);
-  
+
   template<>
   void VertexBufferLayout::Add<GLuint>(unsigned int count);
 }

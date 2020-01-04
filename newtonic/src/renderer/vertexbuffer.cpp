@@ -17,8 +17,8 @@
  */
 
 #include "vertexbuffer.h"
-#include "core.h"
-#include "util.h"
+#include "../core.h"
+#include "../util.h"
 
 namespace Newtonic
 {
