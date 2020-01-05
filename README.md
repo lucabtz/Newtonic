@@ -1,4 +1,4 @@
-# Newtonic [![CodeFactor](https://www.codefactor.io/repository/github/ekardnam/newtonic/badge)](https://www.codefactor.io/repository/github/ekardnam/newtonic)
+# Newtonic [![CodeFactor](https://www.codefactor.io/repository/github/ekardnam/newtonic/badge)](https://www.codefactor.io/repository/github/ekardnam/newtonic) [![Travis](https://travis-ci.org/ekardnam/Newtonic.svg?branch=master)](https://travis-ci.org/ekardnam/Newtonic)
 A "game engine" built for learning purposes mostly.
 
 # Why
@@ -12,7 +12,7 @@ Currently Newtonic depends on GLFW3, OpenGL, GLEW and GLM. You have to install t
 For building also CMake is required.
 
 After cloning create a folder `build`, `cd` into it and run `cmake ..` and then `make`. This will build stbi_image, then Newtonic and the playground application that exists mostly for testing the engine.
-Currently building was tested only on Arch Linux, please open an issue if you have troubles.
+Currently building was tested only on Arch Linux and on Bionic, please open an issue if you have troubles.
 
 # Contributing
 Contributions are welcome, there is no contribution guidelines yet, but hopefully there will be soon.
