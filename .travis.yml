@@ -1,0 +1,16 @@
+language: cpp
+compiler: gcc
+dist: bionic
+
+install:
+  - sudo apt update
+  - sudo apt install libglfw3-dev libglew-dev libglm-dev libgl1-mesa-dev
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake --version
+  - cmake ..
+
+script:
+  - make
