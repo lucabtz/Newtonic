@@ -36,6 +36,8 @@ namespace Newtonic
 
     bool IsValid() const { return m_data != nullptr; }
 
+    void Clear();
+
     static Image LoadPNG(const char * path);
 
   private:

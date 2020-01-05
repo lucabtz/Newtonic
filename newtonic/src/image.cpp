@@ -26,7 +26,7 @@
 namespace Newtonic
 {
   Image::Image() : m_data(nullptr), m_width(0), m_height(0), m_bitsPerPixel(0) {}
-  Image::~Image() { if (m_data) stbi_image_free(m_data); }
+  Image::~Image() { Clear(); }
 
   Image::Image(Image && other) : m_data(other.m_data), m_width(other.m_width), m_height(other.m_height), m_bitsPerPixel(other.m_bitsPerPixel)
   {
@@ -35,12 +35,15 @@ namespace Newtonic
 
   Image & Image::operator =(Image && other)
   {
-    if (m_data) stbi_image_free(m_data);
+    Clear();
     m_data = other.m_data;
-    other.m_data = nullptr;
     m_width = other.m_width;
     m_height = other.m_height;
     m_bitsPerPixel = other.m_bitsPerPixel;
+    other.m_data = nullptr;
+    other.m_width = 0;
+    other.m_height = 0;
+    other.m_bitsPerPixel = 0;
     return *this;
   }
 
@@ -49,6 +52,18 @@ namespace Newtonic
   int Image::GetBPP()    const { return m_bitsPerPixel; }
 
   unsigned char * Image::GetBuffer() const { return m_data; }
+
+  void Image::Clear()
+  {
+    if (m_data)
+    {
+      stbi_image_free(m_data);
+      m_data = nullptr;
+    }
+    m_width = 0;
+    m_height = 0;
+    m_bitsPerPixel = 0;
+  }
 
   Image Image::LoadPNG(const char * path)
   {
