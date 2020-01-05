@@ -37,24 +37,20 @@ namespace Newtonic
 
   Texture::~Texture()
   {
-    if (m_textureId != INVALID_TEXTURE_ID)
-    {
-      NW_WRAP_GL_CALL(glDeleteTextures(1, &m_textureId));
-    }
+    Clear();
   }
 
   Texture & Texture::operator =(Texture && other)
   {
-    if (m_textureId != INVALID_TEXTURE_ID)
-    {
-      NW_WRAP_GL_CALL(glDeleteTextures(1, &m_textureId));
-    }
-
+    Clear();
     m_textureId = other.m_textureId;
-    other.m_textureId = INVALID_TEXTURE_ID;
     m_width = other.m_width;
     m_height = other.m_height;
     m_bitsPerPixel = other.m_bitsPerPixel;
+    other.m_textureId = INVALID_TEXTURE_ID;
+    other.m_width = 0;
+    other.m_height = 0;
+    other.m_bitsPerPixel = 0;
     return *this;
   }
 
@@ -70,6 +66,18 @@ namespace Newtonic
     ASSERT_TRUE(slot < MAX_SLOTS);
     NW_WRAP_GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
     NW_WRAP_GL_CALL(glBindTexture(GL_TEXTURE_2D, INVALID_TEXTURE_ID));
+  }
+
+  void Texture::Clear()
+  {
+    if (m_textureId != INVALID_TEXTURE_ID)
+    {
+      NW_WRAP_GL_CALL(glDeleteTextures(1, &m_textureId));
+      m_textureId = INVALID_TEXTURE_ID;
+    }
+    m_width = 0;
+    m_height = 0;
+    m_bitsPerPixel = 0;
   }
 
   int Texture::GetWidth()  const { return m_width; }

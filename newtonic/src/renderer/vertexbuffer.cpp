@@ -34,11 +34,11 @@ namespace Newtonic
 
   VertexBuffer::VertexBuffer(VertexBuffer && other) : m_vboId(other.m_vboId) { other.m_vboId = INVALID_VBO_ID; }
 
-  VertexBuffer::~VertexBuffer() { if (m_vboId != INVALID_VBO_ID) { NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId)); } }
+  VertexBuffer::~VertexBuffer() { Clear(); }
 
   VertexBuffer & VertexBuffer::operator =(VertexBuffer && other)
   {
-    if (m_vboId != INVALID_VBO_ID) { NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId)); }
+    Clear();
     m_vboId = other.m_vboId;
     other.m_vboId = INVALID_VBO_ID;
     return *this;
@@ -46,4 +46,13 @@ namespace Newtonic
 
   void VertexBuffer::Bind()   const { NW_WRAP_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, m_vboId)); }
   void VertexBuffer::Unbind() const { NW_WRAP_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, INVALID_VBO_ID)); }
+
+  void VertexBuffer::Clear()
+  {
+    if (m_vboId != INVALID_VBO_ID)
+    {
+        NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId));
+        m_vboId = INVALID_VBO_ID;
+    }
+  }
 }

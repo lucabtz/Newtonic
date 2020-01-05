@@ -39,6 +39,8 @@ namespace Newtonic
     void Bind(unsigned int slot = 0) const;
     void Unbind(unsigned int slot = 0) const;
 
+    void Clear();
+
     int GetWidth() const;
     int GetHeight() const;
     int GetBPP() const;

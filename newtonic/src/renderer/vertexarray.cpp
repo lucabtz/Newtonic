@@ -37,18 +37,30 @@ namespace Newtonic
     other.m_vaoId = INVALID_VAO_ID;
   }
 
-  VertexArray::~VertexArray() { if (m_vaoId != INVALID_VAO_ID) { NW_WRAP_GL_CALL(glDeleteVertexArrays(1, &m_vaoId)); } }
+  VertexArray::~VertexArray() { Clear(); }
 
   VertexArray & VertexArray::operator =(VertexArray && other)
   {
-    if (m_vaoId != INVALID_VAO_ID) { NW_WRAP_GL_CALL(glDeleteVertexArrays(1, &m_vaoId)); }
+    Clear();
     m_vaoId = other.m_vaoId;
+    m_firstFreeAttribute = other.m_firstFreeAttribute;
     other.m_vaoId = INVALID_VAO_ID;
+    other.m_firstFreeAttribute = 0;
     return *this;
   }
 
   void VertexArray::Bind() const { NW_WRAP_GL_CALL(glBindVertexArray(m_vaoId)); }
   void VertexArray::Unbind() const { NW_WRAP_GL_CALL(glBindVertexArray(INVALID_VAO_ID)); }
+
+  void VertexArray::Clear()
+  {
+    if (m_vaoId != INVALID_VAO_ID)
+    {
+       NW_WRAP_GL_CALL(glDeleteVertexArrays(1, &m_vaoId));
+       m_vaoId = INVALID_VAO_ID;
+    }
+    m_firstFreeAttribute = 0;
+  }
 
   void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout)
   {

@@ -52,7 +52,7 @@ namespace Newtonic
 
   Shader::Shader() : m_shaderId(INVALID_SHADER_ID) {}
   Shader::Shader(GLuint id) : m_shaderId(id) { NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Created shader %i", m_shaderId))); }
-  Shader::~Shader() { if (m_shaderId != INVALID_SHADER_ID) { NW_WRAP_GL_CALL(glDeleteProgram(m_shaderId)); } }
+  Shader::~Shader() { Clear(); }
 
   Shader::Shader(Shader && other) :
     m_shaderId(other.m_shaderId)
@@ -62,17 +62,23 @@ namespace Newtonic
 
   Shader & Shader::operator =(Shader && other)
   {
-    if (m_shaderId != INVALID_SHADER_ID)
-    {
-      NW_WRAP_GL_CALL(glDeleteProgram(m_shaderId));
-    }
+    Clear();
     m_shaderId = other.m_shaderId;
     other.m_shaderId = INVALID_SHADER_ID;
     return *this;
   }
 
   void Shader::Bind()   const { NW_WRAP_GL_CALL(glUseProgram(m_shaderId)); }
-  void Shader::Unbind() const { NW_WRAP_GL_CALL(glUseProgram(0));          }
+  void Shader::Unbind() const { NW_WRAP_GL_CALL(glUseProgram(INVALID_SHADER_ID)); }
+
+  void Shader::Clear()
+  {
+    if (m_shaderId != INVALID_SHADER_ID)
+    {
+      NW_WRAP_GL_CALL(glDeleteProgram(m_shaderId));
+      m_shaderId = INVALID_SHADER_ID;
+    }
+  }
 
   int Shader::GetUniformLocation(const std::string & name) const
   {

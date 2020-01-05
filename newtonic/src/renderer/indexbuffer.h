@@ -37,6 +37,8 @@ namespace Newtonic
     void Bind() const;
     void Unbind() const;
 
+    void Clear();
+
     unsigned int GetIndicesCount() const { return m_indicesCount; }
   private:
     GLuint m_bufferId;

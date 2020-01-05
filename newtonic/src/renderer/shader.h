@@ -39,6 +39,8 @@ namespace Newtonic
     void Bind() const;
     void Unbind() const;
 
+    void Clear();
+
     void LoadUniform1f(const std::string & name, GLfloat v) const;
     void LoadUniform2f(const std::string & name, GLfloat v1, GLfloat v2) const;
     void LoadUniform3f(const std::string & name, GLfloat v1, GLfloat v2, GLfloat v3) const;

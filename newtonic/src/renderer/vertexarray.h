@@ -38,6 +38,8 @@ namespace Newtonic
 
     void Bind() const;
     void Unbind() const;
+
+    void Clear();
   private:
     GLuint m_vaoId;
 

@@ -41,11 +41,11 @@ namespace Newtonic
     other.m_indicesCount = 0;
   }
 
-  IndexBuffer::~IndexBuffer() { if (m_bufferId != INVALID_INDEX_BUFFER_ID) NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_bufferId)); }
+  IndexBuffer::~IndexBuffer() { Clear(); }
 
   IndexBuffer & IndexBuffer::operator =(IndexBuffer && other)
   {
-    if (m_bufferId != INVALID_INDEX_BUFFER_ID) NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_bufferId));
+    Clear();
     m_bufferId = other.m_bufferId;
     m_indicesCount = other.m_indicesCount;
     other.m_bufferId = INVALID_INDEX_BUFFER_ID;
@@ -55,4 +55,14 @@ namespace Newtonic
 
   void IndexBuffer::Bind()   const { NW_WRAP_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId)); }
   void IndexBuffer::Unbind() const { NW_WRAP_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, INVALID_INDEX_BUFFER_ID)); }
+
+  void IndexBuffer::Clear()
+  {
+    if (m_bufferId != INVALID_INDEX_BUFFER_ID)
+    {
+       NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_bufferId));
+       m_bufferId = INVALID_INDEX_BUFFER_ID;
+    }
+    m_indicesCount = 0;
+  }
 }
