@@ -96,6 +96,8 @@ namespace Newtonic
       wndData.m_viewport = Viewport(width, height);
     });
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
     glfwSetKeyCallback(glfwWindow, [](GLFWwindow * wnd, int key, int scancode, int action, int mods)
     {
       switch (action)
@@ -139,6 +141,8 @@ namespace Newtonic
     {
       EventBus::Push(std::make_shared<WindowCloseEvent>());
     });
+#pragma GCC diagnostic pop
+
 
     return window;
   }

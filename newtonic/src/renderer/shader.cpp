@@ -29,7 +29,7 @@
 
 namespace Newtonic
 {
-  static bool CompileShader(GLuint shaderId, const char * shaderCode, size_t codeLen)
+  static bool CompileShader(GLuint shaderId, const char * shaderCode)
   {
     GLint result = 0;
     GLint infoLogLen = 0;
@@ -141,8 +141,8 @@ namespace Newtonic
     NW_WRAP_GL_CALL(GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER));
     NW_WRAP_GL_CALL(GLuint shaderProgram = glCreateProgram());
 
-    if (!CompileShader(vertexShader, vertex, vertexLen)) throw std::runtime_error("Cannot compile vertex shader");
-    if (!CompileShader(fragmentShader, fragment, fragmentLen)) throw std::runtime_error("Cannot compile fragment shader");
+    if (!CompileShader(vertexShader, vertex)) throw std::runtime_error("Cannot compile vertex shader");
+    if (!CompileShader(fragmentShader, fragment)) throw std::runtime_error("Cannot compile fragment shader");
 
     NW_WRAP_GL_CALL(glAttachShader(shaderProgram, vertexShader));
     NW_WRAP_GL_CALL(glAttachShader(shaderProgram, fragmentShader));

@@ -21,7 +21,7 @@
 namespace Newtonic
 {
   Transform::Transform() : m_position(0,0,0), m_rotation(1,0,0,0), m_scale(1,1,1) {}
-  Transform::Transform(const Transform & other) : m_position(other.m_position), m_rotation(other.m_rotation), m_scale(other.m_scale) {};
+  Transform::Transform(const Transform & other) : m_position(other.m_position), m_rotation(other.m_rotation), m_scale(other.m_scale) {}
   Transform & Transform::operator =(const Transform & other)
   {
     m_position = other.m_position;

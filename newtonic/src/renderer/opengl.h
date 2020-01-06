@@ -24,6 +24,8 @@
 #include "../core.h"
 #include "../util.h"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
 static void ClearOpenGLErrorState() { while (glGetError() != GL_NO_ERROR); }
 static bool LogOpenGLErrorState(const char * expr, const char * file, int line)
 {
@@ -35,6 +37,7 @@ static bool LogOpenGLErrorState(const char * expr, const char * file, int line)
   }
   return false;
 }
+#pragma GCC diagnostic pop
 
 #define NW_WRAP_GL_CALL(x) ClearOpenGLErrorState();\
   x;\

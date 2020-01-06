@@ -53,8 +53,8 @@ namespace Newtonic
     std::vector<GLfloat> m_vertices;
 
     VertexArray m_vertexArray;
-    VertexBuffer m_vertexBuffer;
     IndexBuffer m_indexBuffer;
+    VertexBuffer m_vertexBuffer;
 
     void PushVertex(const MeshVertex & vert);
     void InitVertexArray();

@@ -71,7 +71,10 @@ namespace Newtonic
     {
       const BufferElement & elem = elems[i];
       NW_WRAP_GL_CALL(glEnableVertexAttribArray(m_firstFreeAttribute + i));
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
       NW_WRAP_GL_CALL(glVertexAttribPointer(m_firstFreeAttribute + i, elem.m_count, elem.m_type, elem.m_normalized, layout.GetStride(), (const void*)offset));
+#pragma GCC diagnostic pop
       offset += elem.m_size * elem.m_count;
     }
     m_firstFreeAttribute += i;
