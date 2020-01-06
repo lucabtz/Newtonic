@@ -5,6 +5,10 @@ dist: bionic
 install:
   - sudo apt update
   - sudo apt install libglfw3-dev libglew-dev libglm-dev libgl1-mesa-dev
+  - cd thirdparty/assimp # install assimp for building
+  - cmake .
+  - make
+  - sudo make install
 
 before_script:
   - mkdir build
@@ -13,4 +17,4 @@ before_script:
   - cmake ..
 
 script:
-  - make
+  - make -j4
