@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.2)
 project(Newtonic VERSION 0.0.1)
 
 set(DEBUG true)
-set(BUILD_PLAYGROUND true)
 
 message(STATUS "DEBUG=${DEBUG}")
 message(STATUS "BUILD_PLAYGROUND=${BUILD_PLAYGROUND}")
