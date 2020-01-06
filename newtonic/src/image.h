@@ -20,6 +20,9 @@
 
 namespace Newtonic
 {
+  /**
+   * A image resource
+   */
   class Image
   {
   public:
@@ -32,12 +35,19 @@ namespace Newtonic
     int GetHeight() const;
     int GetBPP() const;
 
+    /**
+     * Gets the underlying image buffer
+     */
     unsigned char * GetBuffer() const;
 
     bool IsValid() const { return m_data != nullptr; }
 
     void Clear();
 
+    /**
+     * Loads a image from the given PNG file
+     * After this call the image validity should be checked using Newtonic::Image::IsValid
+     */
     static Image LoadPNG(const char * path);
 
   private:

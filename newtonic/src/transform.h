@@ -22,29 +22,85 @@
 
 namespace Newtonic
 {
+  /**
+   * A 3D object transform. Contains the object position, rotation and scale
+   */
   class Transform
   {
   public:
+    /**
+     * Constructs an empty transform. position is the origin, no rotation and no scale
+     */
     Transform();
     Transform(const Transform & other);
     Transform & operator =(const Transform & other);
 
+    /**
+     * Returns the transformation matrix
+     */
     Matrix4 GetMatrix() const;
 
+    /**
+     * Returns the translation matrix
+     */
     Matrix4 GetTranslationMatrix() const;
+
+    /**
+     * Returns the translation matrix
+     */
     Matrix4 GetRotationMatrix() const;
+
+    /**
+     * Returns the scale matrix
+     */
     Matrix4 GetScaleMatrix() const;
 
+    /**
+     * Returns the transform position
+     */
     const Vector3 & GetPosition() const;
+
+    /**
+     * Returns the transform rotation
+     */
     const Quaternion & GetRotation() const;
+
+    /**
+     * Returns the transform scale
+     */
     const Vector3 & GetScale() const;
 
+    /**
+     * Returns the direction this transform is looking at.
+     * Specifically it rotates the vector (0.0, 0.0, -1.0) by the transform rotation
+     */
     Vector3 GetForwardDirection() const;
+
+    /**
+     * Returns the direction above the transform
+     * Specifically it rotates the vector (0.0, 1.0, 0.0) by the transform rotation
+     */
     Vector3 GetTopDirection() const;
+
+    /**
+     * Returns the direction right to the transform
+     * Specifically it rotates the vector (1.0, 0.0, 0.0) by the transform rotation
+     */
     Vector3 GetRightDirection() const;
 
+    /**
+     * Translates the transform by translation
+     */
     void Translate(const Vector3 & translation);
+
+    /**
+     * Rotates the transform by rotation
+     */
     void Rotate(const Quaternion & rotation);
+
+    /**
+     * Scales the transform by scale
+     */
     void Scale(const Vector3 & scale);
 
     void SetPosition(const Vector3 & position);

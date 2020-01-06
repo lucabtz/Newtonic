@@ -20,6 +20,9 @@
 
 namespace Newtonic
 {
+  /**
+   * A viewport representation
+   */
   struct Viewport
   {
     int m_width;

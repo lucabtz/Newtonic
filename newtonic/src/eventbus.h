@@ -34,9 +34,24 @@ namespace Newtonic
   class EventBus
   {
   public:
+    /**
+     * Pushes the event in the event queue
+     */
     static void Push(std::shared_ptr<Event> event);
+
+    /**
+     * Listens for events of type type with the given Newtonic::EventListener
+     */
     static void Listen(EventType type, const EventListener & listener);
+
+    /**
+     * Dispatches all events in the queue to the listeners
+     */
     static void DispatchAll();
+
+    /**
+     * Dispatches one event in the queue to the listeners
+     */
     static void DispatchOne();
 
   private:

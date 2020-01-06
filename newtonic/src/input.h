@@ -41,6 +41,9 @@ namespace Newtonic
     static bool IsButtonDown(unsigned int buttonCode);
     static bool IsButtonUp(unsigned int buttonCode) { return !IsButtonDown(buttonCode); }
 
+    /**
+     * Returns the mouse position on the given axis
+     */
     static float GetAxis(MouseAxis axis);
   private:
     static bool s_keyStatuses[HIGHEST_KEY_CODE];

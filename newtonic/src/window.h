@@ -32,28 +32,76 @@ namespace Newtonic
     WindowData & operator =(const WindowData & other) { m_viewport = other.m_viewport; return *this; }
   };
 
+  /**
+   * An abstraction for window management. Uses GLFW3 at the moment in the implementation
+   */
   class Window
   {
   public:
+    /**
+     * Constructs a window without creating or opening it. Newtonic::Window::CreateWindow should be used to create and open a new window
+     */
     Window();
     Window(Window && other);
     Window & operator =(Window && other);
     ~Window();
 
+    /**
+     * Returns true if the window should be closed
+     */
     bool ShouldClose() const;
+
+    /**
+     * Checks whether this window has been initialized properly
+     */
     bool IsValid() const { return m_window != nullptr; }
+
+    /**
+     * Swap the graphics buffers
+     */
     void SwapBuffers() const;
+
+    /**
+     * Makes the window context current
+     */
     void MakeCurrent() const;
+
+    /**
+     * Polls window events
+     */
     void PollEvents() const;
 
+    /**
+     * Enables or disables sticky keys
+     * SetStickyKeys(true) enables them and SetStickyKeys(false) disables them
+     */
     void SetStickyKeys(bool value) const;
+
+    /**
+     * HideCursor(true) hides the cursor from the window
+     * HideCursor(false) makes it visible again
+     */
     void HideCursor(bool value) const;
+
+    /**
+     * StickCursorToCenter(true) sticks the cursor position to the center. Useful for FPS like camera controllers
+     * StickCursorToCenter(false) diasbles this feature
+     */
     void StickCursorToCenter(bool value);
 
+    /**
+     * Returns a Newtonic::Viewport with the window framebuffer dimensions
+     */
     Viewport GetViewport() const;
 
+    /**
+     * Updates the window
+     */
     void Update();
 
+    /**
+     * Creates a new window with given title and viewport
+     */
     static Window CreateWindow(const char * title, Viewport viewport);
   private:
     GLFWwindow * m_window;

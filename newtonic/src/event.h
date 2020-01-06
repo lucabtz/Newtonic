@@ -43,19 +43,27 @@ namespace Newtonic
     EventType m_type;
   };
 
+  /**
+   * Event fired when the window framebuffer size changes
+   */
   class WindowResizeEvent : public Event
   {
   public:
     WindowResizeEvent(const Viewport & oldViewport, const Viewport & newViewport);
 
     std::string GetLogMessage() const override;
+    /** Returns the new framebuffer viewport */
     const Viewport & GetNewViewport() const;
+    /** Returns the old framebuffer viewport */
     const Viewport & GetOldViewport() const;
   private:
     Viewport m_old;
     Viewport m_new;
   };
 
+  /**
+   * Event fired when the window close button is pressed
+   */
   class WindowCloseEvent : public Event
   {
   public:
@@ -63,36 +71,49 @@ namespace Newtonic
     std::string GetLogMessage() const override;
   };
 
+  /**
+   * Event fired when a key is pressed
+   */
   class KeyDownEvent : public Event
   {
   public:
     KeyDownEvent(unsigned int keyCode);
 
     std::string GetLogMessage() const override;
+    /** Returns the keycode */
     unsigned int GetKeyCode() const;
 
   private:
     unsigned int m_keyCode;
   };
 
+  /**
+   * Event fired when a key is released
+   */
   class KeyUpEvent : public Event
   {
   public:
     KeyUpEvent(unsigned int keyCode);
 
     std::string GetLogMessage() const override;
+    /** Returns the keycode */
     unsigned int GetKeyCode() const;
 
   private:
     unsigned int m_keyCode;
   };
 
+  /**
+   * Event fired when a key is held down
+   * The event gets fired until the key goes up again
+   */
   class KeyRepeatEvent : public Event
   {
   public:
     KeyRepeatEvent(unsigned int keyCode, unsigned int times);
 
     std::string GetLogMessage() const override;
+    /** Returns the keycode */
     unsigned int GetKeyCode() const;
     unsigned int GetTimes() const;
   private:
@@ -100,46 +121,63 @@ namespace Newtonic
     unsigned int m_times;
   };
 
+  /**
+   * Event fired when the mouse moves in the window frame
+   */
   class MouseMoveEvent : public Event
   {
   public:
     MouseMoveEvent(const Vector2 & position);
 
     std::string GetLogMessage() const override;
+    /** Returns the mouse position */
     const Vector2 & GetPosition() const;
   private:
     Vector2 m_position;
   };
 
+  /**
+   * Event fired when a mouse button is clicked
+   */
   class MouseClickEvent : public Event
   {
   public:
     MouseClickEvent(unsigned int button);
 
     std::string GetLogMessage() const override;
+    /** Returns the button code */
     unsigned int GetButton() const;
   private:
     unsigned int m_button;
   };
 
+  /**
+   * Event fired when a mouse button is released
+   */
   class MouseReleaseEvent : public Event
   {
   public:
     MouseReleaseEvent(unsigned int button);
 
     std::string GetLogMessage() const override;
+    /** Returns the button code */
     unsigned int GetButton() const;
   private:
     unsigned int m_button;
   };
 
+  /**
+   * Event fired when the user scrolls with their mouse in the window frame
+   */
   class MouseScrollEvent : public Event
   {
   public:
     MouseScrollEvent(float xOffset, float yOffset);
 
     std::string GetLogMessage() const override;
+    /** Returns how much the mouse has scrolled in the X direction. Probably not of interest for most applications */
     float GetXOffset() const;
+    /** Returns how much the mouse has scrolled in the Y direction */
     float GetYOffset() const;
   private:
     float m_xOffset;
