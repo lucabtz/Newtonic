@@ -60,8 +60,9 @@ namespace Newtonic
   {
     if (m_bufferId != INVALID_INDEX_BUFFER_ID)
     {
-       NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_bufferId));
-       m_bufferId = INVALID_INDEX_BUFFER_ID;
+      NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Cleared index buffer %i", m_bufferId)));
+      NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_bufferId));
+      m_bufferId = INVALID_INDEX_BUFFER_ID;
     }
     m_indicesCount = 0;
   }

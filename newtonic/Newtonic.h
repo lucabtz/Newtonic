@@ -42,3 +42,5 @@
 #include "src/renderer/renderer.h"
 #include "src/renderer/camera.h"
 #include "src/renderer/cameraperspective.h"
+#include "src/renderer/mesh.h"
+#include "src/renderer/meshvertex.h"

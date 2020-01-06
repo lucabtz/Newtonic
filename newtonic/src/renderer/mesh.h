@@ -18,28 +18,45 @@
 
 #pragma once
 
-#include "../math.h"
 #include "vertexarray.h"
 #include "indexbuffer.h"
-#include "mesh.h"
+#include "meshvertex.h"
+
 #include "../math.h"
+
+#include <vector>
 
 namespace Newtonic
 {
-
-  class Renderer
+  class Mesh
   {
   public:
-    static void SetClearColor(const Vector4 & color);
+    Mesh();
+    Mesh(Mesh && other);
+    Mesh & operator =(Mesh && other);
+    ~Mesh();
 
-    static void Render(const VertexArray & va, const IndexBuffer & ib);
-    static void Render(const Mesh & mesh);
+    void Bind() const;
+    void Unbind() const;
 
-    static void RenderLines(const VertexArray & va, const IndexBuffer & ib);
-    static void RenderLines(const Mesh & mesh);
+    void Clear();
 
+    void FreeMemory();
 
-    static void SetViewport(Viewport viewport);
-    static void Clear();
+    void SetVertices(const std::vector<MeshVertex> & vertices);
+    void SetVertices(const MeshVertex * vertices, unsigned int count);
+    void SetIndices(const GLuint * indices, unsigned int count);
+
+    unsigned int GetIndicesCount() const;
+
+  private:
+    std::vector<GLfloat> m_vertices;
+
+    VertexArray m_vertexArray;
+    VertexBuffer m_vertexBuffer;
+    IndexBuffer m_indexBuffer;
+
+    void PushVertex(const MeshVertex & vert);
+    void InitVertexArray();
   };
 }

@@ -28,7 +28,7 @@ namespace Newtonic
 
   void EventBus::Push(std::shared_ptr<Event> event)
   {
-    NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Event: %s pushed", event->GetLogMessage().c_str())));
+    //NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Event: %s pushed", event->GetLogMessage().c_str())));
     s_eventQueue.push(event);
   }
 
@@ -55,6 +55,6 @@ namespace Newtonic
     {
       listener(event);
     }
-    NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Event: %s dispatched", event->GetLogMessage().c_str())));
+    //NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Event: %s dispatched", event->GetLogMessage().c_str())));
   }
 }

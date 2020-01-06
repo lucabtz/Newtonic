@@ -24,12 +24,8 @@
 
 namespace Newtonic
 {
-  VertexArray::VertexArray()
-  {
-      NW_WRAP_GL_CALL(glGenVertexArrays(1, &m_vaoId));
-      NW_WRAP_GL_CALL(glBindVertexArray(m_vaoId));
-      NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Created vertex array %i", m_vaoId)));
-  }
+  VertexArray::VertexArray() : m_vaoId(INVALID_VAO_ID)
+  {}
 
   VertexArray::VertexArray(VertexArray && other) :
     m_vaoId(other.m_vaoId)
@@ -57,6 +53,7 @@ namespace Newtonic
     if (m_vaoId != INVALID_VAO_ID)
     {
        NW_WRAP_GL_CALL(glDeleteVertexArrays(1, &m_vaoId));
+       NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Cleared vertex array %i", m_vaoId)));
        m_vaoId = INVALID_VAO_ID;
     }
     m_firstFreeAttribute = 0;
@@ -64,6 +61,7 @@ namespace Newtonic
 
   void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout)
   {
+    if (m_vaoId == INVALID_VAO_ID) Init();
     Bind();
     vb.Bind();
     const auto & elems = layout.GetElements();
@@ -77,5 +75,14 @@ namespace Newtonic
       offset += elem.m_size * elem.m_count;
     }
     m_firstFreeAttribute += i;
+  }
+
+
+  void VertexArray::Init()
+  {
+    NW_WRAP_GL_CALL(glGenVertexArrays(1, &m_vaoId));
+    NW_WRAP_GL_CALL(glBindVertexArray(m_vaoId));
+    NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Created vertex array %i", m_vaoId)));
+    m_firstFreeAttribute = 0;
   }
 }

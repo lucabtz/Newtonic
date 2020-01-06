@@ -44,5 +44,7 @@ namespace Newtonic
     GLuint m_vaoId;
 
     unsigned int m_firstFreeAttribute = 0;
+
+    void Init();
   };
 }

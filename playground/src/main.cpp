@@ -1,22 +1,16 @@
 
 #include "Newtonic.h"
 
-const GLfloat g_quadVertices[] = {
-    0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-    -0.5f,  0.5f, 0.0f
-};
-const GLfloat g_quadTex[] = {
-    1.0f, 1.0f,   // top right
-    1.0f, 0.0f,   // bottom right
-    0.0f, 0.0f,   // bottom left
-    0.0f, 1.0f    // top left
+const Newtonic::MeshVertex g_quadVertices[] = {
+    {Newtonic::Vector3(0.5f,  0.5f, 0.0f) , Newtonic::Vector3(0.0f, 0.0f, 0.0f), Newtonic::Vector2(1.0f, 1.0f)},
+    {Newtonic::Vector3(0.5f, -0.5f, 0.0f) , Newtonic::Vector3(0.0f, 0.0f, 0.0f), Newtonic::Vector2(1.0f, 0.0f)},
+    {Newtonic::Vector3(-0.5f, -0.5f, 0.0f), Newtonic::Vector3(0.0f, 0.0f, 0.0f), Newtonic::Vector2(0.0f, 0.0f)},
+    {Newtonic::Vector3(-0.5f, 0.5f, 0.0f) , Newtonic::Vector3(0.0f, 0.0f, 0.0f), Newtonic::Vector2(0.0f, 1.0f)}
 };
 
 const GLuint g_quadIndices[] = {
-    0, 1, 3, // first triangle
-    1, 2, 3  // second triangle
+    0, 1, 3,
+    1, 2, 3
 };
 
 class PlaygroundApplication : public Newtonic::Application
@@ -29,7 +23,8 @@ public:
       #version 430 core
 
       layout(location = 0) in vec3 vert;
-      layout(location = 1) in vec2 texCoord;
+      layout(location = 1) in vec3 normal;
+      layout(location = 2) in vec2 texCoord;
 
       uniform mat4 u_transform;
       uniform mat4 u_view;
@@ -63,18 +58,9 @@ public:
       m_texture.LoadFromImage(image);
     }
 
-    m_vb1 = Newtonic::VertexBuffer(g_quadVertices, 12 * sizeof(GLfloat));
-    Newtonic::VertexBufferLayout layout1;
-    layout1.Add<GLfloat>(3);
-
-    m_vb2 = Newtonic::VertexBuffer(g_quadTex, 8 * sizeof(GLfloat));
-    Newtonic::VertexBufferLayout layout2;
-    layout2.Add<GLfloat>(2);
-
-    m_va.AddBuffer(m_vb1, layout1);
-    m_va.AddBuffer(m_vb2, layout2);
-
-    m_ib = Newtonic::IndexBuffer(g_quadIndices, 6);
+    m_mesh.SetVertices(g_quadVertices, 4);
+    m_mesh.SetIndices(g_quadIndices, 6);
+    m_mesh.FreeMemory();
 
     m_cameraPosition = Newtonic::Vector3(0.0f, 0.0f, 2.);
     m_cameraSpeed = 5.0f;
@@ -113,22 +99,19 @@ public:
       Newtonic::Renderer::SetViewport(GetWindow().GetViewport());
       Newtonic::Renderer::Clear();
 
+      m_texture.Bind();
       m_shader.Bind();
       m_shader.LoadMatrix4("u_transform", m_quadTransform.GetMatrix());
       m_shader.LoadMatrix4("u_view", m_camera.GetViewMatrix());
       m_shader.LoadMatrix4("u_proj", m_camera.GetProjectionMatrix());
-      m_texture.Bind();
       m_shader.LoadUniform1i("u_texture", 0);
-      Newtonic::Renderer::Render(m_va, m_ib);
+      Newtonic::Renderer::Render(m_mesh);
   }
 
 private:
   Newtonic::Shader m_shader;
   Newtonic::Texture m_texture;
-  Newtonic::VertexArray m_va;
-  Newtonic::VertexBuffer m_vb1;
-  Newtonic::VertexBuffer m_vb2;
-  Newtonic::IndexBuffer m_ib;
+  Newtonic::Mesh m_mesh;
   Newtonic::PerspectiveCamera m_camera;
   Newtonic::Vector3 m_cameraPosition;
   float m_cameraSpeed;

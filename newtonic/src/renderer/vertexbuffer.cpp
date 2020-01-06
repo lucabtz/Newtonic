@@ -52,6 +52,7 @@ namespace Newtonic
     if (m_vboId != INVALID_VBO_ID)
     {
         NW_WRAP_GL_CALL(glDeleteBuffers(1, &m_vboId));
+        NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Cleared vertex buffer %i", m_vboId)));
         m_vboId = INVALID_VBO_ID;
     }
   }

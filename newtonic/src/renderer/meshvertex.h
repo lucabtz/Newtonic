@@ -19,27 +19,13 @@
 #pragma once
 
 #include "../math.h"
-#include "vertexarray.h"
-#include "indexbuffer.h"
-#include "mesh.h"
-#include "../math.h"
 
 namespace Newtonic
 {
-
-  class Renderer
+  struct MeshVertex
   {
-  public:
-    static void SetClearColor(const Vector4 & color);
-
-    static void Render(const VertexArray & va, const IndexBuffer & ib);
-    static void Render(const Mesh & mesh);
-
-    static void RenderLines(const VertexArray & va, const IndexBuffer & ib);
-    static void RenderLines(const Mesh & mesh);
-
-
-    static void SetViewport(Viewport viewport);
-    static void Clear();
+    Vector3 m_position;
+    Vector3 m_normal;
+    Vector2 m_uv;
   };
 }
