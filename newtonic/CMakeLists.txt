@@ -8,8 +8,11 @@ add_library(newtonic SHARED ${newtonic-src})
 target_link_libraries(newtonic PRIVATE stb_image)
 target_include_directories(newtonic PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/stb_image/")
 
+target_include_directories(newtonic PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/assimp/include/")
+
+
 # Debug build options
-if(debug)
+if(DEBUG)
   target_compile_options(newtonic PRIVATE -ggdb)
 endif()
 

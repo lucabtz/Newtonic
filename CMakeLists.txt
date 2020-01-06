@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.2)
 
 project(Newtonic VERSION 0.0.1)
 
-set(debug, true)
+set(DEBUG, true)
+set(BUILD_PLAYGROUND, true)
 
 # third party code
 add_subdirectory(thirdparty)
@@ -11,4 +12,6 @@ add_subdirectory(thirdparty)
 add_subdirectory(newtonic)
 
 # Newtonic playground
-add_subdirectory(playground)
+if (BUILD_PLAYGROUND)
+  add_subdirectory(playground)
+endif()

@@ -3,7 +3,7 @@
 file(GLOB playground-src "src/*.h" "src/*.cpp")
 
 # Debug build options
-if(debug)
+if(DEBUG)
   target_compile_options(newtonic PRIVATE -ggdb)
 endif()
 
