@@ -19,6 +19,7 @@
 #pragma once
 
 #include "math.h"
+#include "serialization.h"
 
 namespace Newtonic
 {
@@ -110,5 +111,23 @@ namespace Newtonic
     Vector3 m_position;
     Quaternion m_rotation;
     Vector3 m_scale;
+
+    NW_PRIVATE_SERIALIZATION;
+    template<typename Archive>
+    void serialize(Archive & ar)
+    {
+      ar(
+        m_position.x,
+        m_position.y,
+        m_position.z,
+        m_rotation.x,
+        m_rotation.y,
+        m_rotation.z,
+        m_rotation.w,
+        m_scale.x,
+        m_scale.y,
+        m_scale.z
+      );
+    }
   };
 }

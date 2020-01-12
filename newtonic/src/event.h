@@ -36,6 +36,7 @@ namespace Newtonic
   {
   public:
     Event(EventType type);
+    virtual ~Event();
 
     EventType GetType() const;
     virtual std::string GetLogMessage() const;

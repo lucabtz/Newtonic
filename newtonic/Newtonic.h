@@ -32,6 +32,7 @@
 #include "src/input.h"
 #include "src/keys.h"
 #include "src/image.h"
+#include "src/serialization.h"
 
 #include "src/renderer/texture.h"
 #include "src/renderer/shader.h"
@@ -44,3 +45,10 @@
 #include "src/renderer/cameraperspective.h"
 #include "src/renderer/mesh.h"
 #include "src/renderer/meshvertex.h"
+
+#include "src/gocs/component.h"
+#include "src/gocs/gameobject.h"
+#include "src/gocs/behaviour.h"
+#include "src/gocs/datacomponent.h"
+#include "src/gocs/renderjob.h"
+#include "src/gocs/transformcomponent.h"

@@ -9,6 +9,7 @@ endif()
 
 add_executable(application ${playground-src})
 target_include_directories(application PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../newtonic")
+target_include_directories(application PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/cereal/include/")
 target_link_libraries(application PRIVATE newtonic)
 target_link_libraries(application PRIVATE -lassimp)
 target_link_libraries(application PRIVATE -lGL -lGLEW -lglfw -lstdc++fs)

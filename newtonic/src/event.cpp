@@ -23,6 +23,7 @@
 namespace Newtonic
 {
   Event::Event(EventType type) : m_type(type) {}
+  Event::~Event() {}
   EventType Event::GetType() const { return m_type; }
   std::string Event::GetLogMessage() const { return FormatString("Event %i", m_type); }
 
