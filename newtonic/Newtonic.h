@@ -33,6 +33,9 @@
 #include "src/keys.h"
 #include "src/image.h"
 #include "src/serialization.h"
+#include "src/assetresourceinfo.h"
+#include "src/assetinstance.h"
+#include "src/assetmanager.h"
 
 #include "src/renderer/texture.h"
 #include "src/renderer/shader.h"

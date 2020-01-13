@@ -35,6 +35,8 @@ namespace Newtonic
     virtual void LateUpdate(float dt) = 0;
     virtual void Render() = 0;
 
+    virtual void Awake();
+
     GameObject * GetGameObject() const;
   private:
     GameObject * m_gameObject;

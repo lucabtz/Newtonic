@@ -16,11 +16,14 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "assetmanager.h"
 #include "application.h"
 #include "timestep.h"
 #include "core.h"
 #include "input.h"
 #include "eventbus.h"
+
+#define GC_DELTA 2.0f
 
 namespace Newtonic
 {
@@ -40,12 +43,15 @@ namespace Newtonic
     m_running = true;
     Setup();
     Timestep time;
+    float gcCountdown = GC_DELTA;
     while (m_running)
     {
       float dt = time.DeltaTime();
+      gcCountdown -= dt;
       Update(dt);
       Render();
       m_window.Update();
+      if (gcCountdown <= 0) { AssetManager::GarbageCollect(); gcCountdown = GC_DELTA; }
       EventBus::DispatchAll();
     }
   }

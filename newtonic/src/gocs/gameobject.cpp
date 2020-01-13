@@ -35,6 +35,11 @@ namespace Newtonic
     for (const auto & component : m_components) component->Render();
   }
 
+  void GameObject::Awake()
+  {
+    for (const auto & component : m_components) component->Awake();
+  }
+
   GameObject * GameObject::GetParent() const
   {
     return m_parent;

@@ -16,17 +16,19 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "component.h"
+#include "assetinstance.h"
+
+#include <utility>
 
 namespace Newtonic
 {
-  Component::Component() {}
-  Component::~Component() {}
+  AssetInstance::AssetInstance(AssetType type) : m_type(type) {}
+  AssetInstance::~AssetInstance() {}
+  AssetType AssetInstance::GetType() const { return m_type; }
 
-  void Component::Awake() {}
+  TextureAsset::TextureAsset(Texture texture) : AssetInstance(AssetType::Texture), m_texture(std::move(texture)) {}
+  Texture & TextureAsset::GetTexture() { return m_texture; }
 
-  GameObject * Component::GetGameObject() const
-  {
-    return m_gameObject;
-  }
+  MeshAsset::MeshAsset(Mesh mesh) : AssetInstance(AssetType::Mesh), m_mesh(std::move(mesh)) {}
+  Mesh & MeshAsset::GetMesh() { return m_mesh; }
 }

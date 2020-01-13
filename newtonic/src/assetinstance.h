@@ -16,17 +16,48 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "component.h"
+#pragma once
+
+#include "renderer/texture.h"
+#include "renderer/mesh.h"
 
 namespace Newtonic
 {
-  Component::Component() {}
-  Component::~Component() {}
-
-  void Component::Awake() {}
-
-  GameObject * Component::GetGameObject() const
+  enum class AssetType : unsigned int
   {
-    return m_gameObject;
-  }
+    Texture,
+    Mesh,
+    Material
+  };
+
+  class AssetInstance
+  {
+  public:
+    AssetInstance(AssetType type);
+    virtual ~AssetInstance();
+    AssetType GetType() const;
+
+  private:
+    AssetType m_type;
+  };
+
+  class TextureAsset : public AssetInstance
+  {
+  public:
+    TextureAsset(Texture texture);
+
+    Texture & GetTexture();
+  private:
+    Texture m_texture;
+  };
+
+  class MeshAsset : public AssetInstance
+  {
+  public:
+    MeshAsset(Mesh mesh);
+
+    Mesh & GetMesh();
+  private:
+    Mesh m_mesh;
+  };
 }

@@ -18,28 +18,48 @@
 
 #pragma once
 
-#include "../serialization.h"
-#include "datacomponent.h"
-#include "../transform.h"
+#include <string>
+
+#include "serialization.h"
 
 namespace Newtonic
 {
-  class TransformComponent : public DataComponent
+
+  enum class AssetResourceType : unsigned int
+  {
+    Invalid = 0,
+    TexturePNG = 1,
+    // reserve ints for more texture assets
+    MeshOBJ = 30,
+    // reserve ints for more mesh assets
+    Material = 50
+  };
+
+  class AssetResourceInfo
   {
   public:
-    Transform & GetTransform() { return m_transform; }
-    void SetTransform(const Transform & transform) { m_transform = transform; }
+    AssetResourceInfo();
+    AssetResourceInfo(AssetResourceType type, const std::string & name, const std::string & resourcePath);
+    AssetResourceInfo(const AssetResourceInfo & other);
+    AssetResourceInfo & operator =(const AssetResourceInfo & other);
+
+    AssetResourceType GetType() const;
+    const std::string & GetName() const;
+    const std::string & GetResourcePath() const;
   private:
-    Transform m_transform;
+    AssetResourceType m_type;
+    std::string m_name;
+    std::string m_resourcePath;
 
     NW_PRIVATE_SERIALIZATION;
     template<typename Archive>
     void serialize(Archive & ar)
     {
-      ar(cereal::make_nvp("Transform", m_transform));
+      ar(
+        cereal::make_nvp("Type", m_type),
+        cereal::make_nvp("Name", m_name),
+        cereal::make_nvp("Path", m_resourcePath)
+      );
     }
   };
 }
-
-CEREAL_REGISTER_TYPE(Newtonic::TransformComponent)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Newtonic::DataComponent, Newtonic::TransformComponent)

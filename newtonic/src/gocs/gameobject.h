@@ -32,6 +32,7 @@ namespace Newtonic
     void Update(float dt);
     void LateUpdate(float dt);
     void Render();
+    void Awake();
 
     GameObject * GetParent() const;
 
