@@ -31,4 +31,7 @@ namespace Newtonic
 
   MeshAsset::MeshAsset(Mesh mesh) : AssetInstance(AssetType::Mesh), m_mesh(std::move(mesh)) {}
   Mesh & MeshAsset::GetMesh() { return m_mesh; }
+
+  ShaderAsset::ShaderAsset(Shader shader) : AssetInstance(AssetType::Shader), m_shader(std::move(shader)) {}
+  Shader & ShaderAsset::GetShader() { return m_shader; }
 }

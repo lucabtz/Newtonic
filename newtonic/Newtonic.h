@@ -54,4 +54,3 @@
 #include "src/gocs/behaviour.h"
 #include "src/gocs/datacomponent.h"
 #include "src/gocs/renderjob.h"
-#include "src/gocs/transformcomponent.h"

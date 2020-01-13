@@ -21,6 +21,8 @@
 #include "../serialization.h"
 #include "component.h"
 
+#include "../transform.h"
+
 #include <memory>
 #include <vector>
 
@@ -47,10 +49,15 @@ namespace Newtonic
 
     GameObject * GetChild(unsigned int index) const;
 
+    Transform & GetTransform();
+    Matrix4 GetWorldTransformMatrix();
+
   private:
     std::string m_name;
     std::vector<std::unique_ptr<GameObject>> m_children;
     std::vector<std::unique_ptr<Component>> m_components;
+    Transform m_transform;
+
     GameObject * m_parent;
 
     void InitChildren();
@@ -61,13 +68,23 @@ namespace Newtonic
     template<typename Archive>
     void save(Archive & ar) const
     {
-      ar(CEREAL_NVP(m_name), CEREAL_NVP(m_children), CEREAL_NVP(m_components));
+      ar(
+        cereal::make_nvp("Name", m_name),
+        cereal::make_nvp("Transform", m_transform),
+        cereal::make_nvp("Children", m_children),
+        cereal::make_nvp("Components", m_components)
+      );
     }
 
     template<typename Archive>
     void load(Archive & ar)
     {
-      ar(m_name, m_children, m_components);
+      ar(
+        m_name,
+        m_transform,
+        m_children,
+        m_components
+      );
       InitChildren();
       InitComponents();
     }

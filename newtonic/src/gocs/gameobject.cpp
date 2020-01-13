@@ -91,4 +91,16 @@ namespace Newtonic
   {
     return m_children[index].get();
   }
+
+  Transform & GameObject::GetTransform()
+  {
+    return m_transform;
+  }
+
+  Matrix4 GameObject::GetWorldTransformMatrix()
+  {
+    Matrix4 parentTransform;
+    if (m_parent) parentTransform = m_parent->GetWorldTransformMatrix();
+    return m_transform.GetMatrix() * parentTransform;
+  }
 }

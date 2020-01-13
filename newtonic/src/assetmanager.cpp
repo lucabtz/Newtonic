@@ -66,6 +66,19 @@ namespace Newtonic
         s_assets[id] = asset;
         break;
       }
+    case AssetResourceType::ShaderFilePair:
+      {
+        std::string res = info.GetResourcePath();
+        ASSERT_TRUE(res.find(";") != std::string::npos);
+
+        std::string vertexPath = res.substr(0, res.find(";"));
+        std::string fragmentPath = res.substr(res.find(";")+1, res.size());
+
+        Shader shader = Shader::CreateShader(ReadFile(vertexPath.c_str()).c_str(), ReadFile(fragmentPath.c_str()).c_str());
+        std::shared_ptr<AssetInstance> asset = std::make_shared<ShaderAsset>(std::move(shader));
+        s_assets[id] = asset;
+        break;
+      }
     default:
       {
         Core::GetCoreLogger().Error(FormatString("Invalid asset type for asset %s", info.GetName().c_str()));
@@ -88,8 +101,6 @@ namespace Newtonic
 
   void AssetManager::GarbageCollect()
   {
-    Core::GetCoreLogger().Debug("Collecting garbage");
-
     for (auto & pair : s_assets)
     {
       if (pair.second.use_count() == 1)
@@ -111,5 +122,17 @@ namespace Newtonic
     ASSERT_TRUE(s_assets[id]->GetType() == AssetType::Texture);
 
     return std::dynamic_pointer_cast<TextureAsset>(s_assets[id]);
+  }
+
+  template<>
+  std::shared_ptr<ShaderAsset> AssetManager::GetAsset<ShaderAsset>(unsigned int id)
+  {
+    ASSERT_TRUE(IdExists(id));
+
+    if (!IsLoaded(id)) LoadAsset(id);
+    ASSERT_TRUE(IsLoaded(id));
+    ASSERT_TRUE(s_assets[id]->GetType() == AssetType::Shader);
+
+    return std::dynamic_pointer_cast<ShaderAsset>(s_assets[id]);
   }
 }

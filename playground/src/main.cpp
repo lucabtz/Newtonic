@@ -19,38 +19,8 @@ public:
   PlaygroundApplication(std::string name, const Newtonic::Viewport & viewport) : Newtonic::Application(name, viewport) {}
   void Setup() override
   {
-    m_shader = Newtonic::Shader::CreateShader(R"(
-      #version 430 core
-
-      layout(location = 0) in vec3 vert;
-      layout(location = 1) in vec3 normal;
-      layout(location = 2) in vec2 texCoord;
-
-      uniform mat4 u_transform;
-      uniform mat4 u_view;
-      uniform mat4 u_proj;
-
-      out vec2 v_texCoord;
-
-      void main()
-      {
-        gl_Position = u_proj * u_view * u_transform * vec4(vert, 1.0);
-        v_texCoord = texCoord;
-      }
-    )", R"(
-      #version 430 core
-
-      in vec2 v_texCoord;
-
-      uniform sampler2D u_texture;
-
-      out vec4 color;
-
-      void main()
-      {
-        color = texture(u_texture, v_texCoord);
-      }
-    )");
+    m_shaderId = Newtonic::AssetManager::PushResourceInfo(Newtonic::AssetResourceInfo(Newtonic::AssetResourceType::ShaderFilePair, "shader", "/home/ekardnam/Downloads/vert.glsl;/home/ekardnam/Downloads/frag.glsl"));
+    m_shaderAsset = Newtonic::AssetManager::GetAsset<Newtonic::ShaderAsset>(m_shaderId);
 
     m_texId = Newtonic::AssetManager::PushResourceInfo(Newtonic::AssetResourceInfo(Newtonic::AssetResourceType::TexturePNG, "texture", "/home/ekardnam/Downloads/awesomeface.png"));
     m_texAsset = Newtonic::AssetManager::GetAsset<Newtonic::TextureAsset>(m_texId);
@@ -89,13 +59,6 @@ public:
 
     m_camera.SetPosition(m_cameraPosition);
     m_camera.SetAspectRatio(GetWindow().GetViewport());
-
-    if (m_unloadTexCountdown > 0)
-      m_unloadTexCountdown -= dt;
-    else
-    {
-      m_texAsset.reset();
-    }
   }
 
   void Render() override
@@ -103,27 +66,26 @@ public:
       Newtonic::Renderer::SetViewport(GetWindow().GetViewport());
       Newtonic::Renderer::Clear();
 
-      if (m_texAsset)
-        m_texAsset->GetTexture().Bind();
-      m_shader.Bind();
-      m_shader.LoadMatrix4("u_transform", m_quadTransform.GetMatrix());
-      m_shader.LoadMatrix4("u_view", m_camera.GetViewMatrix());
-      m_shader.LoadMatrix4("u_proj", m_camera.GetProjectionMatrix());
-      m_shader.LoadUniform1i("u_texture", 0);
+      m_texAsset->GetTexture().Bind();
+      m_shaderAsset->GetShader().Bind();
+      m_shaderAsset->GetShader().LoadMatrix4("u_transform", m_quadTransform.GetMatrix());
+      m_shaderAsset->GetShader().LoadMatrix4("u_view", m_camera.GetViewMatrix());
+      m_shaderAsset->GetShader().LoadMatrix4("u_proj", m_camera.GetProjectionMatrix());
+      m_shaderAsset->GetShader().LoadUniform1i("u_texture", 0);
       Newtonic::Renderer::Render(m_mesh);
   }
 
 private:
-  Newtonic::Shader m_shader;
   Newtonic::Mesh m_mesh;
   unsigned int m_texId;
   std::shared_ptr<Newtonic::TextureAsset> m_texAsset;
+  unsigned int m_shaderId;
+  std::shared_ptr<Newtonic::ShaderAsset> m_shaderAsset;
   Newtonic::PerspectiveCamera m_camera;
   Newtonic::Vector3 m_cameraPosition;
   float m_cameraSpeed;
   Newtonic::Transform m_quadTransform;
   float m_quadRotationSpeed;
-  float m_unloadTexCountdown = 10.0f;
 };
 
 int main()

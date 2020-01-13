@@ -20,6 +20,7 @@
 
 #include "renderer/texture.h"
 #include "renderer/mesh.h"
+#include "renderer/shader.h"
 
 namespace Newtonic
 {
@@ -27,7 +28,8 @@ namespace Newtonic
   {
     Texture,
     Mesh,
-    Material
+    Material,
+    Shader
   };
 
   class AssetInstance
@@ -59,5 +61,15 @@ namespace Newtonic
     Mesh & GetMesh();
   private:
     Mesh m_mesh;
+  };
+
+  class ShaderAsset : public AssetInstance
+  {
+  public:
+    ShaderAsset(Shader shader);
+
+    Shader & GetShader();
+  private:
+    Shader m_shader;
   };
 }

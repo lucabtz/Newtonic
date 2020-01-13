@@ -32,7 +32,8 @@ namespace Newtonic
     // reserve ints for more texture assets
     MeshOBJ = 30,
     // reserve ints for more mesh assets
-    Material = 50
+    Material = 50,
+    ShaderFilePair
   };
 
   class AssetResourceInfo

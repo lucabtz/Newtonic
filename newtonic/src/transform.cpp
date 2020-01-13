@@ -108,4 +108,5 @@ namespace Newtonic
   {
     m_scale = scale;
   }
+
 }

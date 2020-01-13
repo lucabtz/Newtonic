@@ -107,6 +107,7 @@ namespace Newtonic
     void SetPosition(const Vector3 & position);
     void SetRoation(const Quaternion & rotation);
     void SetScale(const Vector3 & scale);
+
   private:
     Vector3 m_position;
     Quaternion m_rotation;
