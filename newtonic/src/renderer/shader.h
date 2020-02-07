@@ -52,6 +52,7 @@ namespace Newtonic
     void LoadVector3(const std::string & name, const Vector3 & vec) const { LoadUniform3f(name, vec.x, vec.y, vec.z); }
     void LoadVector4(const std::string & name, const Vector4 & vec) const { LoadUniform4f(name, vec.x, vec.y, vec.z, vec.w); }
     void LoadMatrix4(const std::string & name, const Matrix4 & mat) const;
+    void LoadInt(const std::string & name, GLint v) const { LoadUniform1i(name, v); }
 
     static Shader CreateShader(const char * vertex, const char * fragment);
 

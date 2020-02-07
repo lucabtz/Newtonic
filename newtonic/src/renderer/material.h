@@ -18,15 +18,31 @@
 
 #pragma once
 
-#include <cereal/access.hpp>
-#include <cereal/types/polymorphic.hpp>
-#include <cereal/types/memory.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/unordered_map.hpp>
-#include <cereal/types/string.hpp>
+#include "../materialinfo.h"
+#include "../assetinstance.h"
 
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/archives/xml.hpp>
+namespace Newtonic
+{
+  class Material
+  {
+  public:
+    Material();
+    Material(const MaterialInfo & info);
 
-#define NW_PRIVATE_SERIALIZATION friend class cereal::access
+    void SetMaterialInfo(const MaterialInfo & info);
+
+    void SetFloat(const std::string & name, float v);
+    void SetVector2(const std::string & name, const Vector2 & v);
+    void SetVector3(const std::string & name, const Vector3 & v);
+    void SetVector4(const std::string & name, const Vector3 & v);
+    void SetMatrix4(const std::string & name, const Matrix4 & v);
+
+    void Bind() const;
+    void Unbind() const;
+
+  private:
+    std::unordered_map<std::string, std::unique_ptr<Uniform>> m_uniforms;
+
+    std::shared_ptr<ShaderAsset> m_shaderAsset;
+  };
+}

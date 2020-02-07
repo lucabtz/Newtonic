@@ -18,6 +18,7 @@
 
 #include "src/renderer/opengl.h"
 
+#include "src/serialization.h"
 #include "src/math.h"
 #include "src/logger.h"
 #include "src/core.h"
@@ -32,10 +33,11 @@
 #include "src/input.h"
 #include "src/keys.h"
 #include "src/image.h"
-#include "src/serialization.h"
 #include "src/assetresourceinfo.h"
 #include "src/assetinstance.h"
 #include "src/assetmanager.h"
+#include "src/uniform.h"
+#include "src/materialinfo.h"
 
 #include "src/renderer/texture.h"
 #include "src/renderer/shader.h"
@@ -48,6 +50,7 @@
 #include "src/renderer/cameraperspective.h"
 #include "src/renderer/mesh.h"
 #include "src/renderer/meshvertex.h"
+#include "src/renderer/material.h"
 
 #include "src/gocs/component.h"
 #include "src/gocs/gameobject.h"

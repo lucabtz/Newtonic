@@ -43,6 +43,12 @@ namespace Newtonic
     template<typename T>
     static std::shared_ptr<T> GetAsset(unsigned int id);
 
+    template<typename T>
+    static std::shared_ptr<T> GetAsset(const std::string & name)
+    {
+      return GetAsset<T>(GetIdFromName(name));
+    }
+
     static void GarbageCollect();
 
   private:

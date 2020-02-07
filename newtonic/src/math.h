@@ -27,15 +27,112 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+#include "serialization.h"
+
 namespace Newtonic
 {
-  typedef glm::vec2 Vector2;
-  typedef glm::vec3 Vector3;
-  typedef glm::vec4 Vector4;
+  using Vector2 = glm::vec2;
+  using Vector3 = glm::vec3;
+  using Vector4 = glm::vec4;
 
-  typedef glm::mat2 Matrix2;
-  typedef glm::mat3 Matrix3;
-  typedef glm::mat4 Matrix4;
+  using Matrix2 = glm::mat2;
+  using Matrix3 = glm::mat3;
+  using Matrix4 = glm::mat4;
 
-  typedef glm::quat Quaternion;
+  using Quaternion = glm::quat;
+}
+
+namespace cereal
+{
+  template<typename Archive>
+  void serialize(Archive & ar, Newtonic::Vector2 & vec)
+  {
+      ar(
+        cereal::make_nvp("ValueX", vec.x),
+        cereal::make_nvp("ValueY", vec.y)
+      );
+  }
+
+  template<typename Archive>
+  void serialize(Archive & ar, Newtonic::Vector3 & vec)
+  {
+      ar(
+        cereal::make_nvp("ValueX", vec.x),
+        cereal::make_nvp("ValueY", vec.y),
+        cereal::make_nvp("ValueZ", vec.z)
+      );
+  }
+
+  template<typename Archive>
+  void serialize(Archive & ar, Newtonic::Vector4 & vec)
+  {
+      ar(
+        cereal::make_nvp("ValueX", vec.x),
+        cereal::make_nvp("ValueY", vec.y),
+        cereal::make_nvp("ValueZ", vec.z),
+        cereal::make_nvp("ValueW", vec.w)
+      );
+  }
+
+  template<typename Archive>
+  void serialize(Archive & ar, Newtonic::Matrix2 & mat)
+  {
+      ar(
+        cereal::make_nvp("Value00", mat[0][0]),
+        cereal::make_nvp("Value01", mat[0][1]),
+        cereal::make_nvp("Value10", mat[1][0]),
+        cereal::make_nvp("Value11", mat[1][1])
+      );
+  }
+
+  template<typename Archive>
+  void serialize(Archive & ar, Newtonic::Matrix3 & mat)
+  {
+      ar(
+        cereal::make_nvp("Value00", mat[0][0]),
+        cereal::make_nvp("Value01", mat[0][1]),
+        cereal::make_nvp("Value02", mat[0][2]),
+        cereal::make_nvp("Value10", mat[1][0]),
+        cereal::make_nvp("Value11", mat[1][1]),
+        cereal::make_nvp("Value12", mat[1][2]),
+        cereal::make_nvp("Value20", mat[2][0]),
+        cereal::make_nvp("Value21", mat[2][1]),
+        cereal::make_nvp("Value22", mat[2][2])
+      );
+  }
+
+  template<typename Archive>
+  void serialize(Archive & ar, Newtonic::Matrix4 & mat)
+  {
+      ar(
+        cereal::make_nvp("Value00", mat[0][0]),
+        cereal::make_nvp("Value01", mat[0][1]),
+        cereal::make_nvp("Value02", mat[0][2]),
+        cereal::make_nvp("Value03", mat[0][3]),
+        cereal::make_nvp("Value10", mat[1][0]),
+        cereal::make_nvp("Value11", mat[1][1]),
+        cereal::make_nvp("Value12", mat[1][2]),
+        cereal::make_nvp("Value13", mat[1][3]),
+        cereal::make_nvp("Value20", mat[2][0]),
+        cereal::make_nvp("Value21", mat[2][1]),
+        cereal::make_nvp("Value22", mat[2][2]),
+        cereal::make_nvp("Value23", mat[2][3]),
+        cereal::make_nvp("Value30", mat[3][0]),
+        cereal::make_nvp("Value31", mat[3][1]),
+        cereal::make_nvp("Value32", mat[3][2]),
+        cereal::make_nvp("Value33", mat[3][3])
+      );
+  }
+
+  template<typename Archive>
+  void serialize(Archive & ar, Newtonic::Quaternion & quat)
+  {
+      ar(
+        cereal::make_nvp("ValueX", quat.x),
+        cereal::make_nvp("ValueY", quat.y),
+        cereal::make_nvp("ValueZ", quat.z),
+        cereal::make_nvp("ValueW", quat.w)
+      );
+  }
+
 }

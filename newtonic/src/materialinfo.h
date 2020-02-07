@@ -18,15 +18,34 @@
 
 #pragma once
 
-#include <cereal/access.hpp>
-#include <cereal/types/polymorphic.hpp>
-#include <cereal/types/memory.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/unordered_map.hpp>
-#include <cereal/types/string.hpp>
+#include "uniform.h"
 
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/archives/xml.hpp>
+namespace Newtonic
+{
+  class MaterialInfo
+  {
+  public:
+    MaterialInfo();
+    MaterialInfo(const std::string & shaderName);
 
-#define NW_PRIVATE_SERIALIZATION friend class cereal::access
+    void PushUniform(std::unique_ptr<Uniform> uniform);
+
+    const std::string & GetShaderName() const;
+
+    const std::vector<std::unique_ptr<Uniform>> & GetUniforms() const;
+
+  private:
+    std::string m_shaderName;
+    std::vector<std::unique_ptr<Uniform>> m_uniforms;
+
+    NW_PRIVATE_SERIALIZATION;
+    template<typename Archive>
+    void serialize(Archive & ar)
+    {
+      ar(
+        cereal::make_nvp("ShaderName", m_shaderName),
+        cereal::make_nvp("Uniforms", m_uniforms)
+      );
+    }
+  };
+}

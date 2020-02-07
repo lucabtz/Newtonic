@@ -16,17 +16,27 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "materialinfo.h"
 
-#include <cereal/access.hpp>
-#include <cereal/types/polymorphic.hpp>
-#include <cereal/types/memory.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/unordered_map.hpp>
-#include <cereal/types/string.hpp>
+#include <utility>
 
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/archives/xml.hpp>
+namespace Newtonic
+{
+  MaterialInfo::MaterialInfo() : m_shaderName("") {}
+  MaterialInfo::MaterialInfo(const std::string & shaderName) : m_shaderName(shaderName) {}
 
-#define NW_PRIVATE_SERIALIZATION friend class cereal::access
+  void MaterialInfo::PushUniform(std::unique_ptr<Uniform> uniform)
+  {
+    m_uniforms.push_back(std::move(uniform));
+  }
+  
+  const std::string & MaterialInfo::GetShaderName() const
+  {
+    return m_shaderName;
+  }
+
+  const std::vector<std::unique_ptr<Uniform>> & MaterialInfo::GetUniforms() const
+  {
+    return m_uniforms;
+  }
+}

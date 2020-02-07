@@ -118,16 +118,9 @@ namespace Newtonic
     void serialize(Archive & ar)
     {
       ar(
-        cereal::make_nvp("XPosition", m_position.x),
-        cereal::make_nvp("YPosition", m_position.y),
-        cereal::make_nvp("ZPosition", m_position.z),
-        cereal::make_nvp("XRotation", m_rotation.x),
-        cereal::make_nvp("YRotation", m_rotation.y),
-        cereal::make_nvp("ZRotation", m_rotation.z),
-        cereal::make_nvp("WRotation", m_rotation.w),
-        cereal::make_nvp("XScale", m_scale.x),
-        cereal::make_nvp("YScale", m_scale.y),
-        cereal::make_nvp("ZScale", m_scale.z)
+        cereal::make_nvp("Position", m_position),
+        cereal::make_nvp("Rotation", m_rotation),
+        cereal::make_nvp("Scale", m_scale)
       );
     }
   };
