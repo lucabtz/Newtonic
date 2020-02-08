@@ -48,7 +48,7 @@ namespace Newtonic
     {
       if (m_uniforms[name]->GetType() != UniformType::Float)
       {
-        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float", name));
+        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float", name.c_str()));
         ASSERT_TRUE(false);
       }
       dynamic_cast<FloatUniform*>(m_uniforms[name].get())->SetValue(v);
@@ -61,7 +61,7 @@ namespace Newtonic
     {
       if (m_uniforms[name]->GetType() != UniformType::Float2)
       {
-        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float2", name));
+        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float2", name.c_str()));
         ASSERT_TRUE(false);
       }
       dynamic_cast<Float2Uniform*>(m_uniforms[name].get())->SetValue(v);
@@ -74,23 +74,23 @@ namespace Newtonic
     {
       if (m_uniforms[name]->GetType() != UniformType::Float3)
       {
-        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float3", name));
+        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float3", name.c_str()));
         ASSERT_TRUE(false);
       }
       dynamic_cast<Float3Uniform*>(m_uniforms[name].get())->SetValue(v);
     }
   }
 
-  void Material::SetVector4(const std::string & name, const Vector3 & v)
+  void Material::SetVector4(const std::string & name, const Vector4 & v)
   {
     if (m_uniforms.find(name) != m_uniforms.end())
     {
-      if (m_uniforms[name]->GetType() != UniformType::Float3)
+      if (m_uniforms[name]->GetType() != UniformType::Float4)
       {
-        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float3", name));
+        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a float4", name.c_str()));
         ASSERT_TRUE(false);
       }
-      dynamic_cast<Float3Uniform*>(m_uniforms[name].get())->SetValue(v);
+      dynamic_cast<Float4Uniform*>(m_uniforms[name].get())->SetValue(v);
     }
   }
 
@@ -100,7 +100,7 @@ namespace Newtonic
     {
       if (m_uniforms[name]->GetType() != UniformType::Mat4)
       {
-        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a mat4", name));
+        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a mat4", name.c_str()));
         ASSERT_TRUE(false);
       }
       dynamic_cast<Mat4Uniform*>(m_uniforms[name].get())->SetValue(v);
@@ -111,10 +111,10 @@ namespace Newtonic
   {
     if (m_shaderAsset == nullptr)
     {
-      Core::GetCoreLogger().Error(FormatString("Shader asset '%s' is nullptr", m_shaderName));
+      Core::GetCoreLogger().Error(FormatString("Shader asset '%s' is nullptr", m_shaderName.c_str()));
       ASSERT_TRUE(false);
     }
-    
+
     Shader & shader = m_shaderAsset->GetShader();
 
     shader.Bind();
@@ -125,7 +125,7 @@ namespace Newtonic
       {
       case UniformType::Invalid:
         {
-          Core::GetCoreLogger().Debug(FormatString("Invalid uniform %s", uniform->GetName()));
+          Core::GetCoreLogger().Debug(FormatString("Invalid uniform %s", uniform->GetName().c_str()));
           break;
         }
       case UniformType::Float:

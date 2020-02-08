@@ -35,7 +35,7 @@ namespace Newtonic
     void SetFloat(const std::string & name, float v);
     void SetVector2(const std::string & name, const Vector2 & v);
     void SetVector3(const std::string & name, const Vector3 & v);
-    void SetVector4(const std::string & name, const Vector3 & v);
+    void SetVector4(const std::string & name, const Vector4 & v);
     void SetMatrix4(const std::string & name, const Matrix4 & v);
 
     void Bind() const;

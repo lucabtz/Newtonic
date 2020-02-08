@@ -23,6 +23,10 @@
 #include "input.h"
 #include "eventbus.h"
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 #define GC_DELTA 2.0f
 
 namespace Newtonic
@@ -34,6 +38,8 @@ namespace Newtonic
   const std::string & Application::GetName() const { return m_name; }
   Window & Application::GetWindow() { return m_window; }
   const Logger & Application::GetLogger() const { return Core::GetApplicationLogger(); }
+
+  void Application::ImGuiRender() {}
 
   void Application::Stop() { m_running = false; }
 
@@ -49,7 +55,16 @@ namespace Newtonic
       float dt = time.DeltaTime();
       gcCountdown -= dt;
       Update(dt);
+
+      ImGui_ImplOpenGL3_NewFrame();
+      ImGui_ImplGlfw_NewFrame();
+      ImGui::NewFrame();
       Render();
+      ImGuiRender();
+
+      ImGui::Render();
+      ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
       m_window.Update();
       if (gcCountdown <= 0) { AssetManager::GarbageCollect(); gcCountdown = GC_DELTA; }
       EventBus::DispatchAll();

@@ -1,5 +1,6 @@
 
 #include "Newtonic.h"
+#include "NewtonicImGui.h"
 
 using namespace Newtonic;
 
@@ -22,12 +23,13 @@ public:
   void Setup() override
   {
     AssetManager::PushResourceInfo(AssetResourceInfo(AssetResourceType::ShaderFilePair, "flatcolor", "/home/ekardnam/Newtonic/res/vert.glsl;/home/ekardnam/Newtonic/res/frag.glsl"));
+    m_color = Vector4(1, 0, 0, 1);
 
     MaterialInfo info("flatcolor");
     info.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_view", "View Matrix"));
     info.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_transform", "Transform"));
     info.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_proj", "Projection Matrix"));
-    info.PushUniform(std::make_unique<Float4Uniform>(Vector4(1, 0, 0, 1), "u_color", "Color"));
+    info.PushUniform(std::make_unique<Float4Uniform>(m_color, "u_color", "Color"));
 
     m_material.SetMaterialInfo(info);
 
@@ -69,6 +71,7 @@ public:
     m_material.SetMatrix4("View Matrix", m_camera.GetViewMatrix());
     m_material.SetMatrix4("Projection Matrix", m_camera.GetProjectionMatrix());
     m_material.SetMatrix4("Transform", m_quadTransform.GetMatrix());
+    m_material.SetVector4("Color", m_color);
   }
 
   void Render() override
@@ -76,6 +79,13 @@ public:
       Renderer::SetViewport(GetWindow().GetViewport());
       Renderer::Clear();
       Renderer::Render(m_mesh, m_material);
+  }
+
+  void ImGuiRender() override
+  {
+    ImGui::Begin("Color");
+    ImGui::ColorEdit3("Quad color", (float*)&m_color);
+    ImGui::End();
   }
 
 private:
@@ -88,6 +98,8 @@ private:
 
   Transform m_quadTransform;
   float m_quadRotationSpeed;
+
+  Vector4 m_color;
 };
 
 int main()

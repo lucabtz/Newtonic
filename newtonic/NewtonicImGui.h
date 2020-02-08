@@ -16,34 +16,6 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include <string>
-#include "window.h"
-#include "logger.h"
-
-namespace Newtonic
-{
-  class Application
-  {
-  public:
-    Application(std::string name, const Viewport & viewport);
-    virtual ~Application();
-
-    const std::string & GetName() const;
-    Window & GetWindow();
-    const Logger & GetLogger() const;
-
-    void Stop();
-    void Start();
-
-    virtual void Setup() = 0;
-    virtual void Update(float dt) = 0;
-    virtual void ImGuiRender();
-    virtual void Render() = 0;
-  private:
-    std::string m_name;
-    Window m_window;
-    bool m_running;
-  };
-}
+ #include "include/imgui.h"
+ #include "include/imgui_impl_glfw.h"
+ #include "include/imgui_impl_opengl3.h"

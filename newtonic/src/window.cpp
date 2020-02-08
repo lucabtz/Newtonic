@@ -22,6 +22,10 @@
 #include "util.h"
 #include "eventbus.h"
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 namespace Newtonic
 {
   Window::Window() : m_window(nullptr), m_windowData(), m_stickCursorToCenter(false) {}
@@ -58,6 +62,15 @@ namespace Newtonic
 
       glfwSetCursorPos(m_window, centerX, centerY);
     }
+    ImGuiIO & io = ImGui::GetIO();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+      GLFWwindow* backup_current_context = glfwGetCurrentContext();
+      ImGui::UpdatePlatformWindows();
+      ImGui::RenderPlatformWindowsDefault();
+      glfwMakeContextCurrent(backup_current_context);
+    }
+
     SwapBuffers();
     PollEvents();
   }
@@ -88,6 +101,26 @@ namespace Newtonic
     window.m_windowData.m_viewport = viewport;
     window.MakeCurrent();
     glfwSetWindowUserPointer(glfwWindow, &window.m_windowData);
+
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    io.ConfigDockingWithShift = false;
+    ImGui::StyleColorsDark();
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+    }
+
+    ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
+    ImGui_ImplOpenGL3_Init("#version 430 core");
 
     glfwSetFramebufferSizeCallback(glfwWindow, [](GLFWwindow * wnd, int width, int height)
     {
