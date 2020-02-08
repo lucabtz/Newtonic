@@ -25,20 +25,21 @@
 
 namespace Newtonic
 {
-  Material::Material() {}
+  Material::Material() : m_shaderName("") {}
 
-  Material::Material(const MaterialInfo & info)
+  Material::Material(const MaterialInfo & info) : m_shaderName("")
   {
     SetMaterialInfo(info);
   }
 
   void Material::SetMaterialInfo(const MaterialInfo & info)
   {
+    m_shaderName = info.GetShaderName();
     for (const auto & uniform : info.GetUniforms())
     {
       m_uniforms[uniform->GetName()] = uniform->Clone();
     }
-    m_shaderAsset = AssetManager::GetAsset<ShaderAsset>(info.GetShaderName());
+    m_shaderAsset = AssetManager::GetAsset<ShaderAsset>(m_shaderName);
   }
 
   void Material::SetFloat(const std::string & name, float v)
@@ -108,6 +109,12 @@ namespace Newtonic
 
   void Material::Bind() const
   {
+    if (m_shaderAsset == nullptr)
+    {
+      Core::GetCoreLogger().Error(FormatString("Shader asset '%s' is nullptr", m_shaderName));
+      ASSERT_TRUE(false);
+    }
+    
     Shader & shader = m_shaderAsset->GetShader();
 
     shader.Bind();

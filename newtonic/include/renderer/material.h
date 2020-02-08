@@ -20,6 +20,7 @@
 
 #include "../materialinfo.h"
 #include "../assetinstance.h"
+#include "../serialization.h"
 
 namespace Newtonic
 {
@@ -41,8 +42,19 @@ namespace Newtonic
     void Unbind() const;
 
   private:
+    std::string m_shaderName;
     std::unordered_map<std::string, std::unique_ptr<Uniform>> m_uniforms;
 
     std::shared_ptr<ShaderAsset> m_shaderAsset;
+
+    NW_PRIVATE_SERIALIZATION;
+    template<typename Archive>
+    void serialize(Archive & ar)
+    {
+      ar(
+        cereal::make_nvp("ShaderName", m_shaderName),
+        cereal::make_nvp("Uniforms", m_uniforms)
+      );
+    }
   };
 }
