@@ -29,15 +29,28 @@ namespace Newtonic
 
   Material::Material(const MaterialInfo & info) : m_shaderName("")
   {
-    SetMaterialInfo(info);
+    Instantiate(info);
   }
 
-  void Material::SetMaterialInfo(const MaterialInfo & info)
+  void Material::Instantiate(const MaterialInfo & info)
   {
     m_shaderName = info.GetShaderName();
     for (const auto & uniform : info.GetUniforms())
     {
       m_uniforms[uniform->GetName()] = uniform->Clone();
+      switch (uniform->GetType())
+      {
+      case UniformType::Texture:
+        {
+          const std::string & texName = dynamic_cast<TextureUniform*>(uniform.get())->GetValue();
+          m_resourceInstances[texName] = AssetManager::GetAsset<TextureAsset>(texName);
+          break;
+        }
+      default:
+        {
+          break;
+        }
+      }
     }
     m_shaderAsset = AssetManager::GetAsset<ShaderAsset>(m_shaderName);
   }
@@ -107,6 +120,20 @@ namespace Newtonic
     }
   }
 
+  void Material::SetTexture(const std::string & name, const std::string & v)
+  {
+    if (m_uniforms.find(name) != m_uniforms.end())
+    {
+      if (m_uniforms[name]->GetType() != UniformType::Texture)
+      {
+        Core::GetCoreLogger().Error(FormatString("Uniform %s is not a texture", name.c_str()));
+        ASSERT_TRUE(false);
+      }
+      dynamic_cast<TextureUniform*>(m_uniforms[name].get())->SetValue(v);
+      m_resourceInstances[v] = AssetManager::GetAsset<TextureAsset>(v);
+    }
+  }
+
   void Material::Bind() const
   {
     if (m_shaderAsset == nullptr)
@@ -118,6 +145,7 @@ namespace Newtonic
     Shader & shader = m_shaderAsset->GetShader();
 
     shader.Bind();
+    int texSlot = 0;
     for (const auto & uniformPair : m_uniforms)
     {
       auto & uniform = uniformPair.second;
@@ -151,6 +179,24 @@ namespace Newtonic
       case UniformType::Mat4:
         {
           shader.LoadMatrix4(uniform->GetSymbol(), dynamic_cast<Mat4Uniform*>(uniform.get())->GetValue());
+          break;
+        }
+      case UniformType::Texture:
+        {
+          const std::string & texName = dynamic_cast<TextureUniform*>(uniform.get())->GetValue();
+          std::shared_ptr<AssetInstance> & asset = m_resourceInstances[texName];
+          if (asset->GetType() == AssetType::Texture)
+          {
+            Texture & tex = std::dynamic_pointer_cast<TextureAsset>(asset)->GetTexture();
+            tex.Bind(texSlot);
+            shader.LoadUniform1i(uniform->GetSymbol(), texSlot);
+            texSlot++;
+          }
+          else
+          {
+            Core::GetCoreLogger().Error(FormatString("Resource %s is not texture", texName.c_str()));
+            ASSERT_TRUE(false);
+          }
           break;
         }
       }

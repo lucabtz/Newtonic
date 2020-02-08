@@ -27,7 +27,8 @@ namespace Newtonic
   {
     Invalid,
     Float, Float2, Float3, Float4,
-    Mat4
+    Mat4,
+    Texture
   };
 
   class Uniform
@@ -177,6 +178,30 @@ namespace Newtonic
       );
     }
   };
+
+  class TextureUniform : public Uniform
+  {
+  public:
+    TextureUniform();
+    TextureUniform(const std::string & textureName, const std::string & symbol, const std::string & name);
+    const std::string & GetValue() const;
+    std::unique_ptr<Uniform> Clone() const override;
+
+    void SetValue(const std::string & v);
+
+  private:
+    std::string m_value;
+
+    NW_PRIVATE_SERIALIZATION;
+    template<typename Archive>
+    void serialize(Archive & ar)
+    {
+      ar(
+        cereal::base_class<Uniform>(this),
+        cereal::make_nvp("Value", m_value)
+      );
+    }
+  };
 }
 
 CEREAL_REGISTER_TYPE(Newtonic::FloatUniform)
@@ -193,3 +218,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(Newtonic::Uniform, Newtonic::Float4Uniform)
 
 CEREAL_REGISTER_TYPE(Newtonic::Mat4Uniform)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Newtonic::Uniform, Newtonic::Mat4Uniform)
+
+CEREAL_REGISTER_TYPE(Newtonic::TextureUniform)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Newtonic::Uniform, Newtonic::TextureUniform)

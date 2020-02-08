@@ -30,13 +30,14 @@ namespace Newtonic
     Material();
     Material(const MaterialInfo & info);
 
-    void SetMaterialInfo(const MaterialInfo & info);
+    void Instantiate(const MaterialInfo & info);
 
     void SetFloat(const std::string & name, float v);
     void SetVector2(const std::string & name, const Vector2 & v);
     void SetVector3(const std::string & name, const Vector3 & v);
     void SetVector4(const std::string & name, const Vector4 & v);
     void SetMatrix4(const std::string & name, const Matrix4 & v);
+    void SetTexture(const std::string & name, const std::string & v);
 
     void Bind() const;
     void Unbind() const;
@@ -46,6 +47,7 @@ namespace Newtonic
     std::unordered_map<std::string, std::unique_ptr<Uniform>> m_uniforms;
 
     std::shared_ptr<ShaderAsset> m_shaderAsset;
+    mutable std::unordered_map<std::string, std::shared_ptr<AssetInstance>> m_resourceInstances;
 
     NW_PRIVATE_SERIALIZATION;
     template<typename Archive>

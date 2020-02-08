@@ -59,4 +59,10 @@ namespace Newtonic
   std::unique_ptr<Uniform> Mat4Uniform::Clone() const { return std::make_unique<Mat4Uniform>(m_value, GetSymbol(), GetName()); }
   void Mat4Uniform::SetValue(const Matrix4 & v) { m_value = v; }
 
+  TextureUniform::TextureUniform() : Uniform(UniformType::Texture), m_value("") {}
+  TextureUniform::TextureUniform(const std::string & value, const std::string & symbol, const std::string & name) : Uniform(UniformType::Texture, symbol, name), m_value(value) {}
+  const std::string & TextureUniform::GetValue() const { return m_value; }
+  std::unique_ptr<Uniform> TextureUniform::Clone() const { return std::make_unique<TextureUniform>(m_value, GetSymbol(), GetName()); }
+  void TextureUniform::SetValue(const std::string & v) { m_value = v; }
+
 }
