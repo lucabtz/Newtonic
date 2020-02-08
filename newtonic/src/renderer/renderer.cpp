@@ -41,15 +41,17 @@ namespace Newtonic
     NW_WRAP_GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetIndicesCount(), GL_UNSIGNED_INT, nullptr));
   }
 
-  void Renderer::Render(const Mesh & mesh)
+  void Renderer::Render(const Mesh & mesh, const Material & material)
   {
     mesh.Bind();
+    material.Bind();
     NW_WRAP_GL_CALL(glDrawElements(GL_TRIANGLES, mesh.GetIndicesCount(), GL_UNSIGNED_INT, nullptr));
   }
 
-  void Renderer::RenderLines(const Mesh & mesh)
+  void Renderer::RenderLines(const Mesh & mesh, const Material & material)
   {
     mesh.Bind();
+    material.Bind();
     NW_WRAP_GL_CALL(glDrawElements(GL_LINES, mesh.GetIndicesCount(), GL_UNSIGNED_INT, nullptr));
   }
 

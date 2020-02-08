@@ -22,6 +22,7 @@
 #include "vertexarray.h"
 #include "indexbuffer.h"
 #include "mesh.h"
+#include "material.h"
 #include "../math.h"
 
 namespace Newtonic
@@ -33,10 +34,10 @@ namespace Newtonic
     static void SetClearColor(const Vector4 & color);
 
     static void Render(const VertexArray & va, const IndexBuffer & ib);
-    static void Render(const Mesh & mesh);
+    static void Render(const Mesh & mesh, const Material & material);
 
     static void RenderLines(const VertexArray & va, const IndexBuffer & ib);
-    static void RenderLines(const Mesh & mesh);
+    static void RenderLines(const Mesh & mesh, const Material & material);
 
 
     static void SetViewport(Viewport viewport);

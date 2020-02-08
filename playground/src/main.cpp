@@ -75,9 +75,7 @@ public:
   {
       Renderer::SetViewport(GetWindow().GetViewport());
       Renderer::Clear();
-      m_material.Bind();
-
-      Renderer::Render(m_mesh);
+      Renderer::Render(m_mesh, m_material);
   }
 
 private:
