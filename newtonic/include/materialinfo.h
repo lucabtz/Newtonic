@@ -37,15 +37,5 @@ namespace Newtonic
   private:
     std::string m_shaderName;
     std::vector<std::unique_ptr<Uniform>> m_uniforms;
-
-    NW_PRIVATE_SERIALIZATION;
-    template<typename Archive>
-    void serialize(Archive & ar)
-    {
-      ar(
-        cereal::make_nvp("ShaderName", m_shaderName),
-        cereal::make_nvp("Uniforms", m_uniforms)
-      );
-    }
   };
 }
