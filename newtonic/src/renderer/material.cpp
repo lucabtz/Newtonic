@@ -16,12 +16,12 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "material.h"
+#include "renderer/material.h"
 
-#include "../assetmanager.h"
-#include "../uniform.h"
-#include "../core.h"
-#include "shader.h"
+#include "assetmanager.h"
+#include "uniform.h"
+#include "core.h"
+#include "renderer/shader.h"
 
 namespace Newtonic
 {

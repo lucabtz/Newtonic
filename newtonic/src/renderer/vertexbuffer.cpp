@@ -16,9 +16,9 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "vertexbuffer.h"
-#include "../core.h"
-#include "../util.h"
+#include "renderer/vertexbuffer.h"
+#include "core.h"
+#include "util.h"
 
 namespace Newtonic
 {

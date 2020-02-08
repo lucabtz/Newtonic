@@ -16,11 +16,11 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "shader.h"
+#include "renderer/shader.h"
 
-#include "../core.h"
-#include "../util.h"
-#include "opengl.h"
+#include "core.h"
+#include "util.h"
+#include "renderer/opengl.h"
 
 #include <string.h>
 #include <vector>

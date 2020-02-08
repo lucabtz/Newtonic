@@ -16,11 +16,11 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "renderer.h"
+#include "renderer/renderer.h"
 
-#include "opengl.h"
-#include "../util.h"
-#include "../core.h"
+#include "renderer/opengl.h"
+#include "util.h"
+#include "core.h"
 
 namespace Newtonic
 {

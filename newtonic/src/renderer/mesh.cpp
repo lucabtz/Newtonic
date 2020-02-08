@@ -16,13 +16,13 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "mesh.h"
+#include "renderer/mesh.h"
 
-#include "../core.h"
-#include "../util.h"
+#include "core.h"
+#include "util.h"
 
-#include "vertexbuffer.h"
-#include "vertexbufferlayout.h"
+#include "renderer/vertexbuffer.h"
+#include "renderer/vertexbufferlayout.h"
 
 #include <utility>
 

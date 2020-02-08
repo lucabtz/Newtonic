@@ -16,9 +16,9 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "indexbuffer.h"
-#include "../util.h"
-#include "../core.h"
+#include "renderer/indexbuffer.h"
+#include "util.h"
+#include "core.h"
 
 namespace Newtonic
 {

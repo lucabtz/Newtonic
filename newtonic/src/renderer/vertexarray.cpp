@@ -16,11 +16,11 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "vertexarray.h"
-#include "opengl.h"
+#include "renderer/vertexarray.h"
+#include "renderer/opengl.h"
 
-#include "../core.h"
-#include "../util.h"
+#include "core.h"
+#include "util.h"
 
 namespace Newtonic
 {

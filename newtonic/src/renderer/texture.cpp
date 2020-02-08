@@ -16,9 +16,9 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "texture.h"
+#include "renderer/texture.h"
 
-#include "../util.h"
+#include "util.h"
 
 namespace Newtonic
 {

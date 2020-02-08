@@ -16,7 +16,7 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "cameraperspective.h"
+#include "renderer/cameraperspective.h"
 
 namespace Newtonic
 {
