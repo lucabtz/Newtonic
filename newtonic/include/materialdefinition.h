@@ -20,6 +20,8 @@
 
 #include "uniform.h"
 
+#include "asset.h"
+
 namespace Newtonic
 {
   class MaterialDefinition
@@ -36,6 +38,8 @@ namespace Newtonic
     const std::string & GetShaderName() const;
 
     const std::vector<std::unique_ptr<Uniform>> & GetUniforms() const;
+
+    ASSET_CLASS(AssetType::MaterialDefinition)
 
   private:
     std::string m_shaderName;

@@ -23,6 +23,7 @@
 #include "meshvertex.h"
 
 #include "../math.h"
+#include "../asset.h"
 
 #include <vector>
 
@@ -49,6 +50,8 @@ namespace Newtonic
 
     unsigned int GetIndicesCount() const;
 
+    ASSET_CLASS(AssetType::Mesh)
+    
   private:
     std::vector<GLfloat> m_vertices;
 

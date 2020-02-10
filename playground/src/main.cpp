@@ -22,24 +22,24 @@ public:
   PlaygroundApplication(std::string name, const Viewport & viewport) : Application(name, viewport) {}
   void Setup() override
   {
-    AssetManager::PushResourceInfo(AssetResourceInfo(AssetResourceType::ShaderFilePair, "flatcolor", "/home/ekardnam/Newtonic/res/flatcolorvert.glsl;/home/ekardnam/Newtonic/res/flatcolorfrag.glsl"));
-    AssetManager::PushResourceInfo(AssetResourceInfo(AssetResourceType::ShaderFilePair, "textured", "/home/ekardnam/Newtonic/res/texturedvert.glsl;/home/ekardnam/Newtonic/res/texturedfrag.glsl"));
-    AssetManager::PushResourceInfo(AssetResourceInfo(AssetResourceType::TexturePNG, "facetexture", "/home/ekardnam/Newtonic/res/awesomeface.png"));
+    AssetManager::RegisterAsset("flatcolor", std::make_unique<ShaderLoadingInformation>(AssetType::Shader, "/home/ekardnam/Newtonic/res/flatcolorvert.glsl", "/home/ekardnam/Newtonic/res/flatcolorfrag.glsl"));
+    AssetManager::RegisterAsset("textured", std::make_unique<ShaderLoadingInformation>(AssetType::Shader, "/home/ekardnam/Newtonic/res/texturedvert.glsl","/home/ekardnam/Newtonic/res/texturedfrag.glsl"));
+    AssetManager::RegisterAsset("facetexture", std::make_unique<FileSystemLoadingInformation>(AssetType::Texture, "/home/ekardnam/Newtonic/res/awesomeface.png"));
     m_color = Vector4(1, 0, 0, 1);
 
-    MaterialInfo flatcolorMaterialInfo("flatcolor");
+    MaterialDefinition flatcolorMaterialInfo("flatcolor");
     flatcolorMaterialInfo.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_view", "View Matrix"));
     flatcolorMaterialInfo.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_transform", "Transform"));
     flatcolorMaterialInfo.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_proj", "Projection Matrix"));
     flatcolorMaterialInfo.PushUniform(std::make_unique<Float4Uniform>(m_color, "u_color", "Color"));
 
-    MaterialInfo texturedMaterialInfo("textured");
+    MaterialDefinition texturedMaterialInfo("textured");
     texturedMaterialInfo.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_view", "View Matrix"));
     texturedMaterialInfo.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_transform", "Transform"));
     texturedMaterialInfo.PushUniform(std::make_unique<Mat4Uniform>(Matrix4(), "u_proj", "Projection Matrix"));
     texturedMaterialInfo.PushUniform(std::make_unique<TextureUniform>("facetexture", "u_texture", "Texture"));
 
-    m_material.Instantiate(texturedMaterialInfo);
+    m_material.Instantiate(flatcolorMaterialInfo);
 
     m_mesh.SetVertices(g_quadVertices, 4);
     m_mesh.SetIndices(g_quadIndices, 6);
@@ -79,6 +79,7 @@ public:
     m_material.SetMatrix4("View Matrix", m_camera.GetViewMatrix());
     m_material.SetMatrix4("Projection Matrix", m_camera.GetProjectionMatrix());
     m_material.SetMatrix4("Transform", m_quadTransform.GetMatrix());
+    m_material.SetVector4("Color", m_color);
   }
 
   void Render() override

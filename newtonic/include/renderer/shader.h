@@ -18,10 +18,13 @@
 
 #pragma once
 
+#include "../asset.h"
 #include "opengl.h"
 #include "../math.h"
 
 #include <string>
+
+#include <memory>
 
 #define INVALID_SHADER_ID 0
 
@@ -54,7 +57,9 @@ namespace Newtonic
     void LoadMatrix4(const std::string & name, const Matrix4 & mat) const;
     void LoadInt(const std::string & name, GLint v) const { LoadUniform1i(name, v); }
 
-    static Shader CreateShader(const char * vertex, const char * fragment);
+    static std::shared_ptr<Shader> CreateShader(const char * vertex, const char * fragment);
+
+    ASSET_CLASS(AssetType::Shader)
 
   private:
     GLuint m_shaderId;

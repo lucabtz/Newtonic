@@ -18,9 +18,11 @@
 
 #pragma once
 
-#include "../materialinfo.h"
-#include "../assetinstance.h"
+#include "texture.h"
+#include "shader.h"
+#include "../materialdefinition.h"
 #include "../serialization.h"
+#include "../asset.h"
 
 namespace Newtonic
 {
@@ -28,9 +30,9 @@ namespace Newtonic
   {
   public:
     Material();
-    Material(const MaterialInfo & info);
+    Material(const MaterialDefinition & info);
 
-    void Instantiate(const MaterialInfo & info);
+    void Instantiate(const MaterialDefinition & info);
 
     void SetFloat(const std::string & name, float v);
     void SetVector2(const std::string & name, const Vector2 & v);
@@ -42,12 +44,14 @@ namespace Newtonic
     void Bind() const;
     void Unbind() const;
 
+    ASSET_CLASS(AssetType::Material)
+
   private:
     std::string m_shaderName;
     std::unordered_map<std::string, std::unique_ptr<Uniform>> m_uniforms;
 
-    std::shared_ptr<ShaderAsset> m_shaderAsset;
-    mutable std::unordered_map<std::string, std::shared_ptr<AssetInstance>> m_resourceInstances;
+    std::shared_ptr<Shader> m_shader;
+    mutable std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
 
     NW_PRIVATE_SERIALIZATION;
     template<typename Archive>

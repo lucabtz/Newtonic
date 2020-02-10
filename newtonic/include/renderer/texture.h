@@ -21,6 +21,7 @@
 #include "opengl.h"
 
 #include "../image.h"
+#include "../asset.h"
 
 #define INVALID_TEXTURE_ID 0
 #define MAX_SLOTS 32
@@ -48,6 +49,8 @@ namespace Newtonic
     GLuint GetTextureId() const;
 
     void LoadFromImage(const Image & image);
+
+    ASSET_CLASS(AssetType::Texture)
   private:
     GLuint m_textureId;
     int m_width;

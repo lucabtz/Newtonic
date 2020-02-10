@@ -22,7 +22,7 @@
 namespace Newtonic
 {
 
-  std::string ReadFile(const char * path)
+  std::string ReadFile(const std::string & path)
   {
     std::ifstream ifs(path);
     std::string content(

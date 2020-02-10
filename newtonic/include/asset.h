@@ -18,58 +18,22 @@
 
 #pragma once
 
-#include "renderer/texture.h"
-#include "renderer/mesh.h"
-#include "renderer/shader.h"
+#include <string>
+
+#define ASSET_CLASS(type) static AssetType GetAssetType() { return type; }
 
 namespace Newtonic
 {
   enum class AssetType : unsigned int
   {
+    Undefined,
+    GameObject,
+    Text,
     Texture,
-    Mesh,
+    Shader,
+    MaterialDefinition,
     Material,
-    Shader
-  };
-
-  class AssetInstance
-  {
-  public:
-    AssetInstance(AssetType type);
-    virtual ~AssetInstance();
-    AssetType GetType() const;
-
-  private:
-    AssetType m_type;
-  };
-
-  class TextureAsset : public AssetInstance
-  {
-  public:
-    TextureAsset(Texture texture);
-
-    Texture & GetTexture();
-  private:
-    Texture m_texture;
-  };
-
-  class MeshAsset : public AssetInstance
-  {
-  public:
-    MeshAsset(Mesh mesh);
-
-    Mesh & GetMesh();
-  private:
-    Mesh m_mesh;
-  };
-
-  class ShaderAsset : public AssetInstance
-  {
-  public:
-    ShaderAsset(Shader shader);
-
-    Shader & GetShader();
-  private:
-    Shader m_shader;
+    Model,
+    Mesh
   };
 }

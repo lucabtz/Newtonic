@@ -129,7 +129,7 @@ namespace Newtonic
     NW_WRAP_GL_CALL(glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat)));
   }
 
-  Shader Shader::CreateShader(const char * vertex, const char * fragment)
+  std::shared_ptr<Shader> Shader::CreateShader(const char * vertex, const char * fragment)
   {
     size_t vertexLen = strlen(vertex);
     size_t fragmentLen = strlen(fragment);
@@ -163,7 +163,7 @@ namespace Newtonic
 
     NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(Newtonic::FormatString("Shader created", vertexLen, fragmentLen)));
 
-    return Shader(shaderProgram);
+    return std::make_shared<Shader>(shaderProgram);
   }
 
 }

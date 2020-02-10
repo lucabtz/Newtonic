@@ -18,44 +18,46 @@
 
 #pragma once
 
-#include "assetresourceinfo.h"
-#include "assetinstance.h"
-
-#include <vector>
-#include <unordered_map>
-#include <string>
-#include <memory>
+#include "asset.h"
+#include "assetcache.h"
+#include "assetloader.h"
+#include "assetloadinginformation.h"
 
 namespace Newtonic
 {
   class AssetManager
   {
   public:
-    static unsigned int PushResourceInfo(const AssetResourceInfo & info);
-
-    static unsigned int GetIdFromName(const std::string & name);
-
-    static void LoadAsset(unsigned int id);
-    static void LoadAsset(const std::string & name);
-
-    static bool IsLoaded(unsigned int id);
+    static void RegisterCache(std::unique_ptr<IAssetCache> cache);
+    static void RegisterAsset(const std::string & id, std::unique_ptr<AssetLoadingInformation> information);
 
     template<typename T>
-    static std::shared_ptr<T> GetAsset(unsigned int id);
-
-    template<typename T>
-    static std::shared_ptr<T> GetAsset(const std::string & name)
+    static std::shared_ptr<T> GetAsset(const std::string & id)
     {
-      return GetAsset<T>(GetIdFromName(name));
+      AssetType type = T::GetAssetType();
+      if (s_caches.find(type) != s_caches.end())
+      {
+        ASSERT_TRUE(s_caches[type]->GetCachedType() == type);
+        AssetCache<T> *cache = dynamic_cast<AssetCache<T>*>(s_caches[type].get());
+        ASSERT_TRUE(cache != nullptr);
+        if (cache->IsAssetCached(id))
+        {
+          return cache->GetAsset(id);
+        }
+        ASSERT_TRUE(s_loadingInformation.find(id) != s_loadingInformation.end());
+        ASSERT_TRUE(s_loadingInformation[id]->type == type);
+        std::shared_ptr<T> asset = AssetLoader::LoadAsset<T>(s_loadingInformation[id].get());
+        cache->CacheAsset(id, asset);
+        return asset;
+      }
+      NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Cache for type %d not registered", type)));
+      ASSERT_TRUE(s_loadingInformation.find(id) != s_loadingInformation.end());
+      return AssetLoader::LoadAsset<T>(s_loadingInformation[id].get());
     }
 
-    static void GarbageCollect();
-
+    static void CollectGarbage();
   private:
-    static std::vector<AssetResourceInfo> s_resourceInfos;
-    static std::unordered_map<std::string, unsigned int> s_idMap;
-    static std::unordered_map<unsigned int, std::shared_ptr<AssetInstance>> s_assets;
-
-    static bool IdExists(unsigned int id) { return id < s_resourceInfos.size(); }
+    static std::unordered_map<AssetType, std::unique_ptr<IAssetCache>> s_caches;
+    static std::unordered_map<std::string, std::unique_ptr<AssetLoadingInformation>> s_loadingInformation;
   };
 }

@@ -22,6 +22,7 @@
 #include "component.h"
 
 #include "../transform.h"
+#include "../asset.h"
 
 #include <memory>
 #include <vector>
@@ -51,6 +52,8 @@ namespace Newtonic
 
     Transform & GetTransform();
     Matrix4 GetWorldTransformMatrix();
+
+    ASSET_CLASS(AssetType::GameObject)
 
   private:
     std::string m_name;

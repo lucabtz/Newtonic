@@ -16,27 +16,16 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "materialinfo.h"
-
-#include <utility>
+#include "assetloader.h"
 
 namespace Newtonic
 {
-  MaterialInfo::MaterialInfo() : m_shaderName("") {}
-  MaterialInfo::MaterialInfo(const std::string & shaderName) : m_shaderName(shaderName) {}
+  std::unordered_map<AssetType, std::unique_ptr<IAssetProvider>> AssetLoader::s_providers;
 
-  void MaterialInfo::PushUniform(std::unique_ptr<Uniform> uniform)
+  void AssetLoader::RegisterProvider(std::unique_ptr<IAssetProvider> provider)
   {
-    m_uniforms.push_back(std::move(uniform));
-  }
-  
-  const std::string & MaterialInfo::GetShaderName() const
-  {
-    return m_shaderName;
+    NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Registered provider for type %d", provider->GetProvidedType())));
+    s_providers[provider->GetProvidedType()] = std::move(provider);
   }
 
-  const std::vector<std::unique_ptr<Uniform>> & MaterialInfo::GetUniforms() const
-  {
-    return m_uniforms;
-  }
 }

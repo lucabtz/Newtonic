@@ -27,32 +27,24 @@ namespace Newtonic
 {
   Material::Material() : m_shaderName("") {}
 
-  Material::Material(const MaterialInfo & info) : m_shaderName("")
+  Material::Material(const MaterialDefinition & info) : m_shaderName("")
   {
     Instantiate(info);
   }
 
-  void Material::Instantiate(const MaterialInfo & info)
+  void Material::Instantiate(const MaterialDefinition & info)
   {
     m_shaderName = info.GetShaderName();
     for (const auto & uniform : info.GetUniforms())
     {
       m_uniforms[uniform->GetName()] = uniform->Clone();
-      switch (uniform->GetType())
+      if(uniform->GetType() == UniformType::Texture)
       {
-      case UniformType::Texture:
-        {
-          const std::string & texName = dynamic_cast<TextureUniform*>(uniform.get())->GetValue();
-          m_resourceInstances[texName] = AssetManager::GetAsset<TextureAsset>(texName);
-          break;
-        }
-      default:
-        {
-          break;
-        }
+        const std::string & texName = dynamic_cast<TextureUniform*>(uniform.get())->GetValue();
+        m_textures[texName] = AssetManager::GetAsset<Texture>(texName);
       }
     }
-    m_shaderAsset = AssetManager::GetAsset<ShaderAsset>(m_shaderName);
+    m_shader = AssetManager::GetAsset<Shader>(m_shaderName);
   }
 
   void Material::SetFloat(const std::string & name, float v)
@@ -130,19 +122,14 @@ namespace Newtonic
         ASSERT_TRUE(false);
       }
       dynamic_cast<TextureUniform*>(m_uniforms[name].get())->SetValue(v);
-      m_resourceInstances[v] = AssetManager::GetAsset<TextureAsset>(v);
+      m_textures[v] = AssetManager::GetAsset<Texture>(v);
     }
   }
 
   void Material::Bind() const
   {
-    if (m_shaderAsset == nullptr)
-    {
-      Core::GetCoreLogger().Error(FormatString("Shader asset '%s' is nullptr", m_shaderName.c_str()));
-      ASSERT_TRUE(false);
-    }
-
-    Shader & shader = m_shaderAsset->GetShader();
+    ASSERT_TRUE(m_shader != nullptr);
+    Shader & shader = *m_shader;
 
     shader.Bind();
     int texSlot = 0;
@@ -184,19 +171,10 @@ namespace Newtonic
       case UniformType::Texture:
         {
           const std::string & texName = dynamic_cast<TextureUniform*>(uniform.get())->GetValue();
-          std::shared_ptr<AssetInstance> & asset = m_resourceInstances[texName];
-          if (asset->GetType() == AssetType::Texture)
-          {
-            Texture & tex = std::dynamic_pointer_cast<TextureAsset>(asset)->GetTexture();
-            tex.Bind(texSlot);
-            shader.LoadUniform1i(uniform->GetSymbol(), texSlot);
-            texSlot++;
-          }
-          else
-          {
-            Core::GetCoreLogger().Error(FormatString("Resource %s is not texture", texName.c_str()));
-            ASSERT_TRUE(false);
-          }
+          std::shared_ptr<Texture> & tex = m_textures[texName];
+          tex->Bind(texSlot);
+          shader.LoadUniform1i(uniform->GetSymbol(), texSlot);
+          texSlot++;
           break;
         }
       }
@@ -205,8 +183,7 @@ namespace Newtonic
 
   void Material::Unbind() const
   {
-    Shader & shader = m_shaderAsset->GetShader();
-    shader.Unbind();
+    m_shader->Unbind();
   }
 
 }

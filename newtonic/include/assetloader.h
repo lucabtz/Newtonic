@@ -18,24 +18,37 @@
 
 #pragma once
 
-#include "uniform.h"
+#include <memory>
+#include <unordered_map>
+
+#include "assetprovider.h"
+
+#include "core.h"
+#include "util.h"
 
 namespace Newtonic
 {
-  class MaterialInfo
+  class AssetLoader
   {
   public:
-    MaterialInfo();
-    MaterialInfo(const std::string & shaderName);
+    static void RegisterProvider(std::unique_ptr<IAssetProvider> provider);
 
-    void PushUniform(std::unique_ptr<Uniform> uniform);
+    template<typename T>
+    static std::shared_ptr<T> LoadAsset(AssetLoadingInformation *loadingInfo)
+    {
+      NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Loading asset with strategy %d of type %d", loadingInfo->GetStrategy(), loadingInfo->GetType())));
+      AssetType type = T::GetAssetType();
 
-    const std::string & GetShaderName() const;
+      if (s_providers.find(type) != s_providers.end())
+      {
+        AssetProvider<T> * provider = dynamic_cast<AssetProvider<T>*>(s_providers[type].get());
+        return provider->LoadAsset(loadingInfo);
+      }
 
-    const std::vector<std::unique_ptr<Uniform>> & GetUniforms() const;
+      return nullptr;
+    }
 
   private:
-    std::string m_shaderName;
-    std::vector<std::unique_ptr<Uniform>> m_uniforms;
+    static std::unordered_map<AssetType, std::unique_ptr<IAssetProvider>> s_providers;
   };
 }

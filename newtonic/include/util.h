@@ -33,7 +33,7 @@
 namespace Newtonic
 {
 
-  std::string ReadFile(const char * path);
+  std::string ReadFile(const std::string & path);
 
   template<typename... Args>
   std::string FormatString(const std::string & format, Args ... args)

@@ -46,6 +46,10 @@ namespace Newtonic
   void Application::Start()
   {
     Input::Init();
+    AssetLoader::RegisterProvider(std::make_unique<AssetProvider<Texture>>());
+    AssetLoader::RegisterProvider(std::make_unique<AssetProvider<Shader>>());
+    AssetManager::RegisterCache(std::make_unique<AssetCache<Texture>>());
+    AssetManager::RegisterCache(std::make_unique<AssetCache<Shader>>());
     m_running = true;
     Setup();
     Timestep time;
@@ -66,7 +70,7 @@ namespace Newtonic
       ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
       m_window.Update();
-      if (gcCountdown <= 0) { AssetManager::GarbageCollect(); gcCountdown = GC_DELTA; }
+      if (gcCountdown <= 0) { AssetManager::CollectGarbage(); gcCountdown = GC_DELTA; }
       EventBus::DispatchAll();
     }
   }
