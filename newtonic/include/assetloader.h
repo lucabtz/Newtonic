@@ -39,9 +39,11 @@ namespace Newtonic
       NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Loading asset with strategy %d of type %d", loadingInfo->GetStrategy(), loadingInfo->GetType())));
       AssetType type = T::GetAssetType();
 
-      if (s_providers.find(type) != s_providers.end())
+      const auto & found = s_providers.find(type);
+      if (found != s_providers.end())
       {
-        AssetProvider<T> * provider = dynamic_cast<AssetProvider<T>*>(s_providers[type].get());
+        ASSERT_TRUE(found->second->GetProvidedType() == type);
+        AssetProvider<T> * provider = static_cast<AssetProvider<T>*>(found->second.get());
         return provider->LoadAsset(loadingInfo);
       }
 
