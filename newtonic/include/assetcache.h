@@ -74,14 +74,18 @@ namespace Newtonic
 
     void CollectGarbage() override
     {
-      for (auto iter = m_cache.begin(); iter != m_cache.end(); ++iter)
+      for (auto iter = m_cache.begin(); iter != m_cache.end();)
       {
         if (iter->second.use_count() <= 1 || iter->second == nullptr) // the nullptr check is probably redundant but just in case
         {
           // in this case the only reference left is the cache reference
           // we can free the asset from the cache
           NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Collecting asset %s of type %i", iter->first.c_str(), T::GetAssetType())));
-          m_cache.erase(iter);
+          iter = m_cache.erase(iter);
+        }
+        else
+        {
+          ++iter;
         }
       }
     }
