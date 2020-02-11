@@ -44,29 +44,44 @@ namespace Newtonic
 
     void CacheAsset(const std::string & id, std::shared_ptr<T> asset)
     {
-      m_cache[id] = asset;
+      if (!IsAssetCached(id))
+      {
+        m_cache[id] = std::move(asset);
+      }
+      else
+      {
+        NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Trying to cache already cached %s", id.c_str())));
+      }
     }
 
-    bool IsAssetCached(const std::string & id)
+    bool IsAssetCached(const std::string & id) const
     {
-      return (m_cache.find(id) != m_cache.end() && m_cache[id]);
+      const auto & found = m_cache.find(id);
+      return (found != m_cache.end() && found->second); // here checking found->second != nullptr should not be necessary but just in case
+                                                        // the code that is using the asset calls reset on shared_ptr
+                                                        // this check prevents breaking everything
     }
 
-    std::shared_ptr<T> GetAsset(const std::string & id)
+    std::shared_ptr<T> GetAsset(const std::string & id) const
     {
-      return m_cache[id];
+      const auto & found = m_cache.find(id);
+      if (found != m_cache.end())
+      {
+        return (*found).second;
+      }
+      return nullptr;
     }
 
     void CollectGarbage() override
     {
-      for (auto & kv : m_cache)
+      for (auto iter = m_cache.begin(); iter != m_cache.end(); ++iter)
       {
-        if (kv.second.use_count() == 1)
+        if (iter->second.use_count() <= 1 || iter->second == nullptr) // the nullptr check is probably redundant but just in case
         {
           // in this case the only reference left is the cache reference
           // we can free the asset from the cache
-          NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Collecting asset %s of type %i", kv.first.c_str(), T::GetAssetType())));
-          kv.second.reset();
+          NW_WRAP_DEBUG(Core::GetCoreLogger().Debug(FormatString("Collecting asset %s of type %i", iter->first.c_str(), T::GetAssetType())));
+          m_cache.erase(iter);
         }
       }
     }

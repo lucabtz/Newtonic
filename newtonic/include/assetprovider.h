@@ -54,7 +54,7 @@ namespace Newtonic
       {
         case AssetLoadingStrategy::FileSystem:
         {
-          FileSystemLoadingInformation *fsinfo = dynamic_cast<FileSystemLoadingInformation*>(loadingInfo);
+          FileSystemLoadingInformation *fsinfo = static_cast<FileSystemLoadingInformation*>(loadingInfo);
           ASSERT_TRUE(fsinfo != nullptr);
           Image img = Image::LoadPNG(fsinfo->path.c_str());
           if (!img.IsValid())
@@ -90,7 +90,7 @@ namespace Newtonic
       {
       case AssetLoadingStrategy::Shader:
         {
-          ShaderLoadingInformation *sinfo = dynamic_cast<ShaderLoadingInformation*>(loadingInfo);
+          ShaderLoadingInformation *sinfo = static_cast<ShaderLoadingInformation*>(loadingInfo);
           ASSERT_TRUE(sinfo != nullptr);
           std::shared_ptr<Shader> shader = Shader::CreateShader(ReadFile(sinfo->vertexPath).c_str(), ReadFile(sinfo->fragmentPath).c_str());
           return shader;

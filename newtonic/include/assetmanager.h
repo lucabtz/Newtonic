@@ -38,15 +38,15 @@ namespace Newtonic
       if (s_caches.find(type) != s_caches.end())
       {
         ASSERT_TRUE(s_caches[type]->GetCachedType() == type);
-        AssetCache<T> *cache = dynamic_cast<AssetCache<T>*>(s_caches[type].get());
+        AssetCache<T> *cache = static_cast<AssetCache<T>*>(s_caches[type].get());
         ASSERT_TRUE(cache != nullptr);
-        if (cache->IsAssetCached(id))
-        {
-          return cache->GetAsset(id);
-        }
+        std::shared_ptr<T> asset = cache->GetAsset(id);
+        if (asset) return asset;
+
         ASSERT_TRUE(s_loadingInformation.find(id) != s_loadingInformation.end());
         ASSERT_TRUE(s_loadingInformation[id]->type == type);
-        std::shared_ptr<T> asset = AssetLoader::LoadAsset<T>(s_loadingInformation[id].get());
+        asset = AssetLoader::LoadAsset<T>(s_loadingInformation[id].get());
+        ASSERT_TRUE(asset != nullptr);
         cache->CacheAsset(id, asset);
         return asset;
       }
