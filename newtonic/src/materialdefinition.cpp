@@ -25,15 +25,15 @@
 
 namespace Newtonic
 {
-  MaterialDefinition::MaterialDefinition() : m_shaderName("") {}
-  MaterialDefinition::MaterialDefinition(const std::string & shaderName) : m_shaderName(shaderName) {}
+  MaterialDefinition::MaterialDefinition() : m_shader() {}
+  MaterialDefinition::MaterialDefinition(std::shared_ptr<Shader> shader) : m_shader(std::move(shader)) {}
 
-  MaterialDefinition::MaterialDefinition(MaterialDefinition && other) : m_shaderName(std::move(other.m_shaderName)), m_uniforms(std::move(other.m_uniforms))
+  MaterialDefinition::MaterialDefinition(MaterialDefinition && other) : m_shader(std::move(other.m_shader)), m_uniforms(std::move(other.m_uniforms))
   {}
 
   MaterialDefinition & MaterialDefinition::operator =(MaterialDefinition && other)
   {
-    m_shaderName = std::move(other.m_shaderName);
+    m_shader = std::move(other.m_shader);
     m_uniforms = std::move(other.m_uniforms);
     return *this;
   }
@@ -43,9 +43,9 @@ namespace Newtonic
     m_uniforms.push_back(std::move(uniform));
   }
 
-  const std::string & MaterialDefinition::GetShaderName() const
+  std::shared_ptr<Shader> MaterialDefinition::GetShader() const
   {
-    return m_shaderName;
+    return m_shader;
   }
 
   const std::vector<std::unique_ptr<Uniform>> & MaterialDefinition::GetUniforms() const

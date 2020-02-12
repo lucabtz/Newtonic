@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include <string>
-
 #define ASSET_CLASS(type) static AssetType GetAssetType() { return type; }
 
 namespace Newtonic

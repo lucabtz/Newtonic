@@ -47,20 +47,9 @@ namespace Newtonic
     ASSET_CLASS(AssetType::Material)
 
   private:
-    std::string m_shaderName;
     std::unordered_map<std::string, std::unique_ptr<Uniform>> m_uniforms;
 
     std::shared_ptr<Shader> m_shader;
     mutable std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
-
-    NW_PRIVATE_SERIALIZATION;
-    template<typename Archive>
-    void serialize(Archive & ar)
-    {
-      ar(
-        cereal::make_nvp("ShaderName", m_shaderName),
-        cereal::make_nvp("Uniforms", m_uniforms)
-      );
-    }
   };
 }

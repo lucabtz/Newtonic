@@ -25,16 +25,16 @@
 
 namespace Newtonic
 {
-  Material::Material() : m_shaderName("") {}
+  Material::Material() {}
 
-  Material::Material(const MaterialDefinition & info) : m_shaderName("")
+  Material::Material(const MaterialDefinition & info)
   {
     Instantiate(info);
   }
 
   void Material::Instantiate(const MaterialDefinition & info)
   {
-    m_shaderName = info.GetShaderName();
+    m_shader = info.GetShader();
     for (const auto & uniform : info.GetUniforms())
     {
       m_uniforms[uniform->GetName()] = uniform->Clone();
@@ -44,7 +44,6 @@ namespace Newtonic
         m_textures[texName] = AssetManager::GetAsset<Texture>(texName);
       }
     }
-    m_shader = AssetManager::GetAsset<Shader>(m_shaderName);
   }
 
   void Material::SetFloat(const std::string & name, float v)
@@ -145,33 +144,33 @@ namespace Newtonic
         }
       case UniformType::Float:
         {
-          shader.LoadFloat(uniform->GetSymbol(), dynamic_cast<FloatUniform*>(uniform.get())->GetValue());
+          shader.LoadFloat(uniform->GetSymbol(), static_cast<FloatUniform*>(uniform.get())->GetValue());
           break;
         }
       case UniformType::Float2:
         {
-          shader.LoadVector2(uniform->GetSymbol(), dynamic_cast<Float2Uniform*>(uniform.get())->GetValue());
+          shader.LoadVector2(uniform->GetSymbol(), static_cast<Float2Uniform*>(uniform.get())->GetValue());
           break;
         }
       case UniformType::Float3:
         {
-          shader.LoadVector3(uniform->GetSymbol(), dynamic_cast<Float3Uniform*>(uniform.get())->GetValue());
+          shader.LoadVector3(uniform->GetSymbol(), static_cast<Float3Uniform*>(uniform.get())->GetValue());
           break;
         }
       case UniformType::Float4:
         {
-          shader.LoadVector4(uniform->GetSymbol(), dynamic_cast<Float4Uniform*>(uniform.get())->GetValue());
+          shader.LoadVector4(uniform->GetSymbol(), static_cast<Float4Uniform*>(uniform.get())->GetValue());
           break;
         }
       case UniformType::Mat4:
         {
-          shader.LoadMatrix4(uniform->GetSymbol(), dynamic_cast<Mat4Uniform*>(uniform.get())->GetValue());
+          shader.LoadMatrix4(uniform->GetSymbol(), static_cast<Mat4Uniform*>(uniform.get())->GetValue());
           break;
         }
       case UniformType::Texture:
         {
-          const std::string & texName = dynamic_cast<TextureUniform*>(uniform.get())->GetValue();
-          std::shared_ptr<Texture> & tex = m_textures[texName];
+          const std::string & texName = static_cast<TextureUniform*>(uniform.get())->GetValue();
+          std::shared_ptr<Texture> & tex = m_textures.find(texName)->second;
           tex->Bind(texSlot);
           shader.LoadUniform1i(uniform->GetSymbol(), texSlot);
           texSlot++;

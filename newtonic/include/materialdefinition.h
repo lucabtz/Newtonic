@@ -22,27 +22,29 @@
 
 #include "asset.h"
 
+#include "renderer/shader.h"
+
 namespace Newtonic
 {
   class MaterialDefinition
   {
   public:
     MaterialDefinition();
-    MaterialDefinition(const std::string & shaderName);
+    MaterialDefinition(std::shared_ptr<Shader> shader);
     MaterialDefinition(MaterialDefinition && other);
 
     MaterialDefinition & operator =(MaterialDefinition && other);
 
     void PushUniform(std::unique_ptr<Uniform> uniform);
 
-    const std::string & GetShaderName() const;
+    std::shared_ptr<Shader> GetShader() const;
 
     const std::vector<std::unique_ptr<Uniform>> & GetUniforms() const;
 
     ASSET_CLASS(AssetType::MaterialDefinition)
 
   private:
-    std::string m_shaderName;
+    std::shared_ptr<Shader> m_shader;
     std::vector<std::unique_ptr<Uniform>> m_uniforms;
   };
 }
